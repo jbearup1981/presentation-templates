@@ -32,22 +32,23 @@ All templates share one unified design system documented in `INSTRUCTIONS.md`:
 - **Responsive scroll mode** — `?mode=responsive` URL parameter stacks slides vertically for quick scrollable viewing
 - **Template identifier watermarks** on all title slides (right panel) — covered by company images when customized
 
-### File Structure
+### GitHub Repositories
+
+Two repos manage the presentation system:
+
+| Repo | URL | Pages URL | Purpose |
+|------|-----|-----------|---------|
+| `presentation-templates` | github.com/jbearup1981/presentation-templates | jbearup1981.github.io/presentation-templates/ | Templates, assets, design system, instructions |
+| `client-presentations` | github.com/jbearup1981/client-presentations | jbearup1981.github.io/client-presentations/ | Finished client decks (Harloff, Northern Jet, etc.) |
+
+**Template repo structure:**
 ```
-sales_presentations_templates/
+presentation-templates/
   CLAUDE.md                                    ← This file (project documentation)
-  INSTRUCTIONS.md                              ← Agent instructions for Claude Projects (Co-Work)
+  INSTRUCTIONS.md                              ← Agent instructions for Claude Projects
   assets/                                      ← Shared images, logos, photos
-    jason-bearup.jpg, ken-fortier.jpg, grace-morris.jpg
-    amaze-logo.png, nexus-logo-white.svg, nexus-logo-forest.svg
-    bcbs-michigan-logo.png, priorityhealth-logo-green.svg
-    galileo-logo.svg, healthjoy-logo.png, teladoc-logo.png,
-    mdlive-logo.svg, recuro-logo.png, firefly-logo.png,
-    talkspace-logo.png, cerebral-logo.png
-    doctor-telehealth.jpg, comparison-icon-*.svg (8 icons)
   finished-amaze_biomed_nexus_deck/
     amaze-biomed-nexus-deck-v1.html
-    CLAUDE.md                                  ← Deck-specific documentation
   finished-small_group_prospect_deck/
     small-group-prospect-deck-v1.html
   finished-small_group_renewal_deck/
@@ -55,15 +56,19 @@ sales_presentations_templates/
 ```
 
 ### Prospect/Client Deck Workflow
-- Templates live here. Customized decks live in the prospect/client folder under `sales/2_Prospects/` or `sales/1_Clients/`.
-- When a deck is finalized, host it on GitHub Pages and add a `.webloc` link file to the prospect folder pointing to the live URL (not the repo).
-- Finished deliverables get dropped into the client's OneDrive folder for long-term storage and mobile access.
+1. Advisor uses Claude project to build a customized deck from a template
+2. Finished deck gets committed to the `client-presentations` repo
+3. GitHub Pages hosts the live version — add a `.webloc` link file to the prospect/client folder pointing to the Pages URL
+4. Final deliverable also gets dropped into the client's OneDrive folder for long-term storage and mobile access
 
-### Claude Projects (Co-Work) Setup
-Upload to a Claude Desktop project:
-- **System prompt:** `INSTRUCTIONS.md`
-- **Knowledge files:** All 3 HTML templates + key assets (logos, team photos)
-- Agents in Co-Work follow INSTRUCTIONS.md to guide advisors through template selection, data gathering, and deck customization.
+### Claude Projects Setup
+**One project, lean context.** The Claude project does NOT upload HTML templates or assets as knowledge files. Instead:
+- **Project instructions:** `INSTRUCTIONS.md` (uploaded or pasted as system prompt)
+- **GitHub integration:** Connected to `jbearup1981/presentation-templates` repo
+- **How it works:** Agent reads templates and assets on demand from the GitHub repo. Only the selected template loads into context — not all of them.
+- **Asset URLs:** All assets served via GitHub Pages at `https://jbearup1981.github.io/presentation-templates/assets/`
+- **Template URLs:** Templates accessible at `https://jbearup1981.github.io/presentation-templates/finished-[folder]/[file].html`
+- **Scales cleanly:** New templates are added to the repo and the instructions menu — no project reconfiguration needed.
 
 ## Output Formats
 
@@ -133,9 +138,17 @@ Instructions are documented in INSTRUCTIONS.md. No web page templates built yet.
 - Updated both prospect CLAUDE.md files with correct local paths and live links
 - iCloud backup set up via launchd rsync job (every 15 min, excludes .git/node_modules)
 
+### Mar 2, 2026 — Git Repo Structure & Claude Projects Architecture
+- Created `presentation-templates` repo (github.com/jbearup1981/presentation-templates) — GitHub Pages enabled
+- Renamed `harloff-deck` repo to `client-presentations` for finished client decks
+- Pushed all templates, assets, and docs to presentation-templates repo
+- Designed lean Claude Projects architecture: one project with INSTRUCTIONS.md only, agent fetches templates from GitHub repo on demand (no uploading HTML/assets as knowledge files)
+- Updated CLAUDE.md and INSTRUCTIONS.md with new repo structure, URLs, and workflow
+
 ## Open Items
 - [ ] Phone numbers still placeholders on all template closing slides
 - [ ] Client Momentum slide (Amaze deck slide 14) has placeholder logos/names
 - [ ] Component library not built yet (instructions sufficient for now)
 - [ ] No responsive web page templates built yet (instructions documented, build on demand)
 - [ ] Cameron Manning and Brenda Manning photos in assets but not on any current template team slides
+- [ ] Test Claude Projects agent fetching templates from GitHub repo (verify full HTML content loads)
