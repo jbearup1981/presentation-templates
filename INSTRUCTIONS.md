@@ -378,7 +378,12 @@ All slide decks support printing directly from Chrome:
 
 ## Team on All Decks
 
-- **Jason Bearup** — Lead Advisor
-- **Ken Fortier** — Relationship Manager
-- **Grace Morris** — Account Manager
-- Phone numbers are placeholders in templates — always confirm with the advisor
+The full team directory is in the repo at `team.md`. Fetch it when building any deck.
+
+**Default team (if advisor doesn't specify):** Jason Bearup, Ken Fortier, Grace Morris.
+
+But the team slide should be customized based on who's actually working the account. Ask the advisor: **"Who from the Nexus team should be on this deck?"** Then pull the correct names, titles, photos, phone numbers, and emails from `team.md`.
+
+Team photos are available both in the repo `assets/` folder and on the Nexus website. Use whichever source has the photo available — the `team.md` file lists both URLs for each person.
+
+**Current team members:** Jason Bearup, Ken Fortier, Brenda Manning, Cameron Manning, Tom Snikkers, Grace Morris, Sophie Sanders.
