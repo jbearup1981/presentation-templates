@@ -2,6 +2,8 @@
 
 **Use when:** Existing client with a current carrier and upcoming renewal. Presenting renewal options + Amaze/Biomed program.
 
+**Note:** For mid-market self-funded/level-funded clients (50-500 lives), use the `midmarket-renewal` recipe instead, which includes claims analysis, stop-loss, funding comparison, and network analysis slides.
+
 ## Slides (in order)
 
 1. `nexus-title` — Company name, renewal date, company image

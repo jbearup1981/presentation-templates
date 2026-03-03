@@ -44,31 +44,55 @@ Two repos manage the presentation system:
 **Template repo structure:**
 ```
 presentation-templates/
-  CLAUDE.md                                    ← This file (project documentation)
-  INSTRUCTIONS.md                              ← Agent instructions for Claude Projects
+  INSTRUCTIONS.md                              ← Sole file for Claude project
+  team.md                                      ← Full team directory (7 members)
   assets/                                      ← Shared images, logos, photos
-  finished-amaze_biomed_nexus_deck/
-    amaze-biomed-nexus-deck-v1.html
+  components/
+    base/
+      base.css                                 ← All shared CSS (vars, fonts, utilities, print)
+      base.js                                  ← Navigation, scaling, fullscreen, responsive mode
+    slides/
+      nexus-title.html ... nexus-closing.html  ← 7 Nexus green slides
+      benchmarking-simple.html ... client-portal.html  ← 9 benchmarking/discovery slides
+      amaze-problem.html ... amaze-implementation.html ← 12 Amaze blue slides
+      blank-green.html ... blank-transition.html       ← 4 blank templates
+    catalog.html                               ← Visual catalog — all 32 slides as thumbnails
+  recipes/
+    small-group-renewal.md                     ← 24-slide recipe
+    small-group-prospect.md                    ← 19-slide recipe
+    amaze-standalone.md                        ← 17-slide recipe
+  finished-amaze_biomed_nexus_deck/            ← Reference templates (design source)
   finished-small_group_prospect_deck/
-    small-group-prospect-deck-v1.html
   finished-small_group_renewal_deck/
-    small-group-renewal-deck-v1.html
 ```
 
+### Modular Component System (Built Mar 2, 2026)
+Decks are assembled from 32 individual slide components — like Lego pieces. Each component is a standalone HTML file containing just the `<div class="slide">...</div>` block. The agent:
+1. Fetches `base.css` + `base.js` for the HTML shell
+2. Fetches selected slide components from `components/slides/`
+3. Inserts them into the shell in order
+4. Customizes EDITABLE fields with client data
+5. Outputs a complete standalone HTML deck
+
+**Key URLs:**
+- **Catalog:** `https://jbearup1981.github.io/presentation-templates/components/catalog.html`
+- **Slides:** `https://jbearup1981.github.io/presentation-templates/components/slides/[name].html`
+- **Assets:** `https://jbearup1981.github.io/presentation-templates/assets/[filename]`
+- **Recipes:** `https://jbearup1981.github.io/presentation-templates/recipes/[name].md`
+
 ### Prospect/Client Deck Workflow
-1. Advisor uses Claude project to build a customized deck from a template
-2. Finished deck gets committed to the `client-presentations` repo
-3. GitHub Pages hosts the live version — add a `.webloc` link file to the prospect/client folder pointing to the Pages URL
-4. Final deliverable also gets dropped into the client's OneDrive folder for long-term storage and mobile access
+1. Advisor uses Claude project → picks slides from catalog or recipe
+2. Agent assembles custom deck from components
+3. Finished deck gets committed to the `client-presentations` repo
+4. GitHub Pages hosts the live version — add a `.webloc` link to the prospect/client folder
+5. Final deliverable also drops into the client's OneDrive folder
 
 ### Claude Projects Setup
-**One project, lean context.** The Claude project does NOT upload HTML templates or assets as knowledge files. Instead:
-- **Project instructions:** `INSTRUCTIONS.md` (uploaded or pasted as system prompt)
+**One project, ultra-lean context.** Only `INSTRUCTIONS.md` goes into the Claude project:
+- **Project instructions:** `INSTRUCTIONS.md` (pasted as system prompt — sole knowledge file)
 - **GitHub integration:** Connected to `jbearup1981/presentation-templates` repo
-- **How it works:** Agent reads templates and assets on demand from the GitHub repo. Only the selected template loads into context — not all of them.
-- **Asset URLs:** All assets served via GitHub Pages at `https://jbearup1981.github.io/presentation-templates/assets/`
-- **Template URLs:** Templates accessible at `https://jbearup1981.github.io/presentation-templates/finished-[folder]/[file].html`
-- **Scales cleanly:** New templates are added to the repo and the instructions menu — no project reconfiguration needed.
+- **How it works:** Agent fetches only the specific slide components needed — not entire templates. Each component is ~2-5KB. A 20-slide deck loads ~60-100KB of slide HTML vs. 150KB+ for a monolithic template.
+- **Scales cleanly:** New components/recipes added to the repo. No project reconfiguration needed.
 
 ## Output Formats
 
@@ -93,28 +117,21 @@ A completely separate HTML file that presents the same content as a proper respo
 Both slide decks and web pages support printing via `@media print` CSS already embedded.
 - **How:** Chrome → Print → check "Background graphics" → Landscape → None margins → Save as PDF
 
-## Team on All Decks
-- **Jason Bearup** — Lead Advisor
-- **Ken Fortier** — Relationship Manager
-- **Grace Morris** — Account Manager
-- Phone numbers are placeholders in templates — update per deck
+## Team
+Full team directory in `team.md` (7 members): Jason Bearup, Ken Fortier, Brenda Manning, Cameron Manning, Tom Snikkers, Grace Morris, Sophie Sanders. Agent fetches this when building any deck and asks which team members to include.
+
+**Default team (if not specified):** Jason Bearup, Ken Fortier, Grace Morris.
 
 ## Future Plans
 
-### Additional Templates (Planned)
-No specific templates designed yet. As new meeting types come up, new templates will be built following the same design system. Likely candidates:
-- Large group prospect/renewal
+### Additional Slide Components
+New components can be added anytime by creating a new HTML file in `components/slides/`, updating the catalog, and adding to relevant recipes. Likely additions:
+- Large group benchmarking slides
 - HR-focused benefits overview
-- Open enrollment employee presentation
-- Amaze Health employee-facing pitch
-
-### Component Library (Planned)
-A reference HTML file (`components.html`) containing every reusable slide element — stat cards, tables, FAQ grids, timelines, etc. Agents copy from here instead of writing markup from scratch. Ensures everything stays on-brand even when customizing.
-
-Not built yet. INSTRUCTIONS.md has enough guidance for now. Build when template count grows and component reuse becomes frequent.
+- Open enrollment employee-facing slides
 
 ### Responsive Web Page Templates (Planned)
-Instructions are documented in INSTRUCTIONS.md. No web page templates built yet. Build the first one when an advisor requests a web version of a specific deck, then use it as a reference for future web pages.
+Build the first one when an advisor requests a web version of a specific deck, then use it as a reference for future web pages.
 
 ## Session History
 
@@ -142,13 +159,40 @@ Instructions are documented in INSTRUCTIONS.md. No web page templates built yet.
 - Created `presentation-templates` repo (github.com/jbearup1981/presentation-templates) — GitHub Pages enabled
 - Renamed `harloff-deck` repo to `client-presentations` for finished client decks
 - Pushed all templates, assets, and docs to presentation-templates repo
-- Designed lean Claude Projects architecture: one project with INSTRUCTIONS.md only, agent fetches templates from GitHub repo on demand (no uploading HTML/assets as knowledge files)
-- Updated CLAUDE.md and INSTRUCTIONS.md with new repo structure, URLs, and workflow
+- Scraped team data from nexusbenefitsolutions.com JS bundles → created `team.md` with 7 members
+- Initial architecture: agent fetches full templates from repo on demand
+- Testing revealed: Claude.ai can't fetch from GitHub domains (restricted) + full 150KB templates cause rapid context compaction
+
+### Mar 2, 2026 — Modular Slide Component System
+- Pivoted from monolithic templates to modular "Lego piece" components
+- Analyzed all 3 templates: found ~60-70% shared content, 10 slides 100% identical across templates
+- Extracted shared CSS into `components/base/base.css` (all variables, fonts, utilities, print, responsive)
+- Extracted shared JS into `components/base/base.js` (navigation, scaling, fullscreen, responsive mode)
+- Broke templates into 32 individual slide components in `components/slides/`
+  - 7 Nexus Green (opening/closing)
+  - 9 Benchmarking & Discovery
+  - 12 Amaze Health (blue)
+  - 4 Blank Templates (green, blue, dark green, transition gradient)
+- Built visual catalog page (`components/catalog.html`) — all slides as labeled thumbnails, grouped by section
+- Wrote 3 recipe files in `recipes/` matching original template slide orders
+- Rewrote `INSTRUCTIONS.md` for component-based assembly workflow
+- Pushed to GitHub, catalog verified live on GitHub Pages
+
+### Mar 2, 2026 — Catalog Lightbox + Advanced Medical Renewal Components
+- Added click-to-zoom lightbox to catalog.html — click any thumbnail to see full-size slide, ESC/click-outside to close
+- Created 4 new advanced medical renewal components:
+  - `claims-analysis` — 3-year claims trending, large claimants, loss ratio with CSS bar chart
+  - `stop-loss-renewal` — Specific/aggregate stop-loss, lasers, rate history table
+  - `funding-comparison` — 3-column fully insured vs. level-funded vs. self-funded comparison
+  - `network-analysis` — Provider network disruption modeling with check/X indicators
+- Reorganized catalog into 7 sections (was 4): Nexus Green, Benchmarking & Discovery, Medical Renewal Simple, Medical Renewal Advanced, Transitions & General, Amaze Health, Blank Templates
+- Created `recipes/midmarket-renewal.md` — 23-slide recipe for self-funded/level-funded renewals
+- Updated INSTRUCTIONS.md: new components in listing, data gathering guidance, midmarket recipe, catalog link more prominent
+- Total components: 36 (was 32), Total recipes: 4 (was 3)
 
 ## Open Items
-- [ ] Phone numbers still placeholders on all template closing slides
-- [ ] Client Momentum slide (Amaze deck slide 14) has placeholder logos/names
-- [ ] Component library not built yet (instructions sufficient for now)
-- [ ] No responsive web page templates built yet (instructions documented, build on demand)
-- [ ] Cameron Manning and Brenda Manning photos in assets but not on any current template team slides
-- [ ] Test Claude Projects agent fetching templates from GitHub repo (verify full HTML content loads)
+- [ ] **Test in Claude Projects** — paste INSTRUCTIONS.md, verify agent can fetch components and assemble a deck
+- [ ] Phone numbers still placeholders on component closing slides
+- [ ] Client Momentum slide has placeholder logos/names
+- [ ] No responsive web page templates built yet (build on demand)
+- [ ] Consider adding `amaze-how-it-works` and `amaze-patient-stories` to prospect recipe (currently only in amaze-standalone)

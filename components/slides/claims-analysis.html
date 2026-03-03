@@ -1,0 +1,120 @@
+<!-- COMPONENT: claims-analysis -->
+<!-- EDITABLE: Plan year dates, all dollar amounts, loss ratios, claimant details, trend percentages, bar widths, insight text -->
+<!-- FIXED: Layout structure, color coding, bar chart visual style -->
+<div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
+
+  <div style="margin-bottom: 16px;">
+    <div class="slide-header-tag">04 &mdash; Claims Analysis</div>
+    <div class="slide-title" style="font-size: 26px;">Medical Claims Experience</div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 20px; flex: 1;">
+
+    <!-- LEFT: Claims trending table + bar chart -->
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+      <table class="bench-table" style="font-size: 9.5px;">
+        <thead>
+          <tr>
+            <th style="padding: 6px 8px; width: 26%;">Plan Year</th>
+            <th style="padding: 6px 8px; text-align: right;">Paid Claims</th>
+            <th style="padding: 6px 8px; text-align: right;">Fixed Costs</th>
+            <th style="padding: 6px 8px; text-align: right;">Total Cost</th>
+            <th style="padding: 6px 8px; text-align: right;">Loss Ratio</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- EDITABLE: Add/remove rows for each plan year -->
+          <tr>
+            <td class="r11" style="padding: 5px 8px;">2023&ndash;24</td>
+            <td style="padding: 5px 8px; text-align: right; font-weight: 500;">$X,XXX,XXX</td>
+            <td style="padding: 5px 8px; text-align: right;">$XXX,XXX</td>
+            <td style="padding: 5px 8px; text-align: right; font-weight: 600;">$X,XXX,XXX</td>
+            <td style="padding: 5px 8px; text-align: right; font-weight: 600; color: var(--df);">XX%</td>
+          </tr>
+          <tr>
+            <td class="r11" style="padding: 5px 8px;">2024&ndash;25</td>
+            <td style="padding: 5px 8px; text-align: right; font-weight: 500;">$X,XXX,XXX</td>
+            <td style="padding: 5px 8px; text-align: right;">$XXX,XXX</td>
+            <td style="padding: 5px 8px; text-align: right; font-weight: 600;">$X,XXX,XXX</td>
+            <td style="padding: 5px 8px; text-align: right; font-weight: 600; color: var(--rs);">XX%</td>
+          </tr>
+          <tr>
+            <td class="r11" style="padding: 5px 8px;">2025&ndash;26 (Proj.)</td>
+            <td style="padding: 5px 8px; text-align: right; font-weight: 500;">$X,XXX,XXX</td>
+            <td style="padding: 5px 8px; text-align: right;">$XXX,XXX</td>
+            <td style="padding: 5px 8px; text-align: right; font-weight: 600;">$X,XXX,XXX</td>
+            <td style="padding: 5px 8px; text-align: right; font-weight: 600; color: var(--rs);">XX%</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- CSS-only bar chart -->
+      <!-- EDITABLE: Bar widths (percentage values), year labels -->
+      <div style="display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; background: rgba(31,61,46,0.04); border-radius: 6px; border: 1px solid var(--ps);">
+        <div style="font-size: 9px; color: var(--sg); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 2px;">Claims Trend (3-Year)</div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 9px; color: var(--ch); width: 60px; text-align: right;">2023&ndash;24</span>
+          <div style="flex: 1; height: 14px; background: var(--ps); border-radius: 3px; overflow: hidden;">
+            <div style="width: 65%; height: 100%; background: var(--df); border-radius: 3px;"></div>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 9px; color: var(--ch); width: 60px; text-align: right;">2024&ndash;25</span>
+          <div style="flex: 1; height: 14px; background: var(--ps); border-radius: 3px; overflow: hidden;">
+            <div style="width: 78%; height: 100%; background: var(--rl); border-radius: 3px;"></div>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 9px; color: var(--ch); width: 60px; text-align: right;">2025&ndash;26</span>
+          <div style="flex: 1; height: 14px; background: var(--ps); border-radius: 3px; overflow: hidden;">
+            <div style="width: 85%; height: 100%; background: var(--rs); border-radius: 3px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Loss ratio callout + large claimants + insight -->
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <!-- Loss ratio callout -->
+      <div style="padding: 12px; background: rgba(184,82,42,0.06); border-radius: 8px; border-left: 3px solid var(--rs); text-align: center;">
+        <div style="font-size: 9px; color: var(--sg); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px;">Current Loss Ratio</div>
+        <div style="font-family: var(--display); font-size: 36px; color: var(--rs); line-height: 1;">XX%</div>
+        <div style="font-size: 9px; color: var(--ch); margin-top: 4px;">Target: &lt;85%</div>
+      </div>
+
+      <!-- Large claimants -->
+      <div style="padding: 10px 12px; background: rgba(31,61,46,0.04); border-radius: 6px; border: 1px solid var(--ps); flex: 1;">
+        <div style="font-family: var(--display); font-size: 11px; color: var(--df); margin-bottom: 6px;">Large Claimants (Current Year)</div>
+        <!-- EDITABLE: Each claimant row -->
+        <div style="display: flex; flex-direction: column; gap: 4px;">
+          <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid var(--ps);">
+            <span style="font-size: 10px; color: var(--ch);">Claimant #1</span>
+            <span style="font-size: 10px; font-weight: 600; color: var(--rs);">$XXX,XXX</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid var(--ps);">
+            <span style="font-size: 10px; color: var(--ch);">Claimant #2</span>
+            <span style="font-size: 10px; font-weight: 600; color: var(--rs);">$XX,XXX</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid var(--ps);">
+            <span style="font-size: 10px; color: var(--ch);">Claimant #3</span>
+            <span style="font-size: 10px; font-weight: 600; color: var(--ch);">$XX,XXX</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding: 4px 0;">
+            <span style="font-size: 10px; color: var(--sg); font-weight: 600;">Total Top Claims</span>
+            <span style="font-size: 10px; font-weight: 700; color: var(--rs);">$XXX,XXX</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Key insight -->
+      <div style="padding: 8px 10px; border-left: 3px solid var(--df); background: rgba(31,61,46,0.04); border-radius: 0 6px 6px 0;">
+        <div style="font-family: var(--display); font-size: 11px; color: var(--df); margin-bottom: 2px;">Key Insight</div>
+        <div style="font-size: 9px; color: var(--ch); line-height: 1.45;">Claims are trending above expected. Large claimant exposure and rising utilization are driving the renewal increase.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="slide-footer">Nexus Benefit Solutions &mdash; Confidential</div>
+</div>
+<!-- END: claims-analysis -->

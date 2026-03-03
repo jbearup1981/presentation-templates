@@ -1,0 +1,142 @@
+<!-- COMPONENT: network-analysis -->
+<!-- EDITABLE: Carrier/network names, provider counts, in-network percentages, provider names, check/X indicators, disruption text, recommendation -->
+<!-- FIXED: Layout structure, visual design, color coding -->
+<div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
+
+  <div style="margin-bottom: 14px;">
+    <div class="slide-header-tag">07 &mdash; Network Analysis</div>
+    <div class="slide-title" style="font-size: 26px;">Provider Network &amp; Disruption Modeling</div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; flex: 1;">
+
+    <!-- LEFT: Network comparison table + match scores -->
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <table class="bench-table" style="font-size: 9.5px;">
+        <thead>
+          <tr>
+            <th style="padding: 6px 8px; width: 30%;">Provider Type</th>
+            <th style="padding: 6px 8px; text-align: center;">[Current Network]</th>
+            <th style="padding: 6px 8px; text-align: center;">[Option B]</th>
+            <th style="padding: 6px 8px; text-align: center;">[Option C]</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- EDITABLE: Each provider category row -->
+          <tr>
+            <td class="r11" style="padding: 5px 8px;">Primary Care</td>
+            <td class="gap-ok" style="padding: 5px 8px; text-align: center;">XX / XX (100%)</td>
+            <td class="gap-ok" style="padding: 5px 8px; text-align: center;">XX / XX (XX%)</td>
+            <td style="padding: 5px 8px; text-align: center; color: var(--ch);">XX / XX (XX%)</td>
+          </tr>
+          <tr>
+            <td class="r11" style="padding: 5px 8px;">Specialists</td>
+            <td class="gap-ok" style="padding: 5px 8px; text-align: center;">XX / XX (100%)</td>
+            <td style="padding: 5px 8px; text-align: center; color: var(--ch);">XX / XX (XX%)</td>
+            <td class="gap-neg" style="padding: 5px 8px; text-align: center;">XX / XX (XX%)</td>
+          </tr>
+          <tr>
+            <td class="r11" style="padding: 5px 8px;">Hospitals</td>
+            <td class="gap-ok" style="padding: 5px 8px; text-align: center;">X / X (100%)</td>
+            <td class="gap-ok" style="padding: 5px 8px; text-align: center;">X / X (XX%)</td>
+            <td class="gap-ok" style="padding: 5px 8px; text-align: center;">X / X (XX%)</td>
+          </tr>
+          <tr>
+            <td class="r11" style="padding: 5px 8px;">Urgent Care</td>
+            <td class="gap-ok" style="padding: 5px 8px; text-align: center;">X / X (100%)</td>
+            <td class="gap-ok" style="padding: 5px 8px; text-align: center;">X / X (XX%)</td>
+            <td style="padding: 5px 8px; text-align: center; color: var(--ch);">X / X (XX%)</td>
+          </tr>
+          <tr>
+            <td class="r11" style="padding: 5px 8px;">Pharmacy</td>
+            <td class="gap-ok" style="padding: 5px 8px; text-align: center;">In-network</td>
+            <td class="gap-ok" style="padding: 5px 8px; text-align: center;">In-network</td>
+            <td class="gap-ok" style="padding: 5px 8px; text-align: center;">In-network</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Overall match scores -->
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
+        <!-- EDITABLE: Network names and match percentages -->
+        <div style="padding: 8px; background: rgba(31,61,46,0.06); border-radius: 6px; text-align: center;">
+          <div style="font-size: 8px; color: var(--sg); text-transform: uppercase; letter-spacing: 0.5px;">[Current]</div>
+          <div style="font-family: var(--display); font-size: 20px; color: var(--df);">100%</div>
+          <div style="font-size: 8px; color: var(--sg);">Match</div>
+        </div>
+        <div style="padding: 8px; background: rgba(31,61,46,0.06); border-radius: 6px; text-align: center;">
+          <div style="font-size: 8px; color: var(--sg); text-transform: uppercase; letter-spacing: 0.5px;">[Option B]</div>
+          <div style="font-family: var(--display); font-size: 20px; color: var(--df);">XX%</div>
+          <div style="font-size: 8px; color: var(--sg);">Match</div>
+        </div>
+        <div style="padding: 8px; background: rgba(31,61,46,0.06); border-radius: 6px; text-align: center;">
+          <div style="font-size: 8px; color: var(--sg); text-transform: uppercase; letter-spacing: 0.5px;">[Option C]</div>
+          <div style="font-family: var(--display); font-size: 20px; color: var(--rs);">XX%</div>
+          <div style="font-size: 8px; color: var(--sg);">Match</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Key providers + disruption notes -->
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <!-- Key providers used by employees -->
+      <div style="padding: 10px 12px; background: rgba(31,61,46,0.04); border-radius: 6px; border: 1px solid var(--ps); flex: 1;">
+        <div style="font-family: var(--display); font-size: 11px; color: var(--df); margin-bottom: 8px;">Key Providers Used by Employees</div>
+        <!-- EDITABLE: Each provider row with check/X indicators -->
+        <div style="display: flex; flex-direction: column; gap: 4px; font-size: 9.5px;">
+          <div style="display: flex; justify-content: space-between; padding: 3px 0; border-bottom: 1px solid var(--ps);">
+            <span style="color: var(--ch); font-weight: 500;">[Provider / Health System]</span>
+            <span style="display: flex; gap: 12px;">
+              <span class="gap-ok">&#10003;</span>
+              <span class="gap-ok">&#10003;</span>
+              <span class="gap-neg">&#10007;</span>
+            </span>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding: 3px 0; border-bottom: 1px solid var(--ps);">
+            <span style="color: var(--ch); font-weight: 500;">[Provider / Health System]</span>
+            <span style="display: flex; gap: 12px;">
+              <span class="gap-ok">&#10003;</span>
+              <span class="gap-neg">&#10007;</span>
+              <span class="gap-ok">&#10003;</span>
+            </span>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding: 3px 0; border-bottom: 1px solid var(--ps);">
+            <span style="color: var(--ch); font-weight: 500;">[Provider / Health System]</span>
+            <span style="display: flex; gap: 12px;">
+              <span class="gap-ok">&#10003;</span>
+              <span class="gap-ok">&#10003;</span>
+              <span class="gap-ok">&#10003;</span>
+            </span>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding: 3px 0;">
+            <span style="color: var(--ch); font-weight: 500;">[Provider / Health System]</span>
+            <span style="display: flex; gap: 12px;">
+              <span class="gap-ok">&#10003;</span>
+              <span class="gap-ok">&#10003;</span>
+              <span class="gap-neg">&#10007;</span>
+            </span>
+          </div>
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 6px; font-size: 8px; color: var(--sg);">
+          <span>[Current]</span><span>[Opt B]</span><span>[Opt C]</span>
+        </div>
+      </div>
+
+      <!-- Disruption summary -->
+      <div style="padding: 8px 10px; border-left: 3px solid var(--df); background: rgba(31,61,46,0.04); border-radius: 0 6px 6px 0;">
+        <div style="font-family: var(--display); font-size: 11px; color: var(--df); margin-bottom: 2px;">Disruption Summary</div>
+        <div style="font-size: 9px; color: var(--ch); line-height: 1.45;">Switching to [Option B] preserves access to all major health systems. [Option C] shows disruption for [X] specialists currently used by [X] employees. We recommend employee-level provider verification before finalizing.</div>
+      </div>
+
+      <!-- Network recommendation -->
+      <div style="padding: 10px 12px; background: rgba(26,63,107,0.06); border-radius: 6px; border: 1px solid rgba(26,63,107,0.12); text-align: center;">
+        <div style="font-size: 8px; color: var(--sg); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 2px;">Network Recommendation</div>
+        <div style="font-family: var(--display); font-size: 14px; color: var(--az-dk);">[Option B Network] &mdash; Minimal Disruption</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="slide-footer">Nexus Benefit Solutions &mdash; Confidential</div>
+</div>
+<!-- END: network-analysis -->

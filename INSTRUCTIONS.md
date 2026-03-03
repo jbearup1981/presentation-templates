@@ -33,10 +33,12 @@ Start by asking what they're working on:
 
 > "Hey! What are we building today? Tell me about the meeting — who's the client or prospect, and what's the situation?"
 
-Based on their answer, either recommend a recipe (pre-built combination) or help them pick individual slides. If they're not sure, send them to the catalog:
+Based on their answer, either recommend a recipe (pre-built combination) or help them pick individual slides. **Always share the catalog link early** so the advisor can see what's available:
 
-> "Browse the slide catalog and tell me which ones you want:"
+> "Here's our slide catalog — browse the components and tell me which ones you want. You can click any slide to see it full-size:"
 > **[View Slide Catalog](https://jbearup1981.github.io/presentation-templates/components/catalog.html)**
+>
+> "Or if you want a head start, pick one of our pre-built recipes below and we'll customize from there."
 
 ### Pre-Built Recipes (Common Deck Types)
 
@@ -44,7 +46,8 @@ For standard meetings, start with a recipe and customize from there:
 
 | Recipe | Slides | Best For | Recipe File |
 |--------|--------|----------|-------------|
-| **Small Group Renewal** | 24 | Existing client, upcoming renewal | `recipes/small-group-renewal.md` |
+| **Small Group Renewal** | 24 | Existing client, fully insured, upcoming renewal | `recipes/small-group-renewal.md` |
+| **Mid-Market Renewal** | 23 | Self-funded/level-funded, 50-500 lives, claims data available | `recipes/midmarket-renewal.md` |
 | **Small Group Prospect** | 19 | New prospect, first/second meeting | `recipes/small-group-prospect.md` |
 | **Amaze Standalone** | 17 | Program-only pitch, Amaze reps | `recipes/amaze-standalone.md` |
 
@@ -57,13 +60,19 @@ Recipes are starting points — advisors can add, remove, or swap any slides. "I
 
 ### Custom Decks
 
-If the advisor wants something different from the recipes, they pick slides from the catalog. All 32 components are available:
+If the advisor wants something different from the recipes, they pick slides from the catalog. All 36 components are available:
 
 **Nexus Green (Opening & Closing):**
 `nexus-title` · `nexus-agenda` · `nexus-team` · `nexus-intro` · `nexus-approach` · `nexus-capabilities` · `nexus-closing`
 
 **Benchmarking & Discovery:**
-`benchmarking-simple` · `benchmarking-renewal` · `discovery-recap` · `plan-comparison` · `pos-strategy` · `dental-vision` · `supplemental` · `section-transition` · `client-portal`
+`benchmarking-simple` · `benchmarking-renewal` · `discovery-recap` · `section-transition` · `client-portal`
+
+**Medical Renewal — Simple:**
+`plan-comparison` · `pos-strategy` · `dental-vision` · `supplemental`
+
+**Medical Renewal — Advanced (Self-Funded / Level-Funded):**
+`claims-analysis` · `stop-loss-renewal` · `funding-comparison` · `network-analysis`
 
 **Amaze Health (Blue):**
 `amaze-problem` · `amaze-solutions` · `amaze-how-it-works` · `amaze-patient-stories` · `amaze-biomed` · `amaze-insurance` · `amaze-paycheck` · `amaze-everybody-wins` · `amaze-faq` · `amaze-market-comparison` · `amaze-client-momentum` · `amaze-implementation`
@@ -167,6 +176,18 @@ Present the complete HTML as a downloadable artifact the advisor can open in Chr
 
 ### For `amaze-client-momentum`:
 - Current Biomed client names, industries, locations, logos
+
+### For `claims-analysis`:
+- Plan years (3 years), paid claims per year, fixed costs, total cost, loss ratios, large claimant details (anonymized), target loss ratio
+
+### For `stop-loss-renewal`:
+- Current & renewal specific deductible, current & renewal PEPM rates, aggregate attachment point, corridor, active lasers (member, condition, laser amount), rate history (2-3 years)
+
+### For `funding-comparison`:
+- Estimated annual cost for each funding model (fully insured, level-funded, self-funded), PEPM figures, which option is recommended, estimated savings
+
+### For `network-analysis`:
+- Current network name, alternative network names, provider types (PCP, specialist, hospital, urgent care), in-network counts per network, key providers/health systems used by employees, which are in/out per network
 
 ### For `nexus-closing`:
 - Team contacts (pulled from team.md)

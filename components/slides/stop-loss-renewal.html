@@ -1,0 +1,122 @@
+<!-- COMPONENT: stop-loss-renewal -->
+<!-- EDITABLE: All dollar amounts, deductible levels, rates, laser details, carrier name, rate history, insight text -->
+<!-- FIXED: Layout structure, visual design, color coding -->
+<div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
+
+  <div style="margin-bottom: 16px;">
+    <div class="slide-header-tag">05 &mdash; Stop-Loss Review</div>
+    <div class="slide-title" style="font-size: 26px;">Stop-Loss Renewal Analysis</div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; flex: 1;">
+
+    <!-- LEFT: Specific + aggregate stop-loss -->
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <!-- Specific stop-loss -->
+      <div style="padding: 12px 14px; background: var(--ps); border-radius: 8px; border-top: 3px solid var(--df);">
+        <div style="font-size: 9px; color: var(--sg); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px;">Specific (Individual) Stop-Loss</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+          <div style="text-align: center;">
+            <div style="font-size: 8px; color: var(--sg); text-transform: uppercase; letter-spacing: 0.5px;">Current Deductible</div>
+            <div style="font-family: var(--display); font-size: 20px; color: var(--df);">$XXX,XXX</div>
+          </div>
+          <div style="text-align: center;">
+            <div style="font-size: 8px; color: var(--sg); text-transform: uppercase; letter-spacing: 0.5px;">Renewal Deductible</div>
+            <div style="font-family: var(--display); font-size: 20px; color: var(--rs);">$XXX,XXX</div>
+          </div>
+        </div>
+        <div style="margin-top: 8px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+          <div style="padding: 6px; background: #fff; border-radius: 4px; text-align: center;">
+            <div style="font-size: 8px; color: var(--sg);">Current Rate PEPM</div>
+            <div style="font-family: var(--display); font-size: 14px; color: var(--df);">$XX.XX</div>
+          </div>
+          <div style="padding: 6px; background: #fff; border-radius: 4px; text-align: center;">
+            <div style="font-size: 8px; color: var(--sg);">Renewal Rate PEPM</div>
+            <div style="font-family: var(--display); font-size: 14px; color: var(--rs);">$XX.XX</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Aggregate stop-loss -->
+      <div style="padding: 12px 14px; background: var(--ps); border-radius: 8px; border-top: 3px solid var(--az-dk);">
+        <div style="font-size: 9px; color: var(--sg); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px;">Aggregate Stop-Loss</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+          <div style="padding: 6px; background: #fff; border-radius: 4px; text-align: center;">
+            <div style="font-size: 8px; color: var(--sg);">Attachment Point</div>
+            <div style="font-family: var(--display); font-size: 14px; color: var(--df);">$X,XXX,XXX</div>
+          </div>
+          <div style="padding: 6px; background: #fff; border-radius: 4px; text-align: center;">
+            <div style="font-size: 8px; color: var(--sg);">Corridor</div>
+            <div style="font-family: var(--display); font-size: 14px; color: var(--df);">125%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Lasers + rate history + insight -->
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <!-- Active lasers -->
+      <div style="padding: 10px 12px; background: rgba(184,82,42,0.06); border-radius: 6px; border-left: 3px solid var(--rs);">
+        <div style="font-family: var(--display); font-size: 11px; color: var(--df); margin-bottom: 6px;">Active Lasers</div>
+        <!-- EDITABLE: Each laser row -->
+        <div style="display: flex; flex-direction: column; gap: 3px;">
+          <div style="display: flex; justify-content: space-between; font-size: 10px;">
+            <span style="color: var(--ch);">Member #1 &mdash; [Condition]</span>
+            <span style="font-weight: 600; color: var(--rs);">$XXX,XXX</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 10px;">
+            <span style="color: var(--ch);">Member #2 &mdash; [Condition]</span>
+            <span style="font-weight: 600; color: var(--rs);">$XXX,XXX</span>
+          </div>
+        </div>
+        <div style="font-size: 8px; color: var(--sg); margin-top: 4px; line-height: 1.4;">Lasered members have individual deductibles above the group specific level.</div>
+      </div>
+
+      <!-- Rate history -->
+      <div style="padding: 10px 12px; background: rgba(31,61,46,0.04); border-radius: 6px; border: 1px solid var(--ps); flex: 1;">
+        <div style="font-family: var(--display); font-size: 11px; color: var(--df); margin-bottom: 6px;">Rate History (PEPM)</div>
+        <table class="bench-table" style="font-size: 9px;">
+          <thead>
+            <tr>
+              <th style="padding: 5px 6px;">Year</th>
+              <th style="padding: 5px 6px; text-align: right;">Specific</th>
+              <th style="padding: 5px 6px; text-align: right;">Aggregate</th>
+              <th style="padding: 5px 6px; text-align: right;">Change</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- EDITABLE: Rate history rows -->
+            <tr>
+              <td style="padding: 4px 6px; font-weight: 500;">2023&ndash;24</td>
+              <td style="padding: 4px 6px; text-align: right;">$XX.XX</td>
+              <td style="padding: 4px 6px; text-align: right;">$X.XX</td>
+              <td style="padding: 4px 6px; text-align: right;">&mdash;</td>
+            </tr>
+            <tr>
+              <td style="padding: 4px 6px; font-weight: 500;">2024&ndash;25</td>
+              <td style="padding: 4px 6px; text-align: right;">$XX.XX</td>
+              <td style="padding: 4px 6px; text-align: right;">$X.XX</td>
+              <td class="gap-neg" style="padding: 4px 6px; text-align: right;">+XX%</td>
+            </tr>
+            <tr>
+              <td style="padding: 4px 6px; font-weight: 500;">2025&ndash;26 (Ren.)</td>
+              <td style="padding: 4px 6px; text-align: right;">$XX.XX</td>
+              <td style="padding: 4px 6px; text-align: right;">$X.XX</td>
+              <td class="gap-neg" style="padding: 4px 6px; text-align: right;">+XX%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Market insight -->
+      <div style="padding: 8px 10px; border-left: 3px solid var(--df); background: rgba(31,61,46,0.04); border-radius: 0 6px 6px 0;">
+        <div style="font-family: var(--display); font-size: 11px; color: var(--df); margin-bottom: 2px;">Our Approach</div>
+        <div style="font-size: 9px; color: var(--ch); line-height: 1.45;">We marketed to [X] stop-loss carriers to find competitive alternatives. Options include restructured deductible corridors and laser management strategies.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="slide-footer">Nexus Benefit Solutions &mdash; Confidential</div>
+</div>
+<!-- END: stop-loss-renewal -->

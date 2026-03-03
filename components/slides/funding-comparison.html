@@ -1,0 +1,88 @@
+<!-- COMPONENT: funding-comparison -->
+<!-- EDITABLE: All dollar amounts, PEPM figures, pros/cons text, recommended option, savings estimates, strategy descriptions -->
+<!-- FIXED: 3-column layout structure, color coding, card design -->
+<div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
+
+  <div style="margin-bottom: 14px;">
+    <div class="slide-header-tag">06 &mdash; Funding Strategy</div>
+    <div class="slide-title" style="font-size: 26px;">Funding Model Comparison</div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; flex: 1;">
+
+    <!-- Column 1: Fully Insured -->
+    <div style="background: var(--ps); border-radius: 8px; padding: 12px 14px; display: flex; flex-direction: column; border-top: 3px solid var(--sg);">
+      <div style="text-align: center; margin-bottom: 10px;">
+        <div style="font-size: 9px; color: var(--sg); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px;">Option A</div>
+        <div style="font-family: var(--display); font-size: 14px; color: var(--df);">Fully Insured</div>
+      </div>
+      <div style="padding: 8px; background: #fff; border-radius: 6px; text-align: center; margin-bottom: 10px;">
+        <div style="font-size: 8px; color: var(--sg); text-transform: uppercase;">Est. Annual Cost</div>
+        <div style="font-family: var(--display); font-size: 22px; color: var(--df);">$X,XXX,XXX</div>
+        <div style="font-size: 9px; color: var(--sg);">$XXX PEPM</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 5px; flex: 1; font-size: 9px;">
+        <div style="display: flex; gap: 5px; align-items: flex-start;"><span style="color: var(--df); font-weight: 700;">+</span><span style="color: var(--ch); line-height: 1.4;">Predictable fixed costs</span></div>
+        <div style="display: flex; gap: 5px; align-items: flex-start;"><span style="color: var(--df); font-weight: 700;">+</span><span style="color: var(--ch); line-height: 1.4;">No claims risk</span></div>
+        <div style="display: flex; gap: 5px; align-items: flex-start;"><span style="color: var(--df); font-weight: 700;">+</span><span style="color: var(--ch); line-height: 1.4;">Simpler administration</span></div>
+        <div style="display: flex; gap: 5px; align-items: flex-start;"><span style="color: var(--rs); font-weight: 700;">&ndash;</span><span style="color: var(--ch); line-height: 1.4;">No refund if claims are low</span></div>
+        <div style="display: flex; gap: 5px; align-items: flex-start;"><span style="color: var(--rs); font-weight: 700;">&ndash;</span><span style="color: var(--ch); line-height: 1.4;">Less plan design flexibility</span></div>
+        <div style="display: flex; gap: 5px; align-items: flex-start;"><span style="color: var(--rs); font-weight: 700;">&ndash;</span><span style="color: var(--ch); line-height: 1.4;">Carrier retains all margin</span></div>
+      </div>
+      <div style="margin-top: 8px; padding: 6px; background: rgba(122,146,130,0.1); border-radius: 4px; text-align: center;">
+        <div style="font-size: 10px; color: var(--sg); font-weight: 600;">Status Quo</div>
+      </div>
+    </div>
+
+    <!-- Column 2: Level-Funded (Recommended) -->
+    <div style="background: var(--ps); border-radius: 8px; padding: 12px 14px; display: flex; flex-direction: column; border-top: 3px solid var(--az-dk); box-shadow: 0 3px 12px rgba(0,0,0,0.1);">
+      <div style="text-align: center; margin-bottom: 10px;">
+        <div style="font-size: 9px; color: var(--rs); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; margin-bottom: 4px;">Recommended</div>
+        <div style="font-family: var(--display); font-size: 14px; color: var(--df);">Level-Funded</div>
+      </div>
+      <div style="padding: 8px; background: rgba(26,63,107,0.06); border-radius: 6px; text-align: center; margin-bottom: 10px;">
+        <div style="font-size: 8px; color: var(--sg); text-transform: uppercase;">Est. Annual Cost</div>
+        <div style="font-family: var(--display); font-size: 22px; color: var(--az-dk);">$X,XXX,XXX</div>
+        <div style="font-size: 9px; color: var(--sg);">$XXX PEPM</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 5px; flex: 1; font-size: 9px;">
+        <div style="display: flex; gap: 5px; align-items: flex-start;"><span style="color: var(--df); font-weight: 700;">+</span><span style="color: var(--ch); line-height: 1.4;">Fixed monthly payments</span></div>
+        <div style="display: flex; gap: 5px; align-items: flex-start;"><span style="color: var(--df); font-weight: 700;">+</span><span style="color: var(--ch); line-height: 1.4;">Surplus refund if claims low</span></div>
+        <div style="display: flex; gap: 5px; align-items: flex-start;"><span style="color: var(--df); font-weight: 700;">+</span><span style="color: var(--ch); line-height: 1.4;">Stop-loss protection included</span></div>
+        <div style="display: flex; gap: 5px; align-items: flex-start;"><span style="color: var(--df); font-weight: 700;">+</span><span style="color: var(--ch); line-height: 1.4;">Claims data transparency</span></div>
+        <div style="display: flex; gap: 5px; align-items: flex-start;"><span style="color: var(--rs); font-weight: 700;">&ndash;</span><span style="color: var(--ch); line-height: 1.4;">Some claims variability risk</span></div>
+      </div>
+      <div style="margin-top: 8px; padding: 6px; background: rgba(26,63,107,0.1); border-radius: 4px; text-align: center;">
+        <div style="font-size: 10px; color: var(--az-dk); font-weight: 600;">Saves $XX,XXX/yr est.</div>
+      </div>
+    </div>
+
+    <!-- Column 3: Self-Funded -->
+    <div style="background: var(--ps); border-radius: 8px; padding: 12px 14px; display: flex; flex-direction: column; border-top: 3px solid var(--fl);">
+      <div style="text-align: center; margin-bottom: 10px;">
+        <div style="font-size: 9px; color: var(--fl); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px;">Option C</div>
+        <div style="font-family: var(--display); font-size: 14px; color: var(--df);">Self-Funded</div>
+      </div>
+      <div style="padding: 8px; background: rgba(42,82,64,0.06); border-radius: 6px; text-align: center; margin-bottom: 10px;">
+        <div style="font-size: 8px; color: var(--sg); text-transform: uppercase;">Est. Annual Cost</div>
+        <div style="font-family: var(--display); font-size: 22px; color: var(--df);">$X,XXX,XXX</div>
+        <div style="font-size: 9px; color: var(--sg);">$XXX PEPM (projected)</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 5px; flex: 1; font-size: 9px;">
+        <div style="display: flex; gap: 5px; align-items: flex-start;"><span style="color: var(--df); font-weight: 700;">+</span><span style="color: var(--ch); line-height: 1.4;">Maximum flexibility &amp; control</span></div>
+        <div style="display: flex; gap: 5px; align-items: flex-start;"><span style="color: var(--df); font-weight: 700;">+</span><span style="color: var(--ch); line-height: 1.4;">Full claims data ownership</span></div>
+        <div style="display: flex; gap: 5px; align-items: flex-start;"><span style="color: var(--df); font-weight: 700;">+</span><span style="color: var(--ch); line-height: 1.4;">ERISA preemption (state mandate exempt)</span></div>
+        <div style="display: flex; gap: 5px; align-items: flex-start;"><span style="color: var(--rs); font-weight: 700;">&ndash;</span><span style="color: var(--ch); line-height: 1.4;">Claims volatility exposure</span></div>
+        <div style="display: flex; gap: 5px; align-items: flex-start;"><span style="color: var(--rs); font-weight: 700;">&ndash;</span><span style="color: var(--ch); line-height: 1.4;">Requires separate stop-loss</span></div>
+        <div style="display: flex; gap: 5px; align-items: flex-start;"><span style="color: var(--rs); font-weight: 700;">&ndash;</span><span style="color: var(--ch); line-height: 1.4;">Higher admin complexity</span></div>
+      </div>
+      <div style="margin-top: 8px; padding: 6px; background: rgba(42,82,64,0.08); border-radius: 4px; text-align: center;">
+        <div style="font-size: 10px; color: var(--fl); font-weight: 600;">Potential Savings $XX,XXX+/yr</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="slide-footer">Nexus Benefit Solutions &mdash; Confidential</div>
+</div>
+<!-- END: funding-comparison -->

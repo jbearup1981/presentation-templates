@@ -307,6 +307,84 @@ body {
 .thumb-container .slide-footer {
   position: absolute;
 }
+
+/* === LIGHTBOX MODAL === */
+.lightbox-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.lightbox-overlay.active {
+  display: flex;
+}
+.lightbox-frame {
+  width: 960px;
+  height: 540px;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 48px rgba(0,0,0,0.5);
+  transform: scale(var(--lightbox-scale, 0.85));
+  transform-origin: center center;
+  cursor: default;
+}
+.lightbox-frame .slide {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  width: 960px !important;
+  height: 540px !important;
+  transform: none !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+.lightbox-close {
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  z-index: 1001;
+  background: rgba(255,255,255,0.15);
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-family: var(--body);
+  transition: background 0.2s;
+}
+.lightbox-close:hover {
+  background: rgba(255,255,255,0.3);
+}
+.lightbox-label {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1001;
+  color: rgba(255,255,255,0.7);
+  font-family: var(--body);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+/* Make cards look clickable */
+.catalog-card {
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.catalog-card:hover {
+  transform: translateY(-2px);
+}
+.catalog-card:hover .thumb-container {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+}
   </style>
   <script>
     // Dynamically scale thumbnails based on container width
@@ -318,6 +396,57 @@ body {
     }
     window.addEventListener('load', scaleThumbs);
     window.addEventListener('resize', scaleThumbs);
+
+    // Lightbox
+    (function() {
+      var overlay = document.getElementById('lightbox');
+      var frame = document.getElementById('lightboxFrame');
+      var label = document.getElementById('lightboxLabel');
+      var closeBtn = document.getElementById('lightboxClose');
+
+      function scaleLightbox() {
+        var sw = (window.innerWidth * 0.9) / 960;
+        var sh = (window.innerHeight * 0.85) / 540;
+        var s = Math.min(sw, sh, 1);
+        frame.style.setProperty('--lightbox-scale', s);
+      }
+
+      document.querySelectorAll('.catalog-card').forEach(function(card) {
+        card.addEventListener('click', function() {
+          var slideEl = card.querySelector('.thumb-container .slide');
+          var nameEl = card.querySelector('.card-name');
+          if (!slideEl) return;
+          frame.innerHTML = '';
+          var clone = slideEl.cloneNode(true);
+          clone.classList.add('active');
+          frame.appendChild(clone);
+          label.textContent = nameEl ? nameEl.textContent : '';
+          scaleLightbox();
+          overlay.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+
+      function closeLightbox() {
+        overlay.classList.remove('active');
+        frame.innerHTML = '';
+        document.body.style.overflow = '';
+      }
+
+      closeBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        closeLightbox();
+      });
+      overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) closeLightbox();
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && overlay.classList.contains('active')) closeLightbox();
+      });
+      window.addEventListener('resize', function() {
+        if (overlay.classList.contains('active')) scaleLightbox();
+      });
+    })();
   </script>
 </head>
 <body>
@@ -713,6 +842,11 @@ body {
     <div class="card-status" style="color: #2A5240;">EDITABLE</div>
   </div>
 </div>
+  </div>
+</section>
+<section class="catalog-section">
+  <h2 class="section-heading">Medical Renewal &mdash; Simple</h2>
+  <div class="catalog-grid">
 <div class="catalog-card">
   <div class="thumb-container">
     <div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
@@ -1080,6 +1214,201 @@ body {
     <div class="card-status" style="color: #2A5240;">EDITABLE</div>
   </div>
 </div>
+  </div>
+</section>
+<section class="catalog-section">
+  <h2 class="section-heading">Medical Renewal &mdash; Advanced</h2>
+  <div class="catalog-grid">
+<div class="catalog-card">
+  <div class="thumb-container">
+    <div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
+  <div style="margin-bottom: 16px;">
+    <div class="slide-header-tag">04 &mdash; Claims Analysis</div>
+    <div class="slide-title" style="font-size: 26px;">Medical Claims Experience</div>
+  </div>
+  <div style="display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 20px; flex: 1;">
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+      <table class="bench-table" style="font-size: 9.5px;">
+        <thead><tr><th style="padding: 6px 8px; width: 26%;">Plan Year</th><th style="padding: 6px 8px; text-align: right;">Paid Claims</th><th style="padding: 6px 8px; text-align: right;">Fixed Costs</th><th style="padding: 6px 8px; text-align: right;">Total Cost</th><th style="padding: 6px 8px; text-align: right;">Loss Ratio</th></tr></thead>
+        <tbody>
+          <tr><td class="r11" style="padding: 5px 8px;">2023&ndash;24</td><td style="padding: 5px 8px; text-align: right; font-weight: 500;">$X,XXX,XXX</td><td style="padding: 5px 8px; text-align: right;">$XXX,XXX</td><td style="padding: 5px 8px; text-align: right; font-weight: 600;">$X,XXX,XXX</td><td style="padding: 5px 8px; text-align: right; font-weight: 600; color: var(--df);">XX%</td></tr>
+          <tr><td class="r11" style="padding: 5px 8px;">2024&ndash;25</td><td style="padding: 5px 8px; text-align: right; font-weight: 500;">$X,XXX,XXX</td><td style="padding: 5px 8px; text-align: right;">$XXX,XXX</td><td style="padding: 5px 8px; text-align: right; font-weight: 600;">$X,XXX,XXX</td><td style="padding: 5px 8px; text-align: right; font-weight: 600; color: var(--rs);">XX%</td></tr>
+          <tr><td class="r11" style="padding: 5px 8px;">2025&ndash;26 (Proj.)</td><td style="padding: 5px 8px; text-align: right; font-weight: 500;">$X,XXX,XXX</td><td style="padding: 5px 8px; text-align: right;">$XXX,XXX</td><td style="padding: 5px 8px; text-align: right; font-weight: 600;">$X,XXX,XXX</td><td style="padding: 5px 8px; text-align: right; font-weight: 600; color: var(--rs);">XX%</td></tr>
+        </tbody>
+      </table>
+      <div style="display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; background: rgba(31,61,46,0.04); border-radius: 6px; border: 1px solid var(--ps);">
+        <div style="font-size: 9px; color: var(--sg); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 2px;">Claims Trend</div>
+        <div style="display: flex; align-items: center; gap: 8px;"><span style="font-size: 9px; color: var(--ch); width: 50px; text-align: right;">23&ndash;24</span><div style="flex: 1; height: 14px; background: var(--ps); border-radius: 3px; overflow: hidden;"><div style="width: 65%; height: 100%; background: var(--df); border-radius: 3px;"></div></div></div>
+        <div style="display: flex; align-items: center; gap: 8px;"><span style="font-size: 9px; color: var(--ch); width: 50px; text-align: right;">24&ndash;25</span><div style="flex: 1; height: 14px; background: var(--ps); border-radius: 3px; overflow: hidden;"><div style="width: 78%; height: 100%; background: var(--rl); border-radius: 3px;"></div></div></div>
+        <div style="display: flex; align-items: center; gap: 8px;"><span style="font-size: 9px; color: var(--ch); width: 50px; text-align: right;">25&ndash;26</span><div style="flex: 1; height: 14px; background: var(--ps); border-radius: 3px; overflow: hidden;"><div style="width: 85%; height: 100%; background: var(--rs); border-radius: 3px;"></div></div></div>
+      </div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="padding: 12px; background: rgba(184,82,42,0.06); border-radius: 8px; border-left: 3px solid var(--rs); text-align: center;">
+        <div style="font-size: 9px; color: var(--sg); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px;">Current Loss Ratio</div>
+        <div style="font-family: var(--display); font-size: 36px; color: var(--rs); line-height: 1;">XX%</div>
+        <div style="font-size: 9px; color: var(--ch); margin-top: 4px;">Target: &lt;85%</div>
+      </div>
+      <div style="padding: 10px 12px; background: rgba(31,61,46,0.04); border-radius: 6px; border: 1px solid var(--ps); flex: 1;">
+        <div style="font-family: var(--display); font-size: 11px; color: var(--df); margin-bottom: 6px;">Large Claimants</div>
+        <div style="display: flex; flex-direction: column; gap: 4px;">
+          <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid var(--ps);"><span style="font-size: 10px; color: var(--ch);">Claimant #1</span><span style="font-size: 10px; font-weight: 600; color: var(--rs);">$XXX,XXX</span></div>
+          <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid var(--ps);"><span style="font-size: 10px; color: var(--ch);">Claimant #2</span><span style="font-size: 10px; font-weight: 600; color: var(--rs);">$XX,XXX</span></div>
+          <div style="display: flex; justify-content: space-between; padding: 4px 0;"><span style="font-size: 10px; color: var(--sg); font-weight: 600;">Total</span><span style="font-size: 10px; font-weight: 700; color: var(--rs);">$XXX,XXX</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">Nexus Benefit Solutions &mdash; Confidential</div>
+</div>
+  </div>
+  <div class="card-label">
+    <div class="card-name">CLAIMS-ANALYSIS</div>
+    <div class="card-status" style="color: #2A5240;">EDITABLE</div>
+  </div>
+</div>
+<div class="catalog-card">
+  <div class="thumb-container">
+    <div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
+  <div style="margin-bottom: 16px;">
+    <div class="slide-header-tag">05 &mdash; Stop-Loss Review</div>
+    <div class="slide-title" style="font-size: 26px;">Stop-Loss Renewal Analysis</div>
+  </div>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; flex: 1;">
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="padding: 12px 14px; background: var(--ps); border-radius: 8px; border-top: 3px solid var(--df);">
+        <div style="font-size: 9px; color: var(--sg); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px;">Specific Stop-Loss</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+          <div style="text-align: center;"><div style="font-size: 8px; color: var(--sg); text-transform: uppercase;">Current</div><div style="font-family: var(--display); font-size: 20px; color: var(--df);">$XXX,XXX</div></div>
+          <div style="text-align: center;"><div style="font-size: 8px; color: var(--sg); text-transform: uppercase;">Renewal</div><div style="font-family: var(--display); font-size: 20px; color: var(--rs);">$XXX,XXX</div></div>
+        </div>
+      </div>
+      <div style="padding: 12px 14px; background: var(--ps); border-radius: 8px; border-top: 3px solid var(--az-dk);">
+        <div style="font-size: 9px; color: var(--sg); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px;">Aggregate Stop-Loss</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+          <div style="padding: 6px; background: #fff; border-radius: 4px; text-align: center;"><div style="font-size: 8px; color: var(--sg);">Attachment</div><div style="font-family: var(--display); font-size: 14px; color: var(--df);">$X,XXX,XXX</div></div>
+          <div style="padding: 6px; background: #fff; border-radius: 4px; text-align: center;"><div style="font-size: 8px; color: var(--sg);">Corridor</div><div style="font-family: var(--display); font-size: 14px; color: var(--df);">125%</div></div>
+        </div>
+      </div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="padding: 10px 12px; background: rgba(184,82,42,0.06); border-radius: 6px; border-left: 3px solid var(--rs);">
+        <div style="font-family: var(--display); font-size: 11px; color: var(--df); margin-bottom: 4px;">Active Lasers</div>
+        <div style="display: flex; justify-content: space-between; font-size: 10px;"><span style="color: var(--ch);">Member #1</span><span style="font-weight: 600; color: var(--rs);">$XXX,XXX</span></div>
+        <div style="display: flex; justify-content: space-between; font-size: 10px; margin-top: 2px;"><span style="color: var(--ch);">Member #2</span><span style="font-weight: 600; color: var(--rs);">$XXX,XXX</span></div>
+      </div>
+      <div style="padding: 10px 12px; background: rgba(31,61,46,0.04); border-radius: 6px; border: 1px solid var(--ps); flex: 1;">
+        <div style="font-family: var(--display); font-size: 11px; color: var(--df); margin-bottom: 6px;">Rate History (PEPM)</div>
+        <table class="bench-table" style="font-size: 9px;">
+          <thead><tr><th style="padding: 5px 6px;">Year</th><th style="padding: 5px 6px; text-align: right;">Specific</th><th style="padding: 5px 6px; text-align: right;">Aggregate</th><th style="padding: 5px 6px; text-align: right;">Change</th></tr></thead>
+          <tbody>
+            <tr><td style="padding: 4px 6px; font-weight: 500;">2023&ndash;24</td><td style="padding: 4px 6px; text-align: right;">$XX.XX</td><td style="padding: 4px 6px; text-align: right;">$X.XX</td><td style="padding: 4px 6px; text-align: right;">&mdash;</td></tr>
+            <tr><td style="padding: 4px 6px; font-weight: 500;">2024&ndash;25</td><td style="padding: 4px 6px; text-align: right;">$XX.XX</td><td style="padding: 4px 6px; text-align: right;">$X.XX</td><td class="gap-neg" style="padding: 4px 6px; text-align: right;">+XX%</td></tr>
+            <tr><td style="padding: 4px 6px; font-weight: 500;">2025&ndash;26</td><td style="padding: 4px 6px; text-align: right;">$XX.XX</td><td style="padding: 4px 6px; text-align: right;">$X.XX</td><td class="gap-neg" style="padding: 4px 6px; text-align: right;">+XX%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">Nexus Benefit Solutions &mdash; Confidential</div>
+</div>
+  </div>
+  <div class="card-label">
+    <div class="card-name">STOP-LOSS-RENEWAL</div>
+    <div class="card-status" style="color: #2A5240;">EDITABLE</div>
+  </div>
+</div>
+<div class="catalog-card">
+  <div class="thumb-container">
+    <div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
+  <div style="margin-bottom: 14px;">
+    <div class="slide-header-tag">06 &mdash; Funding Strategy</div>
+    <div class="slide-title" style="font-size: 26px;">Funding Model Comparison</div>
+  </div>
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; flex: 1;">
+    <div style="background: var(--ps); border-radius: 8px; padding: 12px 14px; display: flex; flex-direction: column; border-top: 3px solid var(--sg);">
+      <div style="text-align: center; margin-bottom: 8px;"><div style="font-size: 9px; color: var(--sg); letter-spacing: 1.5px; text-transform: uppercase;">Option A</div><div style="font-family: var(--display); font-size: 14px; color: var(--df);">Fully Insured</div></div>
+      <div style="padding: 6px; background: #fff; border-radius: 6px; text-align: center; margin-bottom: 8px;"><div style="font-family: var(--display); font-size: 18px; color: var(--df);">$X,XXX,XXX</div><div style="font-size: 8px; color: var(--sg);">$XXX PEPM</div></div>
+      <div style="font-size: 9px; color: var(--ch); line-height: 1.5; flex: 1;"><div style="margin-bottom: 3px;"><span style="color: var(--df); font-weight: 700;">+</span> Predictable costs</div><div style="margin-bottom: 3px;"><span style="color: var(--df); font-weight: 700;">+</span> No claims risk</div><div><span style="color: var(--rs); font-weight: 700;">&ndash;</span> No refund if low claims</div></div>
+      <div style="padding: 5px; background: rgba(122,146,130,0.1); border-radius: 4px; text-align: center;"><div style="font-size: 10px; color: var(--sg); font-weight: 600;">Status Quo</div></div>
+    </div>
+    <div style="background: var(--ps); border-radius: 8px; padding: 12px 14px; display: flex; flex-direction: column; border-top: 3px solid var(--az-dk); box-shadow: 0 3px 12px rgba(0,0,0,0.1);">
+      <div style="text-align: center; margin-bottom: 8px;"><div style="font-size: 9px; color: var(--rs); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600;">Recommended</div><div style="font-family: var(--display); font-size: 14px; color: var(--df);">Level-Funded</div></div>
+      <div style="padding: 6px; background: rgba(26,63,107,0.06); border-radius: 6px; text-align: center; margin-bottom: 8px;"><div style="font-family: var(--display); font-size: 18px; color: var(--az-dk);">$X,XXX,XXX</div><div style="font-size: 8px; color: var(--sg);">$XXX PEPM</div></div>
+      <div style="font-size: 9px; color: var(--ch); line-height: 1.5; flex: 1;"><div style="margin-bottom: 3px;"><span style="color: var(--df); font-weight: 700;">+</span> Surplus refund</div><div style="margin-bottom: 3px;"><span style="color: var(--df); font-weight: 700;">+</span> Stop-loss included</div><div style="margin-bottom: 3px;"><span style="color: var(--df); font-weight: 700;">+</span> Claims transparency</div><div><span style="color: var(--rs); font-weight: 700;">&ndash;</span> Some claims risk</div></div>
+      <div style="padding: 5px; background: rgba(26,63,107,0.1); border-radius: 4px; text-align: center;"><div style="font-size: 10px; color: var(--az-dk); font-weight: 600;">Saves $XX,XXX/yr</div></div>
+    </div>
+    <div style="background: var(--ps); border-radius: 8px; padding: 12px 14px; display: flex; flex-direction: column; border-top: 3px solid var(--fl);">
+      <div style="text-align: center; margin-bottom: 8px;"><div style="font-size: 9px; color: var(--fl); letter-spacing: 1.5px; text-transform: uppercase;">Option C</div><div style="font-family: var(--display); font-size: 14px; color: var(--df);">Self-Funded</div></div>
+      <div style="padding: 6px; background: rgba(42,82,64,0.06); border-radius: 6px; text-align: center; margin-bottom: 8px;"><div style="font-family: var(--display); font-size: 18px; color: var(--df);">$X,XXX,XXX</div><div style="font-size: 8px; color: var(--sg);">$XXX PEPM</div></div>
+      <div style="font-size: 9px; color: var(--ch); line-height: 1.5; flex: 1;"><div style="margin-bottom: 3px;"><span style="color: var(--df); font-weight: 700;">+</span> Max flexibility</div><div style="margin-bottom: 3px;"><span style="color: var(--df); font-weight: 700;">+</span> ERISA preemption</div><div><span style="color: var(--rs); font-weight: 700;">&ndash;</span> Claims volatility</div></div>
+      <div style="padding: 5px; background: rgba(42,82,64,0.08); border-radius: 4px; text-align: center;"><div style="font-size: 10px; color: var(--fl); font-weight: 600;">Savings $XX,XXX+/yr</div></div>
+    </div>
+  </div>
+  <div class="slide-footer">Nexus Benefit Solutions &mdash; Confidential</div>
+</div>
+  </div>
+  <div class="card-label">
+    <div class="card-name">FUNDING-COMPARISON</div>
+    <div class="card-status" style="color: #2A5240;">EDITABLE</div>
+  </div>
+</div>
+<div class="catalog-card">
+  <div class="thumb-container">
+    <div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
+  <div style="margin-bottom: 14px;">
+    <div class="slide-header-tag">07 &mdash; Network Analysis</div>
+    <div class="slide-title" style="font-size: 26px;">Provider Network &amp; Disruption</div>
+  </div>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; flex: 1;">
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <table class="bench-table" style="font-size: 9.5px;">
+        <thead><tr><th style="padding: 6px 8px; width: 30%;">Provider Type</th><th style="padding: 6px 8px; text-align: center;">[Current]</th><th style="padding: 6px 8px; text-align: center;">[Opt B]</th><th style="padding: 6px 8px; text-align: center;">[Opt C]</th></tr></thead>
+        <tbody>
+          <tr><td class="r11" style="padding: 5px 8px;">Primary Care</td><td class="gap-ok" style="padding: 5px 8px; text-align: center;">100%</td><td class="gap-ok" style="padding: 5px 8px; text-align: center;">XX%</td><td style="padding: 5px 8px; text-align: center; color: var(--ch);">XX%</td></tr>
+          <tr><td class="r11" style="padding: 5px 8px;">Specialists</td><td class="gap-ok" style="padding: 5px 8px; text-align: center;">100%</td><td style="padding: 5px 8px; text-align: center; color: var(--ch);">XX%</td><td class="gap-neg" style="padding: 5px 8px; text-align: center;">XX%</td></tr>
+          <tr><td class="r11" style="padding: 5px 8px;">Hospitals</td><td class="gap-ok" style="padding: 5px 8px; text-align: center;">100%</td><td class="gap-ok" style="padding: 5px 8px; text-align: center;">XX%</td><td class="gap-ok" style="padding: 5px 8px; text-align: center;">XX%</td></tr>
+          <tr><td class="r11" style="padding: 5px 8px;">Pharmacy</td><td class="gap-ok" style="padding: 5px 8px; text-align: center;">&#10003;</td><td class="gap-ok" style="padding: 5px 8px; text-align: center;">&#10003;</td><td class="gap-ok" style="padding: 5px 8px; text-align: center;">&#10003;</td></tr>
+        </tbody>
+      </table>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
+        <div style="padding: 8px; background: rgba(31,61,46,0.06); border-radius: 6px; text-align: center;"><div style="font-size: 8px; color: var(--sg); text-transform: uppercase;">[Current]</div><div style="font-family: var(--display); font-size: 20px; color: var(--df);">100%</div></div>
+        <div style="padding: 8px; background: rgba(31,61,46,0.06); border-radius: 6px; text-align: center;"><div style="font-size: 8px; color: var(--sg); text-transform: uppercase;">[Opt B]</div><div style="font-family: var(--display); font-size: 20px; color: var(--df);">XX%</div></div>
+        <div style="padding: 8px; background: rgba(31,61,46,0.06); border-radius: 6px; text-align: center;"><div style="font-size: 8px; color: var(--sg); text-transform: uppercase;">[Opt C]</div><div style="font-family: var(--display); font-size: 20px; color: var(--rs);">XX%</div></div>
+      </div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="padding: 10px 12px; background: rgba(31,61,46,0.04); border-radius: 6px; border: 1px solid var(--ps); flex: 1;">
+        <div style="font-family: var(--display); font-size: 11px; color: var(--df); margin-bottom: 6px;">Key Providers</div>
+        <div style="display: flex; flex-direction: column; gap: 3px; font-size: 9.5px;">
+          <div style="display: flex; justify-content: space-between; padding: 3px 0; border-bottom: 1px solid var(--ps);"><span style="color: var(--ch);">[Health System 1]</span><span style="display: flex; gap: 8px;"><span class="gap-ok">&#10003;</span><span class="gap-ok">&#10003;</span><span class="gap-neg">&#10007;</span></span></div>
+          <div style="display: flex; justify-content: space-between; padding: 3px 0; border-bottom: 1px solid var(--ps);"><span style="color: var(--ch);">[Health System 2]</span><span style="display: flex; gap: 8px;"><span class="gap-ok">&#10003;</span><span class="gap-neg">&#10007;</span><span class="gap-ok">&#10003;</span></span></div>
+          <div style="display: flex; justify-content: space-between; padding: 3px 0;"><span style="color: var(--ch);">[Health System 3]</span><span style="display: flex; gap: 8px;"><span class="gap-ok">&#10003;</span><span class="gap-ok">&#10003;</span><span class="gap-ok">&#10003;</span></span></div>
+        </div>
+      </div>
+      <div style="padding: 8px 10px; border-left: 3px solid var(--df); background: rgba(31,61,46,0.04); border-radius: 0 6px 6px 0;">
+        <div style="font-family: var(--display); font-size: 11px; color: var(--df); margin-bottom: 2px;">Disruption Summary</div>
+        <div style="font-size: 9px; color: var(--ch); line-height: 1.45;">[Option B] preserves all major health systems. [Option C] shows disruption for [X] specialists.</div>
+      </div>
+      <div style="padding: 8px 10px; background: rgba(26,63,107,0.06); border-radius: 6px; text-align: center;">
+        <div style="font-size: 8px; color: var(--sg); letter-spacing: 1px; text-transform: uppercase;">Recommendation</div>
+        <div style="font-family: var(--display); font-size: 13px; color: var(--az-dk);">[Option B] &mdash; Minimal Disruption</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">Nexus Benefit Solutions &mdash; Confidential</div>
+</div>
+  </div>
+  <div class="card-label">
+    <div class="card-name">NETWORK-ANALYSIS</div>
+    <div class="card-status" style="color: #2A5240;">EDITABLE</div>
+  </div>
+</div>
+  </div>
+</section>
+<section class="catalog-section">
+  <h2 class="section-heading">Transitions &amp; General</h2>
+  <div class="catalog-grid">
 <div class="catalog-card">
   <div class="thumb-container">
     <div class="slide" style="padding: 44px 64px; display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(160deg, var(--nw) 0%, var(--ps) 20%, #c5d2ca 35%, #7a9a8e 48%, #3d6a7a 60%, var(--az-dk) 80%, #0f2d4d 100%);">
@@ -1903,5 +2232,11 @@ body {
   </div>
 </section>
   </div>
+<!-- Lightbox modal -->
+<div class="lightbox-overlay" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose">&times;</button>
+  <div class="lightbox-frame" id="lightboxFrame"></div>
+  <div class="lightbox-label" id="lightboxLabel"></div>
+</div>
 </body>
 </html>
