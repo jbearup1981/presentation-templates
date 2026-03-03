@@ -397,12 +397,13 @@ body {
     window.addEventListener('load', scaleThumbs);
     window.addEventListener('resize', scaleThumbs);
 
-    // Lightbox
-    (function() {
+    // Lightbox — wait for DOM to be ready
+    window.addEventListener('load', function() {
       var overlay = document.getElementById('lightbox');
       var frame = document.getElementById('lightboxFrame');
       var label = document.getElementById('lightboxLabel');
       var closeBtn = document.getElementById('lightboxClose');
+      if (!overlay || !frame) return;
 
       function scaleLightbox() {
         var sw = (window.innerWidth * 0.9) / 960;
@@ -446,7 +447,7 @@ body {
       window.addEventListener('resize', function() {
         if (overlay.classList.contains('active')) scaleLightbox();
       });
-    })();
+    });
   </script>
 </head>
 <body>
