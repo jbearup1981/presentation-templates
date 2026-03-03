@@ -52,5 +52,11 @@ if (new URLSearchParams(window.location.search).get('mode') === 'responsive') {
   document.body.classList.add('responsive-mode');
 }
 
+// Button listeners (addEventListener for artifact sandbox compatibility)
+document.getElementById('prevBtn').addEventListener('click', function() { nav(-1); });
+document.getElementById('nextBtn').addEventListener('click', function() { nav(1); });
+var fsBtn = document.getElementById('fullscreenBtn');
+if (fsBtn) fsBtn.addEventListener('click', function() { toggleFullscreen(); });
+
 // Init
 go(0);
