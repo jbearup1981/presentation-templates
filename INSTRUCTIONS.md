@@ -48,7 +48,15 @@ This takes ~30 seconds on first run, ~5 seconds after that. **Do not ask the adv
 
 When an advisor provides a new image (carrier logo, client logo, team photo, etc.):
 
-1. **Save it to `assets/`** with a clean kebab-case filename (e.g., `humana-logo.png`, `acme-corp-logo.png`)
+1. **Save it to `assets/`** with a descriptive kebab-case filename following these conventions:
+
+   **Carrier logos:** `<carrier>-logo.png` — e.g., `humana-logo.png`, `cigna-logo.png`, `aetna-logo.svg`
+   **Client/company logos:** `<company>-logo.png` — e.g., `sena-info-tech-logo.png`, `northern-jet-logo.png`
+   **Team photos:** `<firstname>-<lastname>.jpg` — e.g., `tom-snikkers.jpg`, `courtney-uhrig.jpg`
+   **Product/program logos:** `<product>-logo.png` — e.g., `amaze-logo.png`, `teladoc-logo.png`
+   **Other images:** `<descriptive-name>.jpg` — e.g., `doctor-telehealth.jpg`, `office-meeting.jpg`
+
+   **Rules:** Always lowercase. Always kebab-case. Always include what it IS in the name (logo, photo, icon). Never use generic names like `image1.png` or `download.jpg`. The filename should be findable by someone searching for that carrier, company, or person months from now.
 2. **Push it to the repo** so it's permanently available to everyone:
 ```bash
 git add assets/<filename>
