@@ -282,6 +282,28 @@ Educational slides (introduce concepts) vs. Data slides (client-specific numbers
   - `starter-small-group-prospect.html` — 19 slides, 398KB
   - `starter-amaze-standalone.html` — 17 slides, 393KB
 
+### Mar 25, 2026 — Presentation System v2: URL-First Architecture
+- **`assemble_deck.py` v2 rewritten** with 7 new commands:
+  - `--to-urls`: Convert base64 → GitHub Pages URLs (454KB → 130KB)
+  - `--to-base64`: Convert URLs → standalone base64 for offline use
+  - `--replace-slide --slide-num N`: Replace a slide by number
+  - `--extract-slide --slide-num N`: Extract a slide by number
+  - `--plan-comparison`: Generate medical plan comparison from YAML (auto-splits 4+ cards into 2 slides, tag presets, benefit highlights, auto-dividers)
+  - `--dental-vision`: Generate dental & vision comparison slide from YAML
+  - `--list-slides`: Now shows sizes and image counts per slide
+- **9 carrier logos pushed to GitHub Pages** (UHC, Beam, Optimyl, Sana, TrustMark + variants)
+- **YAML template system** — `tools/templates/medical-comparison.yaml` and `dental-vision.yaml` for agents to copy and fill
+- **Design system match** — generated slides use exact Nexus CSS vars (`--df`, `--sg`, `--ch`, `--rs`, `--fl`, `--az-dk`, `--az-md`), fonts (`--display`, `--body`), shadows, and layout from Northern Jet reference
+- **Sena deck converted** as proof of concept — 454KB → 132KB, zero base64, 19 images all on GitHub Pages URLs
+- **INSTRUCTIONS.md rewritten** for dual-environment support:
+  - Environment detection (filesystem access → local tools, no access → browser artifacts)
+  - Auto-setup for Co-Work (silent git clone + pip install each session)
+  - Asset auto-push (new logos from advisors get committed to repo permanently)
+  - Strict asset naming conventions for discoverability
+- **`/sales-deck` skill rewritten** — v2 workflow with URL conversion, YAML comparisons, slide-level editing
+- **Memory updated** — `feedback_deck_building_workflow.md` rewritten for v2 architecture
+- **All changes pushed to GitHub Pages** — 4 commits to `presentation-templates` repo
+
 ### Mar 24, 2026 — Claude Code Deck Workflow Fix (Root Cause)
 - **Root cause found:** All 4 starter templates had broken images in [[Claude Code]]. Every `<img>` tag contained multi-line base64 with ASSET comments — works in Claude Projects artifact viewer but completely broken as raw HTML files.
 - **All 4 starters rebuilt clean:** Renewal (22 imgs), Prospect (18), Amaze (23), Midmarket (13) — all verified CLEAN via `assemble_deck.py --verify`
@@ -304,7 +326,8 @@ Educational slides (introduce concepts) vs. Data slides (client-specific numbers
 - [x] ~~Fix [[Claude Code]] deck building workflow~~ — Root cause fixed Mar 24. All starters rebuilt, tool rewritten, skill updated.
 - [x] ~~Create finished midmarket deck~~ — Created Mar 24
 - [x] ~~Add carrier logos ([[United Healthcare|UHC]], [[Beam]], Optimyl, Sana, TrustMark)~~ — Added Mar 24
-- [ ] Upload updated files to [[claude-team|Claude Team]] project (INSTRUCTIONS.md, master, 4 starters)
+- [ ] **Upload updated files to [[claude-team|Claude Team]] project** (INSTRUCTIONS.md, master, 4 starters) — IN PROGRESS
+- [ ] Set up biweekly asset repo maintenance job — review naming, remove unused, organize if 100+ files
 - [ ] Phone numbers still placeholders on component closing slides
 - [ ] Client Momentum slide has placeholder logos/names
 - [ ] No responsive web page templates built yet (build on demand)
@@ -314,3 +337,4 @@ Educational slides (introduce concepts) vs. Data slides (client-specific numbers
 - [ ] Record Loom walkthrough for advisor onboarding
 - [ ] Add Brenda/Cameron/Tom/[[sophie|Sophie]] photos to asset library when available
 - [ ] Build first priority components (level-funded explainer, [[ichra-expertise|ICHRA]] explainer)
+- [ ] Test full Co-Work advisor workflow end-to-end (clone, build, push asset, verify)
