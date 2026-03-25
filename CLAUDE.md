@@ -1,28 +1,31 @@
 # Presentation Deck Builder — Project Documentation
 
 ## Vision
-A complete presentation system for Nexus Benefit Solutions advisors. Advisors build customized slide decks for prospect and client meetings by picking slides from a component library, and an AI agent assembles and customizes them.
+A complete presentation system for [[sbbmi-resource-hub|Nexus Benefit Solutions]] advisors. Advisors build customized slide decks for prospect and client meetings by picking slides from a component library, and an AI agent assembles and customizes them.
 
 **Current:** Claude Projects on claude.ai Team — advisors interact conversationally, agent builds decks as artifacts with embedded images. Shipped to team Mar 3, 2026.
 
-**Near-term:** Expand component library (compliance, voluntary benefits, ICHRA, level-funded). Add viewer analytics to hosted decks. Extend to benefit guides and compliance documents.
+**Near-term:** Expand component library (compliance, voluntary benefits, [[ichra-expertise|ICHRA]], level-funded). Add viewer analytics to hosted decks. Extend to benefit guides and compliance documents.
 
-**Long-term:** Custom web app launched from the CRM. Advisor clicks "Create Deck" on a client record → slide catalog with click-to-select UI → LLM handles customization behind the scenes → deck auto-saves to OneDrive and links to CRM record. No Claude subscription needed for advisors. Swap LLMs at will. No context window constraints (database stores components, LLM only sees surgical requests).
+**Long-term:** Custom web app launched from the CRM. Advisor clicks "Create Deck" on a client record → slide catalog with click-to-select UI → LLM handles customization behind the scenes → deck auto-saves to [[OneDrive]] and links to CRM record. No Claude subscription needed for advisors. Swap LLMs at will. No context window constraints (database stores components, LLM only sees surgical requests).
 
 ## Architecture
 
-### Claude Projects (Current — Shipped Mar 3)
+### Claude Projects (Current — Shipped Mar 3, Updated Mar 3)
 
-Three files uploaded to a Claude Team project:
+Seven files uploaded to a [[claude-team|Claude Team]] project:
 
-| File | Size | Tokens (~) | Purpose |
-|------|------|-----------|---------|
-| `INSTRUCTIONS.md` | ~21KB | ~5K | System prompt — how to build decks, recipes, guidelines |
-| `nexus-components-master.html` | ~232KB | ~60K | All 36 slide components + base CSS + base JS + team directory |
-| `nexus-assets-base64.html` | ~123KB | ~31K | 16 shared images compressed and base64-encoded |
-| **Total** | **~376KB** | **~96K** | **48% of 200K Team context window** |
+| File | Size | Purpose |
+|------|------|---------|
+| `INSTRUCTIONS.md` | ~30KB | System prompt — recipes, checklists, revision mode, build guidelines |
+| `nexus-components-master.html` | ~235KB | All 36 slide components + component index + base CSS/JS + team |
+| `nexus-assets-base64.html` | ~123KB | 16 shared images as base64 data URIs |
+| `starter-small-group-renewal.html` | ~493KB | Pre-built 24-slide renewal starter |
+| `starter-mid-market-renewal.html` | ~355KB | Pre-built 23-slide mid-market starter |
+| `starter-small-group-prospect.html` | ~398KB | Pre-built 19-slide prospect starter |
+| `starter-amaze-standalone.html` | ~393KB | Pre-built 17-slide Amaze starter |
 
-**Connectors enabled:** M365 (auto-save to OneDrive)
+**Connectors enabled:** [[M365]] (auto-save to [[OneDrive]])
 **Tools enabled:** Web search (finding client logos/info)
 
 ### How Decks Get Built (Claude Projects)
@@ -32,7 +35,43 @@ Three files uploaded to a Claude Team project:
 4. Agent embeds images from `nexus-assets-base64.html` as data URIs
 5. Agent outputs complete HTML deck as an artifact — renders in the viewer
 6. Advisor flips through slides, requests changes conversationally
-7. Agent auto-saves to `Deck_Build_History/` on shared OneDrive via M365
+7. Agent auto-saves to `Deck_Build_History/` on shared [[OneDrive]] via [[M365]]
+
+### How Decks Get Built (Claude Code) — v2 URL-First Architecture (Mar 25)
+**[[Claude Code]] uses URL-based images.** All images are served from GitHub Pages. Deck files are ~130KB instead of ~450KB. Fully editable in any AI chat without blowing the context window.
+
+**Standard workflow:**
+1. **Create deck:** `python3 tools/assemble_deck.py --new-deck renewal --client "Company" -o deck.html`
+2. **Convert to URLs:** `python3 tools/assemble_deck.py --to-urls deck.html -o deck.html` (base64 → GitHub Pages URLs)
+3. **Edit freely** — text, rates, plan details. Images are just URLs, not base64 blobs.
+4. **Extract a slide:** `python3 tools/assemble_deck.py --extract-slide deck.html --slide-num 9 -o slide9.html`
+5. **Replace a slide:** `python3 tools/assemble_deck.py --replace-slide deck.html --slide-num 9 --slide-html slide9.html`
+6. **Generate plan comparisons:** `python3 tools/assemble_deck.py --plan-comparison plans.yaml -o slide.html`
+7. **Need offline/standalone?** `python3 tools/assemble_deck.py --to-base64 deck.html -o standalone.html`
+8. **Verify:** `python3 tools/assemble_deck.py --verify deck.html`
+
+**Image format hierarchy:**
+1. **GitHub Pages URLs** (default) — lightweight, editable, requires internet
+2. **Embedded base64** (standalone) — for offline/email delivery, generated from URLs via `--to-base64`
+3. **Relative paths** (source) — finished decks use these, converted to URLs or base64 by tool
+
+**YAML-driven plan comparisons:** Create a `.yaml` file with carrier data, rates, benefits, and `--plan-comparison` generates a styled slide matching the Nexus design system. Edit the YAML, regenerate, replace — no manual HTML surgery.
+
+### File Architecture (Three Formats)
+| Format | When to Use | Size | [[Claude Code]] |
+|--------|-------------|------|-------------|
+| **URL-based** (`src="https://...github.io/..."`) | Default for editing & presentation | ~130KB | Full context window headroom |
+| **Base64** (`src="data:image/..."`) | Standalone/offline delivery | ~450KB | Avoid — eats context window |
+| **Relative paths** (`src="../assets/..."`) | Finished deck sources only | ~50KB | Not directly viewable |
+
+### Asset Hosting (GitHub Pages)
+All 47+ assets are hosted at `https://jbearup1981.github.io/presentation-templates/assets/`. When new assets are added to `assets/`, push to GitHub and they're immediately available as URLs. No base64 encoding needed.
+
+**Key assets:**
+- Team photos: `jason-bearup.jpg`, `ken-fortier.jpg`, `grace-morris.jpg`, `brenda-manning.jpg`, `cameron-manning.jpg`
+- Carrier logos: `uhc-logo.png`, `bcbs-michigan-logo.png`, `beam-logo.png`, `optimyl-logo.png`, `trustmark-logo.png`, `sana-logo.png`, `priorityhealth-logo-green.svg`
+- Branding: `nexus-logo-white.svg`, `nexus-logo.svg`, `amaze-logo.png`
+- Full list: `python3 tools/assemble_deck.py --list-assets`
 
 ### Key Artifact Viewer Constraints (Discovered Mar 3)
 - **No inline onclick handlers** — artifact sandbox blocks them. Use `addEventListener` in JS instead. Fixed in `base.js`.
@@ -71,7 +110,7 @@ Three files uploaded to a Claude Team project:
 **Medical Renewal — Advanced (Self-Funded / Level-Funded) — 4:**
 `claims-analysis` · `stop-loss-renewal` · `funding-comparison` · `network-analysis`
 
-**Amaze Health (Blue) — 12:**
+**[[Amaze_Health|Amaze Health]] (Blue) — 12:**
 `amaze-problem` · `amaze-solutions` · `amaze-how-it-works` · `amaze-patient-stories` · `amaze-biomed` · `amaze-insurance` · `amaze-paycheck` · `amaze-everybody-wins` · `amaze-faq` · `amaze-market-comparison` · `amaze-client-momentum` · `amaze-implementation`
 
 **Blank Templates — 4:**
@@ -106,8 +145,8 @@ Team photos (3), Nexus logo, Amaze logo, doctor-telehealth, carrier logos (2), c
 
 ## Auto-Save & Build Tracking
 - Every deck includes an HTML comment build log (client, advisor, date, recipe, new assets, custom slides)
-- Agent auto-saves to `Deck_Build_History/` on shared OneDrive via M365 connector
-- Graceful fallback if M365 not connected — embedded log is the backup
+- Agent auto-saves to `Deck_Build_History/` on shared [[OneDrive]] via [[M365]] connector
+- Graceful fallback if [[M365]] not connected — embedded log is the backup
 - Jason reviews periodically, best custom slides/assets get added to the component library
 
 ## Future Vision
@@ -118,7 +157,7 @@ Team photos (3), Nexus logo, Amaze logo, doctor-telehealth, carrier logos (2), c
 - Click-to-select slide catalog (not drag-and-drop — click adds slide to next position)
 - LLM behind the scenes for customization — only sees the specific slide being edited, not the whole library
 - No context window constraints — components in database, not in LLM context
-- Auto-save to OneDrive, link back to CRM record
+- Auto-save to [[OneDrive]], link back to CRM record
 - Multi-LLM — swap Claude/OpenAI/local models as needed
 - No per-seat AI subscription for advisors — API costs only
 - Extends to benefit guides, compliance documents, any templated deliverable
@@ -148,18 +187,18 @@ Educational slides (introduce concepts) vs. Data slides (client-specific numbers
 
 ### Priority (Build Next)
 1. Level-funded explainer (3 slides) — advisors pitching this frequently
-2. ICHRA explainer (2-3 slides) — growing market
+2. [[ichra-expertise|ICHRA]] explainer (2-3 slides) — growing market
 3. Voluntary benefits overview (2 slides) — common upsell
 4. Mid-level benchmarking (2-3 slides) — fills gap between simple and in-depth
 5. Disability + FMLA pairing (2 slides) — high-value for larger groups
 
 ### Full Roadmap
 - **Benchmarking:** Simple (BUILT), Mid-level, In-depth
-- **Funding:** Fully insured (BUILT), Self-funded (BUILT), Level-funded, ICHRA
+- **Funding:** Fully insured (BUILT), Self-funded (BUILT), Level-funded, [[ichra-expertise|ICHRA]]
 - **Voluntary:** Dental/vision (BUILT), Supplemental (BUILT), Voluntary overview, Disability, Life/AD&D
 - **Ben Admin:** Client portal (BUILT), Ben admin platform, Mobile benefit guides
 - **Amaze:** Core pitch (BUILT), Extended implementation, Employee-facing pitch
-- **Compliance:** Small group, Mid-market, General (COBRA/FMLA/HIPAA/125)
+- **Compliance:** Small group, Mid-market, General ([[cobra-notice-requirements-and-penalties|COBRA]]/FMLA/HIPAA/125)
 
 ### How to Add New Components
 1. Create HTML file in `components/slides/` following existing conventions
@@ -173,21 +212,21 @@ Educational slides (introduce concepts) vs. Data slides (client-specific numbers
 ## Market Research (Mar 3, 2026)
 
 ### Competitive Landscape
-- **Gamma** — market leader (70M users, $2.1B valuation). AI-native, web cards. PPTX export has formatting issues. Generate API available.
+- **[[Gamma]]** — market leader (70M users, $2.1B valuation). AI-native, web cards. PPTX export has formatting issues. Generate API available.
 - **Beautiful.ai** — best layout automation. "Smart slides" reformat as you add content.
 - **Prezent** — enterprise ($$$). 35K+ brand-compliant slides, AI assistant "Astrid."
 - **Microsoft Copilot for PowerPoint** — generates from prompts, fabricates statistics. Functional but not beautiful.
-- **Canva AI** — Magic Design, Docs to Decks. Swiss army knife but "Canva-ish" output.
+- **[[Canva]] AI** — Magic Design, Docs to Decks. Swiss army knife but "Canva-ish" output.
 
 ### Key Insights
 - "Presentation as code" (version-controlled, component-based, assembled by AI) is an emerging pattern — we're ahead of the curve
 - HTML is the right primary format for AI-generated, brand-controlled presentations
 - No AI tool has deep native CRM integration — manual data export is universal. CRM→deck pipeline is a real differentiator.
-- Viewer analytics (who opened, time per slide) is becoming table stakes for sales presentations
+- Viewer analytics (who opened, time per slide) is becoming table stakes for [[presentations|sales presentations]]
 - MCP servers exist for PPTX generation (SlideSpeak, 2slides) — could add PPTX export if clients demand it
 
 ### Relevant Tools to Watch
-- `frontend-slides` — Claude Code skill for HTML presentations (github.com/zarazhangrui/frontend-slides)
+- `frontend-slides` — [[Claude Code]] skill for HTML presentations (github.com/zarazhangrui/frontend-slides)
 - SlideSpeak MCP — generates PPTX from Claude conversations
 - 2slides MCP — PPTX via pre-built themes, agent skills architecture
 
@@ -199,7 +238,7 @@ Educational slides (introduce concepts) vs. Data slides (client-specific numbers
 - Print CSS, responsive scroll mode, template watermarks
 
 ### Mar 1, 2026 — Prospect Folder Consolidation
-- Harloff and Northern Jet prospect folders consolidated
+- [[harloff-manufacturing|Harloff]] and [[northern-jet|Northern Jet]] prospect folders consolidated
 - iCloud backup set up
 
 ### Mar 2, 2026 — Modular Component System
@@ -218,16 +257,54 @@ Educational slides (introduce concepts) vs. Data slides (client-specific numbers
 - Built `nexus-assets-base64.html` (123KB) — 16 shared images compressed and base64-encoded for artifact viewer
 - Rewrote INSTRUCTIONS.md: removed Git-fetching, recipes embedded inline, base64 asset workflow
 - Added Smart Agent Guidelines (8 items) including Amaze section tiering (Quick 5/Standard 9/Full 12)
-- Added auto-save workflow: deck build log in HTML comments + M365 auto-save to OneDrive Deck_Build_History
+- Added auto-save workflow: deck build log in HTML comments + [[M365]] auto-save to [[OneDrive]] Deck_Build_History
 - Fixed base.js for artifact sandbox: replaced inline onclick with addEventListener, pushed to GitHub
 - Discovered artifact viewer constraints: no external images, ~150KB output limit, Cloudflare script injection
-- Tested and shipped to Claude Team — Amaze Biomed standalone deck built perfectly with all assets rendering
+- Tested and shipped to [[claude-team|Claude Team]] — Amaze Biomed standalone deck built perfectly with all assets rendering
 - Northern Jet legacy deck analyzed — 908KB (872KB base64 image blob), extracted aircraft image, created clean version with GitHub Pages URLs. Legacy decks too big for artifacts; view at GitHub Pages link, edit through chat.
 - Comprehensive market research: AI presentation landscape, enterprise tools, modular design best practices, MCP servers
 - Long-term vision documented: custom web app launched from CRM, click-to-select UI, viewer analytics, no context window constraints
 
+### Mar 3, 2026 — System Improvements (12-Point Upgrade)
+- Added component index to `nexus-components-master.html` — real line numbers for all 36 components + CSS/JS/team
+- Rewrote INSTRUCTIONS.md with 8 new sections:
+  - Advisor onboarding guidance (project description)
+  - Optimized conversation flow (Turn 1-3 build pattern)
+  - Starter deck workflow (preferred build method)
+  - Revision Mode (single-slide, multi-slide, structural, client swap)
+  - Per-recipe data checklists (what to ask, in what order)
+  - Enhanced build log format (customization decisions + pending/placeholders)
+  - Quick edit response pattern
+  - Modular slide packs (future-proofing for multi-slide topics)
+- Built 4 pre-built starter decks (all images embedded, default team populated):
+  - `starter-small-group-renewal.html` — 24 slides, 493KB
+  - `starter-mid-market-renewal.html` — 23 slides, 355KB
+  - `starter-small-group-prospect.html` — 19 slides, 398KB
+  - `starter-amaze-standalone.html` — 17 slides, 393KB
+
+### Mar 24, 2026 — Claude Code Deck Workflow Fix (Root Cause)
+- **Root cause found:** All 4 starter templates had broken images in [[Claude Code]]. Every `<img>` tag contained multi-line base64 with ASSET comments — works in Claude Projects artifact viewer but completely broken as raw HTML files.
+- **All 4 starters rebuilt clean:** Renewal (22 imgs), Prospect (18), Amaze (23), Midmarket (13) — all verified CLEAN via `assemble_deck.py --verify`
+- **`assemble_deck.py` rewritten** with new commands: `--rebuild-starters`, `--new-deck`, `--embed`, `--add-image`, `--verify`, `--asset-to-base64`
+- **Finished midmarket deck created** (`finished-mid_market_renewal_deck/`) — enables clean rebuilds from source
+- **Carrier logos added to `assets/`:** [[United Healthcare|UHC]], [[Beam]], Optimyl, Sana, TrustMark
+- **`/sales-deck` skill updated** to enforce assembly tool workflow
+- **Memory saved:** `feedback_deck_building_workflow.md` — permanent rules for [[Claude Code]] deck building
+- **Dual-environment architecture documented** in this file (Claude Projects vs Claude Code)
+
 ## Open Items
 - [x] ~~Test in Claude Projects~~ — SHIPPED Mar 3, Amaze deck built perfectly
+- [x] ~~Build starter decks~~ — All 4 built Mar 3
+- [x] ~~Add component index~~ — Added Mar 3
+- [x] ~~Revision Mode instructions~~ — Added Mar 3
+- [x] ~~Per-recipe data checklists~~ — Added Mar 3
+- [x] ~~Advisor onboarding guidance~~ — Added Mar 3
+- [x] ~~Enhanced build log~~ — Added Mar 3
+- [x] ~~Conversation flow optimization~~ — Added Mar 3
+- [x] ~~Fix [[Claude Code]] deck building workflow~~ — Root cause fixed Mar 24. All starters rebuilt, tool rewritten, skill updated.
+- [x] ~~Create finished midmarket deck~~ — Created Mar 24
+- [x] ~~Add carrier logos ([[United Healthcare|UHC]], [[Beam]], Optimyl, Sana, TrustMark)~~ — Added Mar 24
+- [ ] Upload updated files to [[claude-team|Claude Team]] project (INSTRUCTIONS.md, master, 4 starters)
 - [ ] Phone numbers still placeholders on component closing slides
 - [ ] Client Momentum slide has placeholder logos/names
 - [ ] No responsive web page templates built yet (build on demand)
@@ -235,5 +312,5 @@ Educational slides (introduce concepts) vs. Data slides (client-specific numbers
 - [ ] Add viewer analytics to GitHub Pages-hosted decks (Plausible/Umami)
 - [ ] Test Northern Jet deck editing workflow (GitHub Pages link + chat)
 - [ ] Record Loom walkthrough for advisor onboarding
-- [ ] Add Brenda/Cameron/Tom/Sophie photos to asset library when available
-- [ ] Build first priority components (level-funded explainer, ICHRA explainer)
+- [ ] Add Brenda/Cameron/Tom/[[sophie|Sophie]] photos to asset library when available
+- [ ] Build first priority components (level-funded explainer, [[ichra-expertise|ICHRA]] explainer)

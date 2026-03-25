@@ -26,8 +26,8 @@ All shared images used across decks, pre-compressed and base64-encoded. Each ima
 
 **Team Photos:** `jason-bearup.jpg` · `ken-fortier.jpg` · `grace-morris.jpg`
 **Nexus Branding:** `nexus-logo-white.svg`
-**Amaze Health:** `amaze-logo.png` · `doctor-telehealth.jpg`
-**Carrier Logos:** `bcbs-michigan-logo.png` · `priorityhealth-logo-green.svg`
+**[[Amaze_Health|Amaze Health]]:** `amaze-logo.png` · `doctor-telehealth.jpg`
+**Carrier Logos:** `bcbs-michigan-logo.png` · `priorityhealth-logo-green.svg` · `[[United Healthcare|uhc]]-logo.png` · `[[Beam|beam]]-logo.png` · `[[Beam|beam]]-logo.svg` · `optimyl-logo.png` · `sana-logo.png` · `trustmark-logo.png`
 **Competitor Logos:** `cerebral-logo.png` · `firefly-logo.png` · `galileo-logo.svg` · `healthjoy-logo.png` · `mdlive-logo.svg` · `recuro-logo.png` · `talkspace-logo.png` · `teladoc-logo.png`
 
 **For client-specific images** (company logo, hero photo), ask the advisor for a URL or have them upload the image.
@@ -42,6 +42,25 @@ This is a reference tool for humans. You (the agent) read the actual HTML from t
 ### How Decks Get Built
 
 Decks are assembled from modular slide components — like Lego pieces. Each component is a single slide (or small group of related slides) inside the component library file. You pick the slides, find them in the component library, customize the editable fields, and assemble them into a complete HTML deck.
+
+---
+
+## How to Use This Project (What Advisors See)
+
+This project builds presentation decks for client and prospect meetings. Tell me about the meeting and I'll help you pick the right slides, customize them, and produce a finished HTML deck you can present in Chrome or save as a PDF.
+
+**Getting started is easy:**
+- Tell me who the client is, what kind of meeting it is, and what you're trying to accomplish
+- I'll recommend a deck recipe or help you pick slides from the catalog
+- Give me the client details (rates, employee counts, plan info) and I'll build the deck
+
+**Tips for the best results:**
+- **Start with the big picture.** "It's a 50-life renewal for Lakewood Precision, BCBS carrier, renewing July 1" gives me everything I need to get started.
+- **Don't worry about having everything up front.** I'll build what I can and leave placeholders for missing data. You can fill in rates and details as they come in.
+- **Revisions are easy.** Just say what needs to change: "Update the deductible to $3,000" or "Swap Ken for Brenda on the team slide." I'll fix it without rebuilding the whole deck.
+- **Browse the slide catalog** to see what's available: [View Slide Catalog](https://jbearup1981.github.io/presentation-templates/components/catalog.html)
+
+**The deck is an HTML file.** Open it in Chrome for presenting (use arrow keys to navigate), or print to PDF (Landscape, no margins, check "Background graphics").
 
 ---
 
@@ -89,7 +108,7 @@ For standard meetings, start with a recipe and customize from there. Recipes are
 | # | Component | Notes |
 |---|-----------|-------|
 | 1 | `nexus-title` | Company name, renewal date, company image |
-| 2 | `nexus-agenda` | Items: Renewal Analysis, Industry Benchmarking, Introducing Nexus, Strategic Approach, Amaze Health & Biomed, Implementation |
+| 2 | `nexus-agenda` | Items: Renewal Analysis, Industry Benchmarking, Introducing Nexus, Strategic Approach, [[Amaze_Health|Amaze Health]] & Biomed, Implementation |
 | 3 | `nexus-team` | Advisors on this account (read team directory) |
 | 4 | `benchmarking-simple` | Industry benchmarking vs. KFF norms |
 | 5 | `nexus-intro` | Introducing Nexus value proposition |
@@ -102,7 +121,7 @@ For standard meetings, start with a recipe and customize from there. Recipes are
 | 12 | `supplemental` | Supplemental & voluntary benefits |
 | 13 | `section-transition` | "Something More for Your Team" bridge |
 | 14 | `amaze-problem` | The healthcare problem (4 cards) |
-| 15 | `amaze-solutions` | What employees get with Amaze Health |
+| 15 | `amaze-solutions` | What employees get with [[Amaze_Health|Amaze Health]] |
 | 16 | `amaze-biomed` | The Biomed / Section 125 solution |
 | 17 | `amaze-insurance` | Insurance benefits comparison |
 | 18 | `amaze-paycheck` | Paycheck impact example |
@@ -113,6 +132,35 @@ For standard meetings, start with a recipe and customize from there. Recipes are
 | 23 | `amaze-implementation` | 6-week implementation timeline |
 | 24 | `nexus-closing` | Team contacts and closing |
 
+#### What I'll Need (Small Group Renewal)
+
+**To get started (ask first):**
+- Company name and renewal date
+- Who from Nexus is on this account?
+- Current carrier and plan name(s)
+- Company image/logo URL (optional — color block default if none)
+
+**To complete the renewal slides (ask second):**
+- Current monthly premium and renewal monthly premium (or % increase)
+- Employee count (total eligible, enrolled)
+- Plan details for comparison: deductibles, copays, OOP max, coinsurance
+- Any alternative plan options being quoted?
+
+**To customize benchmarking (ask third or use defaults):**
+- Industry type
+- Employer contribution % and eligibility %
+
+**Can wait / use placeholders:**
+- Dental & vision renewal rates
+- Supplemental benefit details
+- Specific FICA savings calculation (defaults to enrolled count × ~$900/yr)
+
+**Handled automatically:**
+- All [[Amaze_Health|Amaze Health]] slides (standard content)
+- Team photos, titles, contact info (from team directory)
+- Benchmarking data (from KFF norms)
+- Navigation, formatting, slide counter
+
 ---
 
 ### Recipe: Mid-Market Renewal (23 slides)
@@ -122,7 +170,7 @@ For standard meetings, start with a recipe and customize from there. Recipes are
 | # | Component | Notes |
 |---|-----------|-------|
 | 1 | `nexus-title` | Company name, renewal date, company image |
-| 2 | `nexus-agenda` | Items: Claims Review, Stop-Loss Renewal, Funding Strategy, Network Analysis, Plan Options, Amaze Health, Implementation |
+| 2 | `nexus-agenda` | Items: Claims Review, Stop-Loss Renewal, Funding Strategy, Network Analysis, Plan Options, [[Amaze_Health|Amaze Health]], Implementation |
 | 3 | `nexus-team` | Advisors on this account (read team directory) |
 | 4 | `claims-analysis` | 3-year claims trending, large claimants, loss ratio |
 | 5 | `stop-loss-renewal` | Specific & aggregate stop-loss, lasers, rate history |
@@ -136,7 +184,7 @@ For standard meetings, start with a recipe and customize from there. Recipes are
 | 13 | `supplemental` | Supplemental & voluntary benefits |
 | 14 | `section-transition` | "Something More for Your Team" bridge |
 | 15 | `amaze-problem` | The healthcare problem (4 cards) |
-| 16 | `amaze-solutions` | What employees get with Amaze Health |
+| 16 | `amaze-solutions` | What employees get with [[Amaze_Health|Amaze Health]] |
 | 17 | `amaze-biomed` | The Biomed / Section 125 solution |
 | 18 | `amaze-insurance` | Insurance benefits comparison |
 | 19 | `amaze-paycheck` | Paycheck impact example |
@@ -144,6 +192,34 @@ For standard meetings, start with a recipe and customize from there. Recipes are
 | 21 | `amaze-faq` | Frequently asked questions |
 | 22 | `amaze-implementation` | 6-week implementation timeline |
 | 23 | `nexus-closing` | Team contacts and closing |
+
+#### What I'll Need (Mid-Market Renewal)
+
+**To get started (ask first):**
+- Company name and renewal date
+- Who from Nexus is on this account?
+- Current funding model (self-funded, level-funded, fully insured)
+- Company image/logo URL (optional)
+
+**To complete the claims & stop-loss slides (ask second):**
+- 3 years of claims data: paid claims, fixed costs, total cost, loss ratios
+- Large claimant details (anonymized — condition and cost)
+- Current & renewal specific deductible, PEPM rates
+- Aggregate attachment point, corridor
+- Active lasers (member, condition, laser amount)
+
+**To complete plan & network slides (ask third):**
+- Plan options with rates, deductibles, copays, OOP max
+- Current network vs. alternatives
+- Key providers/health systems employees use
+
+**Can wait / use placeholders:**
+- Dental & vision rates
+- Supplemental benefit details
+- Detailed funding comparison numbers
+
+**Handled automatically:**
+- All [[Amaze_Health|Amaze Health]] slides, team info, benchmarking norms, navigation
 
 ---
 
@@ -154,7 +230,7 @@ For standard meetings, start with a recipe and customize from there. Recipes are
 | # | Component | Notes |
 |---|-----------|-------|
 | 1 | `nexus-title` | Company name, date, company image |
-| 2 | `nexus-agenda` | Items: Where We Left Off, Industry Benchmarking, Introducing Nexus, Strategic Approach, Amaze Health & Biomed, Next Steps |
+| 2 | `nexus-agenda` | Items: Where We Left Off, Industry Benchmarking, Introducing Nexus, Strategic Approach, [[Amaze_Health|Amaze Health]] & Biomed, Next Steps |
 | 3 | `nexus-team` | Advisors on this account (read team directory) |
 | 4 | `discovery-recap` | "Where We Left Off" conversation summary |
 | 5 | `benchmarking-simple` | Industry benchmarking vs. KFF norms |
@@ -163,7 +239,7 @@ For standard meetings, start with a recipe and customize from there. Recipes are
 | 8 | `nexus-capabilities` | Full-service capabilities grid |
 | 9 | `section-transition` | "Beyond Insurance" bridge (or skip) |
 | 10 | `amaze-problem` | The healthcare problem (4 cards) |
-| 11 | `amaze-solutions` | What employees get with Amaze Health |
+| 11 | `amaze-solutions` | What employees get with [[Amaze_Health|Amaze Health]] |
 | 12 | `amaze-biomed` | The Biomed / Section 125 solution |
 | 13 | `amaze-insurance` | Insurance benefits comparison |
 | 14 | `amaze-paycheck` | Paycheck impact example |
@@ -173,15 +249,34 @@ For standard meetings, start with a recipe and customize from there. Recipes are
 | 18 | `amaze-implementation` | Next steps / implementation timeline |
 | 19 | `nexus-closing` | Team contacts and closing |
 
+#### What I'll Need (Small Group Prospect)
+
+**To get started (ask first):**
+- Company name
+- Who from Nexus is on this account?
+- What was discussed in the discovery meeting? (for the recap slide)
+
+**To customize (ask second):**
+- Company image/logo URL (optional)
+- Employee count, industry
+- Any specific pain points or priorities from the discovery call?
+
+**Can wait / use placeholders:**
+- Benchmarking details (contribution %, eligibility % — defaults available)
+- Specific plan options (if quoting already)
+
+**Handled automatically:**
+- All Amaze slides, Nexus intro slides, team info, benchmarking norms
+
 ---
 
 ### Recipe: Amaze Standalone (17 slides)
 
-**Use when:** Standalone Amaze Health / Biomed program pitch. Not tied to a specific client's renewal. Used with Amaze reps or as a generic employer presentation.
+**Use when:** Standalone [[Amaze_Health|Amaze Health]] / Biomed program pitch. Not tied to a specific client's renewal. Used with Amaze reps or as a generic employer presentation.
 
 | # | Component | Notes |
 |---|-----------|-------|
-| 1 | `nexus-title` | Amaze Health + Biomed Program title (no company-specific image) |
+| 1 | `nexus-title` | [[Amaze_Health|Amaze Health]] + Biomed Program title (no company-specific image) |
 | 2 | `nexus-agenda` | Items: Why We're Here, The Problem, Amaze Health, Biomed Program, Client Momentum, Implementation |
 | 3 | `nexus-team` | Advisors presenting (read team directory) |
 | 4 | `nexus-intro` | Why We're Here / opportunity framing |
@@ -198,6 +293,24 @@ For standard meetings, start with a recipe and customize from there. Recipes are
 | 15 | `amaze-faq` | Frequently asked questions |
 | 16 | `amaze-implementation` | 6-week implementation timeline |
 | 17 | `nexus-closing` | Team contacts and closing |
+
+#### What I'll Need (Amaze Standalone)
+
+**To get started (ask first):**
+- Who's presenting? (Nexus advisor, Amaze rep, or both?)
+- Who's the audience? (specific company, or generic employer pitch?)
+- Which Amaze tier: Quick Intro (5), Standard Pitch (9), or Full Deep Dive (all 12)?
+
+**To customize (if company-specific):**
+- Company name and employee count (for FICA savings math)
+- Company image/logo URL (optional)
+
+**Can wait / use placeholders:**
+- Client momentum logos (defaults available)
+- Specific wage/plan data for paycheck slide (defaults available)
+
+**Handled automatically:**
+- All Amaze content, team info, implementation timeline, navigation
 
 ---
 
@@ -217,7 +330,7 @@ If the advisor wants something different from the recipes, they pick slides from
 **Medical Renewal — Advanced (Self-Funded / Level-Funded):**
 `claims-analysis` · `stop-loss-renewal` · `funding-comparison` · `network-analysis`
 
-**Amaze Health (Blue):**
+**[[Amaze_Health|Amaze Health]] (Blue):**
 `amaze-problem` · `amaze-solutions` · `amaze-how-it-works` · `amaze-patient-stories` · `amaze-biomed` · `amaze-insurance` · `amaze-paycheck` · `amaze-everybody-wins` · `amaze-faq` · `amaze-market-comparison` · `amaze-client-momentum` · `amaze-implementation`
 
 **Blank Templates:**
@@ -227,8 +340,34 @@ If the advisor wants something different from the recipes, they pick slides from
 
 ## Assembling a Deck
 
-### Step 1: Get the base shell
-Find the `<!-- BASE-CSS -->` and `<!-- BASE-JS -->` sections in the component library file. The output HTML structure is:
+### Preferred Method: Start from a Starter Deck
+
+**For standard recipe builds, always start from the pre-built starter deck.** Four complete starter decks are available as project files:
+
+| File | Recipe | Slides |
+|------|--------|--------|
+| `starter-small-group-renewal.html` | Small Group Renewal | 24 |
+| `starter-mid-market-renewal.html` | Mid-Market Renewal | 23 |
+| `starter-small-group-prospect.html` | Small Group Prospect | 19 |
+| `starter-amaze-standalone.html` | Amaze Standalone | 17 |
+
+Each starter has all components assembled, base CSS/JS included, base64 images embedded, default team (Jason, Ken, Grace) populated, and generic placeholders for client-specific data.
+
+**To build from a starter:**
+1. Read the starter deck file
+2. Find-and-replace placeholders: `[Company Name]`, `[Renewal Date]`, `[Current Premium]`, etc.
+3. Swap team members if needed (read team directory from component library)
+4. Add client-specific images (logo, hero photo) if provided
+5. Update the build log comment at the top
+6. Output as artifact
+
+**This is dramatically faster than building from components.** Only build from components when the advisor wants a fully custom deck that doesn't match any recipe.
+
+### Building from Components (Custom Decks Only)
+
+Use this method only when no starter deck fits. Use the **component index** at the top of `nexus-components-master.html` to jump directly to the line ranges you need — don't scan the whole file.
+
+**Step 1:** Get the base shell — find `base-css` (use index line range) and `base-js` (use index line range). The output HTML structure is:
 
 ```html
 <!DOCTYPE html>
@@ -263,35 +402,75 @@ Find the `<!-- BASE-CSS -->` and `<!-- BASE-JS -->` sections in the component li
 </html>
 ```
 
-### Step 2: Find and insert slide components
-For each slide in the recipe (or custom selection), find the `<!-- COMPONENT: component-name -->` section in the component library file and copy the slide HTML. Insert each component inside `<div class="deck">` in the correct order. The first slide must have `class="slide active"`.
+**Step 2:** Find and insert slide components using the component index line ranges. First slide must have `class="slide active"`.
 
-### Step 3: Customize editable fields
-Each component has `<!-- EDITABLE: ... -->` or `<!-- FIXED: ... -->` markers. Only modify content marked EDITABLE. Replace placeholders like `[Company Name]`, `[Renewal Date]`, etc. with actual client data.
+**Step 3:** Customize editable fields — look for `<!-- EDITABLE: ... -->` markers. Replace placeholders with actual client data.
 
-### Step 4: Embed images
-For each image reference in the slide HTML (e.g., `src="assets/jason-bearup.jpg"`), find the matching `<!-- ASSET: filename -->` in the image asset library and replace the `assets/filename` path with the full base64 data URI. This embeds the images directly so they render in the artifact viewer without external requests.
+**Step 4:** Embed images — replace `assets/filename` paths with base64 data URIs from the asset library. Use advisor-provided URLs for client-specific images.
 
-For client-specific images (logos, hero photos) that aren't in the asset library, use the URL the advisor provides.
+**Step 5:** Set the slide counter to match actual slide count.
 
-### Step 5: Set the slide counter
-Update `1 / [TOTAL]` in the controls to match the actual number of slides.
+**Step 6:** Output as artifact.
 
-### Step 6: Output as artifact
-Present the complete HTML as a downloadable artifact the advisor can open in Chrome.
+---
+
+## Revision Mode
+
+**When a finished deck already exists in the conversation or as a file, always work from that file for edits.** Do not rebuild from the component library unless the advisor explicitly asks for a full rebuild or the changes affect the overall deck structure.
+
+### Single-Slide Change
+When the advisor requests a change to one slide:
+1. Read the finished deck
+2. Find the slide that needs changing
+3. Make the edit
+4. Show ONLY the corrected slide HTML in chat so the advisor can verify
+5. Output the full updated deck as an artifact
+6. Don't regenerate or re-display the entire deck in the conversation
+
+### Multi-Slide Change
+When changes affect 2-3 slides:
+1. List what you're changing: "Updating the plan comparison, dental/vision, and benchmarking slides with the new rates."
+2. Make all the edits
+3. Output the updated deck as an artifact
+4. Offer to show any specific slide for verification
+
+### Adding or Removing Slides
+When the advisor wants to add or remove slides:
+1. Confirm the change: "I'll add the patient stories slide after the market comparison. That takes us from 17 to 18 slides."
+2. If adding: read ONLY the needed component from the library (use the component index for precise line reads)
+3. Insert or remove the slide(s)
+4. Update the slide counter
+5. Update the build log comment
+6. Output the updated deck
+
+### Swapping the Client (Reusing a Deck for a Different Company)
+1. Read the existing deck
+2. Systematic find-and-replace on company-specific data (name, dates, rates, employee counts, images)
+3. Keep everything else intact
+4. Update the build log
 
 ---
 
 ## Conversation Flow
 
-**Guide the conversation naturally, don't dump a checklist.**
+**Produce something visible by Turn 3.** Advisors react to a real deck much more effectively than abstract questions.
 
-1. Ask what they're building (client/prospect, meeting type, situation)
-2. Recommend a recipe or help pick slides
-3. Ask: **"Who from the Nexus team should be on this deck?"** — read the team directory from the component library
-4. Gather customization data conversationally — a few questions at a time
-5. Use what they already told you. If they said "it's a renewal for Lakewood Precision," you already have the company name and meeting type.
-6. Build the deck and present it
+### Turn 1: What are we building?
+Ask what they're working on. One open question.
+
+### Turn 2: Confirm and ask the essentials (MAX 3 questions)
+Based on their answer, confirm the recipe and ask only what you MUST know to start building:
+- Company name (if not already provided)
+- Who from Nexus is on this account?
+- One recipe-specific question (e.g., "What's the current carrier?" for renewals)
+
+### Turn 3: Build the skeleton
+Don't wait for complete data. Grab the starter deck, customize what you can, and present it with placeholders. Say: "Here's your deck — I used placeholders for the rates and plan details. Drop those in when you have them and I'll fill them in."
+
+### Turns 4+: Refine
+Handle revisions, fill in data, swap slides, adjust content. Each revision is a quick edit, not a rebuild.
+
+**Key principle:** Use what they already told you. If they said "it's a 50-life manufacturing company renewal for Lakewood Precision," you already have the company name, size, industry, and meeting type. Don't re-ask.
 
 ---
 
@@ -323,7 +502,7 @@ Not every deck needs all 12 Amaze slides. Ask the advisor how deep they want to 
 
 **Quick Intro (5 slides)** — "Here's the concept, here's the math, let's talk"
 1. `amaze-problem` — why healthcare is broken for working families
-2. `amaze-solutions` — what employees get with Amaze Health
+2. `amaze-solutions` — what employees get with [[Amaze_Health|Amaze Health]]
 3. `amaze-biomed` — the Section 125 / pre-tax wrapper
 4. `amaze-paycheck` — take-home pay goes UP (the money slide)
 5. `amaze-everybody-wins` — employer wins too (FICA savings)
@@ -392,6 +571,46 @@ Not every deck needs all 12 Amaze slides. Ask the advisor how deep they want to 
 
 ---
 
+## YAML-Driven Comparison Slides (v2 — Mar 25, 2026)
+
+Plan comparison and dental/vision slides can be generated from YAML data files using `assemble_deck.py`. This produces slides matching the exact Nexus design system — CSS variables, fonts, shadows, benefit row highlights, auto-dividers — without manual HTML editing.
+
+### Medical Plan Comparison
+```bash
+python3 tools/assemble_deck.py --plan-comparison plans.yaml -o slides.html
+```
+- **4+ cards auto-split** into 2 slides: Current + Renewal on slide 1, Alternatives on slide 2
+- **Tag presets:** `current`, `renewal`, `recommended`, `alternative`, `budget` → auto-map to Nexus colors
+- **Benefit highlights:** `{value: "$30", highlight: "better"}` for green chip, `"worse"` for red chip
+- **Auto-dividers** between copay rows and Rx rows
+- **Template:** Copy `tools/templates/medical-comparison.yaml`, fill with client data
+
+### Dental & Vision
+```bash
+python3 tools/assemble_deck.py --dental-vision dv.yaml -o slide.html
+```
+- Two benefit summary cards (dental + vision) with SVG icons
+- Rate comparison table with current vs. renewal columns
+- Combined total summary bar at bottom
+- **Template:** Copy `tools/templates/dental-vision.yaml`, fill with client data
+
+### URL-Based Image System
+All images are hosted on GitHub Pages (`jbearup1981.github.io/presentation-templates/assets/`). Decks use URLs instead of base64 — files are ~130KB instead of ~450KB. This means:
+- Any AI agent can load and edit a full deck without blowing context windows
+- `--to-urls` converts base64 → URLs
+- `--to-base64` converts URLs → standalone for offline delivery
+
+### Slide-Level Editing
+```bash
+# Extract a single slide
+python3 tools/assemble_deck.py --extract-slide deck.html --slide-num 9 -o slide9.html
+
+# Replace a single slide
+python3 tools/assemble_deck.py --replace-slide deck.html --slide-num 9 --slide-html slide9.html
+```
+
+---
+
 ## Design Rules
 
 1. **Keep the color flow:** Green (Nexus intro) → Blue (Amaze section) → Green (closing). Don't mix.
@@ -409,11 +628,11 @@ Not every deck needs all 12 Amaze slides. Ask the advisor how deep they want to 
 
 The full team directory is in the component library file (look for `<!-- TEAM-DIRECTORY -->`). Read it when building any deck.
 
-**Default team (if advisor doesn't specify):** Jason Bearup, Ken Fortier, Grace Morris.
+**Default team (if advisor doesn't specify):** [[Jason Bearup]], [[Ken Fortier]], [[Grace Morris]].
 
 But always ask who should be on the deck. Pull names, titles, photos, phones, and emails from the team directory.
 
-**Current team:** Jason Bearup, Ken Fortier, Brenda Manning, Cameron Manning, Tom Snikkers, Grace Morris, Sophie Sanders.
+**Current team:** [[Jason Bearup]], [[Ken Fortier]], [[Brenda|Brenda Manning]], [[Cameron Manning]], [[Tom Snikkers]], [[Grace Morris]], [[sophie|Sophie]] Sanders.
 
 ---
 
@@ -443,6 +662,20 @@ Advisor: [Who requested the deck]
 Date: [Build date]
 Recipe: [Recipe name + "modified" if changed, or "Custom" if no recipe]
 Slides: [Total count]
+Source: [starter deck used, or "Built from components"]
+
+CUSTOMIZATION DECISIONS:
+- [Key decisions made during the conversation]
+- [e.g., "Used Quick Intro Amaze section (5 slides) per advisor request"]
+- [e.g., "Ken Fortier title changed to 'Founder / CRO / Advisor'"]
+- [e.g., "Skipped dental/vision slide — client doesn't offer dental"]
+- (or "None — standard build")
+
+PENDING / PLACEHOLDERS:
+- [Any data still missing]
+- [e.g., "Plan 2 rates awaiting carrier quote — marked [AWAITING RATES]"]
+- [e.g., "Client logo not yet provided — using color block default"]
+- (or "None — all data complete")
 
 NEW ASSETS:
 - [filename] — [URL or "provided by advisor"]
@@ -464,9 +697,9 @@ COMPONENT MODS:
 
 ### 2. Auto-Save to the Deck Build History Folder
 
-After presenting the finished deck to the advisor, **automatically save a copy of everything to the shared Deck Build History folder on OneDrive** using the M365 connector. The advisor does not need to do this — you do it silently after the build is complete.
+After presenting the finished deck to the advisor, **automatically save a copy of everything to the shared Deck Build History folder on [[OneDrive]]** using the [[M365]] connector. The advisor does not need to do this — you do it silently after the build is complete.
 
-**Shared folder path:** `https://nexusbenefitsolutions-my.sharepoint.com/:f:/p/jason/IgBTUlxFQ_OJSJQMsgTX4b9qASydwrl0tifO7Nf5FD4YklU?e=6MdzXW`
+**Shared folder path:** `https://nexusbenefitsolutions-my.[[SharePoint|sharepoint]].com/:f:/p/jason/IgBTUlxFQ_OJSJQMsgTX4b9qASydwrl0tifO7Nf5FD4YklU?e=6MdzXW`
 
 **For each build, create a subfolder and save:**
 
@@ -490,6 +723,15 @@ Deck_Build_History/
 - **Advisor:** [Who requested the deck]
 - **Recipe:** [Recipe used or "Custom"]
 - **Slides:** [Count]
+- **Source:** [Starter deck used or "Built from components"]
+
+## Customization Decisions
+- [Key decisions: slides added/removed, Amaze tier chosen, team swaps, etc.]
+- [Or "Standard build, no modifications"]
+
+## Pending / Placeholders
+- [Any data still missing with placeholder markers]
+- [Or "None — all data complete"]
 
 ## New Assets
 - [List any new images/logos with source URLs, or "None"]
@@ -504,6 +746,25 @@ Deck_Build_History/
 - [Or "None"]
 ```
 
-**If the M365 connector is not available** (advisor hasn't connected their account), skip the auto-save silently — don't error or ask the advisor to set it up. The embedded HTML comment log is the fallback. Just build the deck as normal.
+**If the [[M365]] connector is not available** (advisor hasn't connected their account), skip the auto-save silently — don't error or ask the advisor to set it up. The embedded HTML comment log is the fallback. Just build the deck as normal.
 
 This is how the component library grows over time. Jason reviews the Deck Build History folder periodically, and the best custom slides and assets get added to the official component library.
+
+---
+
+## Slide Packs (Multi-Slide Topics)
+
+Some topics naturally come as a set of slides. When the component library includes packs, they're marked in the master file with `<!-- PACK: pack-name -->` markers. Advisors can say "add the level funding pack" instead of picking individual slides.
+
+**Current packs:** None yet — all 36 components are individual slides.
+
+**Future packs (as components are added):**
+- **Level Funding Explainer** (3 slides): What it is, how it works, is it right for you
+- **HSA Strategy** (2-3 slides): HSA basics, contribution strategy, long-term value
+- **Compliance & ACA** (2 slides): ACA obligations, reporting requirements
+- **[[wellness-insurance-program-details|Wellness Program]]** (2-3 slides): Program overview, ROI, implementation
+- **PEO vs. Broker** (2 slides): Why a broker, what a PEO misses
+- **[[ichra-expertise|ICHRA]] Explainer** (2-3 slides): What [[ichra-expertise|ICHRA]] is, how it works, who it's for
+- **Voluntary Benefits Overview** (2 slides): What's available, why it matters
+
+Advisors can still pick individual slides from a pack. The pack is a shortcut, not a requirement.

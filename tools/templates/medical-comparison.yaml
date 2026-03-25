@@ -1,0 +1,123 @@
+# Medical Plan Comparison — YAML Template
+# Usage: python3 assemble_deck.py --plan-comparison medical-comparison.yaml -o slides.html
+#
+# 4+ cards auto-split into 2 slides (Current + Renewal on slide 1, Alternatives on slide 2).
+# Set layout: "single" to force all cards on one slide.
+#
+# Tag presets: current, renewal, recommended, alternative, budget
+# These auto-map to Nexus CSS variables. Or set tag_color manually.
+#
+# Benefit highlights: use {value: "$30", highlight: "better"} or "worse" for green/red chips.
+# Benefits auto-group with dividers before PCP/Specialist and Rx rows.
+---
+title: "Medical Plan Options"
+section: "05 — PLAN COMPARISON"
+layout: auto                          # auto | single | split
+slide2_title: "Medical Plan Options — Alternatives"  # title for slide 2 if split
+
+cards:
+  - carrier: "UnitedHealthcare"
+    logo: "uhc-logo.png"              # filename from assets/ (served via GitHub Pages)
+    tag: "CURRENT"                    # preset or custom text
+    plan_name: "Choice Plus, Level Funded"
+    monthly: "$11,880"
+    annual: "$142,561/yr"
+    change:                           # null = no change shown
+    benefits:
+      Deductible: "$2,500 / $5,000"
+      OOP Max: "$8,150 / $16,300"
+      Coinsurance: "70 / 50"
+      PCP: "$20"                      # divider auto-inserted before PCP
+      Specialist: "Subj to ded"
+      ER: "Subj to ded"
+      Rx Generic: "$20"              # divider auto-inserted before Rx
+      Rx Brand: "$60"
+      Preventive: "100%"
+    rates:                            # optional — omit if not needed
+      EE: "$430.68"
+      EE+SP: "$1,001.70"
+      EE+CH: "$811.36"
+      FAM: "$1,382.38"
+    bottom_text: "Your current coverage"
+
+  - carrier: "UnitedHealthcare"
+    logo: "uhc-logo.png"
+    tag: "RENEWAL"
+    plan_name: "Choice Plus, Level Funded"
+    monthly: "$20,074"
+    annual: "$240,884/yr"
+    change: "+68.97%"
+    benefits:
+      Deductible: "$2,500 / $5,000"
+      OOP Max: "$8,150 / $16,300"
+      Coinsurance: "70 / 50"
+      PCP: "$20"
+      Specialist: "Subj to ded"
+      ER: "Subj to ded"
+      Rx Generic: "$20"
+      Rx Brand: "$60"
+      Preventive: "100%"
+    rates:
+      EE: "$708.43"
+      EE+SP: "$1,696.08"
+      EE+CH: "$1,366.87"
+      FAM: "$2,354.50"
+    bottom_text: "Same plan — +69% increase"
+
+  - carrier: "TrustMark"
+    logo: "trustmark-logo.png"
+    tag: "RECOMMENDED"
+    plan_name: "Aetna PPO, Level Funded"
+    monthly: "~$12,830"
+    annual: "~$153,960/yr"
+    change: "Est. +8%"
+    benefits:
+      Deductible: "$2,500 / $5,000"
+      OOP Max: "$8,150 / $16,300"
+      Coinsurance: "70 / 50"
+      PCP: "$20"
+      Specialist: "Subj to ded"
+      ER: "Subj to ded"
+      Rx Generic: "$20"
+      Rx Brand: "$60"
+      Preventive: "100%"
+    rates:
+      EE: "~$465"
+      EE+SP: "~$1,082"
+      EE+CH: "~$876"
+      FAM: "~$1,493"
+    rates_note: "Illustrative — underwriting needed"
+    bottom_text: "Plan match — best value"
+    badge: "ILLUSTRATIVE — UNDERWRITING NEEDED"
+
+  - carrier: "BCBS Michigan"
+    logo: "bcbs-michigan-logo.png"
+    tag: "ALTERNATIVE"
+    plan_name: "Blue Elect Plus POS Gold"
+    monthly: "$15,210"
+    annual: "$182,520/yr"
+    change: "+28%"
+    benefits:
+      Deductible:
+        value: "$3,000 / $6,000"
+        highlight: "worse"
+      OOP Max:
+        value: "$8,700 / $17,400"
+        highlight: "worse"
+      Coinsurance:
+        value: "80 / 60"
+        highlight: "better"
+      PCP: "$30"
+      Specialist: "$60"
+      ER: "$500"
+      Rx Generic: "$20"
+      Rx Brand: "$60"
+      Preventive: "100%"
+    rates:
+      EE: "$578.28"
+      EE+SP: "$1,272.21"
+      EE+CH: "$982.07"
+      FAM: "$1,676.14"
+    rates_note: "Age-banded; composites estimated from census"
+    bottom_text: "Guaranteed rates — all states"
+    badge: "RATES GUARANTEED"

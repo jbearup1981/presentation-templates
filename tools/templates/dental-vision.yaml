@@ -1,0 +1,60 @@
+# Dental & Vision Comparison — YAML Template
+# Usage: python3 assemble_deck.py --dental-vision dental-vision.yaml -o slide.html
+#
+# Layout: Two benefit summary cards (dental + vision) on top,
+# rate comparison table below, combined total at bottom.
+---
+title: "Dental & Vision Renewal"
+section: "06 — ANCILLARY BENEFITS"
+subtitle: "Current plans and recommended alternatives"
+
+dental:
+  plan_name: "UHC Incentive PPO"
+  benefits:
+    Preventive (Class I): "100%"
+    Basic (Class II): "80%"
+    Major (Class III): "50%"
+    Orthodontia: "Not covered"
+    Deductible (Ind/Fam): "$50 / $150"
+    Annual Maximum: "$1,500"
+    Waiting Period: "12 months (major)"
+    Network: "UHC Dental PPO"
+
+vision:
+  plan_name: "UHC Vision 100% Voluntary"
+  benefits:
+    Eye Exam: "$10 copay, 1x/12 mo"
+    Lenses: "$25 copay, 1x/12 mo"
+    Frame Allowance: "$130"
+    Contact Lenses (Elective): "$105 allowance"
+    Contact Fitting: "$30"
+    Frequency: "12 months"
+    Network: "UHC Vision"
+
+rates:
+  columns:
+    - name: "Dental"
+      color: "var(--rs)"
+      colspan: 2
+      subs: ["Current", "Renewal"]
+    - name: "Vision"
+      color: "var(--fl)"
+      colspan: 2
+      subs: ["Current", "Renewal"]
+  tiers:
+    - name: "Employee"
+      values: ["$42.50", "$44.63", "$8.23", "$8.23"]
+    - name: "EE + Spouse"
+      values: ["$85.01", "$89.26", "$15.63", "$15.63"]
+    - name: "EE + Child(ren)"
+      values: ["$85.80", "$90.09", "$18.27", "$18.27"]
+    - name: "Family"
+      values: ["$132.24", "$138.85", "$25.75", "$25.75"]
+  totals:
+    values: ["$916.21", "$962.03", "$169.90", "$169.90"]
+    color: "var(--df)"
+
+combined:
+  label: "Combined Dental & Vision"
+  monthly: "$1,131.93"
+  annual: "$13,583.16"
