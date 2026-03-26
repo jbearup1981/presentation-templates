@@ -57,7 +57,34 @@ When an advisor provides a new image (carrier logo, client logo, team photo, etc
    **Other images:** `<descriptive-name>.jpg` — e.g., `doctor-telehealth.jpg`, `office-meeting.jpg`
 
    **Rules:** Always lowercase. Always kebab-case. Always include what it IS in the name (logo, photo, icon). Never use generic names like `image1.png` or `download.jpg`. The filename should be findable by someone searching for that carrier, company, or person months from now.
-2. **Push it to the repo** so it's permanently available to everyone:
+
+2. **Optimize the image BEFORE saving.** Images must be lightweight — large files slow down decks and waste bandwidth. Use `sips` (macOS) to resize:
+
+   | Image Type | Max Width | Target Size | Format |
+   |------------|-----------|-------------|--------|
+   | Carrier/company logos | 200px | Under 15KB | PNG or SVG |
+   | Team photos | 250px | Under 25KB | JPEG |
+   | Hero/background images | 960px | Under 150KB | JPEG or WebP |
+   | General photos | 400px | Under 50KB | JPEG |
+   | Icons/illustrations | 100px | Under 5KB | SVG preferred |
+
+   ```bash
+   # Resize a logo to 200px wide
+   sips --resampleWidth 200 <image.png>
+
+   # Resize a team photo to 250px wide
+   sips --resampleWidth 250 <photo.jpg>
+
+   # Resize a hero image to 960px wide
+   sips --resampleWidth 960 <hero.jpg>
+
+   # Convert oversized PNG to JPEG (for photos, not logos with transparency)
+   sips -s format jpeg -s formatOptions 80 <image.png> --out <image.jpg>
+   ```
+
+   **Never push an image over 150KB unless it's a full-width hero.** If the file is still too large after resizing, convert PNG → JPEG or JPEG → WebP. SVG is always preferred for logos when available.
+
+3. **Push it to the repo** so it's permanently available to everyone:
 ```bash
 git add assets/<filename>
 git commit -m "Add <description> logo"
