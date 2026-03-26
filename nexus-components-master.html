@@ -67,19 +67,33 @@ QUIRK 1: First slide must use class="slide active", not class="slide"
   FIRST slide in the output has class="slide active" — all others just class="slide".
   Easy to miss when copying from this library since all components here use class="slide".
 
-QUIRK 2: GitHub Pages asset retrieval in browser mode
-  The artifact sandbox blocks direct GitHub Pages URLs in <img> tags.
-  DO NOT use https://jbearup1981.github.io/... in browser-mode decks — images won't load.
-  Use base64 data URIs from nexus-assets-base64.html instead.
-  In local tools mode (Claude Code), GitHub Pages URLs ARE correct — use them.
-  The assemble_deck.py --to-urls command handles the conversion automatically.
+QUIRK 2a: Retrieving assets during a browser-mode build
+  web_fetch and curl on raw.githubusercontent.com are network-blocked in the
+  build environment. And fetching jbearup1981.github.io via web_fetch returns
+  rendered HTML text, not raw binary data — so you cannot retrieve image bytes
+  this way either.
+  Solution for browser mode: use base64 data URIs from nexus-assets-base64.html.
+  Those are already in the knowledge file — just reference them by asset name.
+  In local tools mode (Claude Code), use GitHub Pages URLs directly. The
+  assemble_deck.py --to-urls command handles the conversion automatically.
+
+QUIRK 2b: GitHub Pages URLs in finished decks
+  GitHub Pages URLs render fine in browser-rendered HTML — <img> tags pointing
+  to jbearup1981.github.io/presentation-templates/assets/ will display correctly
+  when opened in a browser. The limitation in QUIRK 2a is about *retrieving*
+  asset data during a build, not about whether images display in the final deck.
+  Use base64 in browser-mode decks because the advisor may view the deck offline
+  or email it — not because the URLs don't work in a browser.
 
 QUIRK 3: Slide count in the navigation counter
-  The base JS auto-counts slides. The "X of Y" counter updates from the DOM —
-  you don't need to hardcode the slide count. But double-check if you manually
-  splice or rearrange slides: the counter reads div.slide elements, so nested
-  divs with class="slide" will cause an off-by-one. Use assemble_deck.py
-  --list-slides to verify the count after any structural changes.
+  The JS sets the counter automatically on load from slides.length — the go(0)
+  call fires immediately and overwrites whatever placeholder is in the HTML.
+  You do NOT need to manually count slides and update the counter value.
+  The only gotcha: if a slide component uses a nested div with class="slide",
+  the counter will be wrong. All standard components in this library use
+  class="slide" only on the outer wrapper — do not add nested slide-class divs.
+  In local tools mode, use assemble_deck.py --list-slides to verify structure
+  after any manual splice or rearrangement.
 -->
 
 <!-- ============================================ -->

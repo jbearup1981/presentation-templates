@@ -542,9 +542,7 @@ Follow a recipe (see Recipes section) to know which components to include and in
 
 **Step 4:** Embed images — replace `assets/filename` paths with base64 data URIs from the asset library. Use advisor-provided URLs for client-specific images.
 
-**Step 5:** Set the slide counter to match actual slide count.
-
-**Step 6:** Output as artifact.
+**Step 5:** Output as artifact. (The slide counter in the nav HTML is a placeholder — the JS sets it automatically from `slides.length` on load.)
 
 ---
 
@@ -573,9 +571,8 @@ When the advisor wants to add or remove slides:
 1. Confirm the change: "I'll add the patient stories slide after the market comparison. That takes us from 17 to 18 slides."
 2. If adding: read ONLY the needed component from the library (use the component index for precise line reads)
 3. Insert or remove the slide(s)
-4. Update the slide counter
-5. Update the build log comment
-6. Output the updated deck
+4. Update the build log comment
+5. Output the updated deck
 
 ### Swapping the Client (Reusing a Deck for a Different Company)
 1. Read the existing deck
@@ -729,7 +726,7 @@ python3 tools/assemble_deck.py --replace-slide deck.html --slide-num 9 --slide-h
 5. **FIXED components** should not be modified unless the advisor specifically requests changes
 6. **Paycheck math** is pre-calculated. Don't modify unless given different wage/plan data and you recalculate everything.
 7. **First slide** must have `class="slide active"`. All others just `class="slide"`.
-8. **Slide counter** must match actual slide count.
+8. **Slide counter** is set automatically by the JS on load (`slides.length`). The placeholder value in the HTML (`1 / [TOTAL]`) is irrelevant — do not manually count and update it.
 
 ---
 
