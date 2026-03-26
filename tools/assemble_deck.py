@@ -74,10 +74,10 @@ FINISHED_DECKS = {
 }
 
 STARTER_MAP = {
-    'renewal': 'starter-small-group-renewal.html',
-    'prospect': 'starter-small-group-prospect.html',
-    'amaze': 'starter-amaze-standalone.html',
-    'midmarket': 'starter-mid-market-renewal.html',
+    'renewal': 'archive/starter-small-group-renewal.html',
+    'prospect': 'archive/starter-small-group-prospect.html',
+    'amaze': 'archive/starter-amaze-standalone.html',
+    'midmarket': 'archive/starter-mid-market-renewal.html',
 }
 
 MIME_TYPES = {

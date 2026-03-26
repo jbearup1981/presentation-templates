@@ -11,8 +11,8 @@ Standalone presentation deck for the Amaze Health / Biomed program. This is a re
 - **Assets:** Shared `../assets/` folder at presentations root
 
 ## Team on Deck
-- **Jason Bearup** — Lead Advisor
-- **Ken Fortier** — Relationship Manager
+- **[[Jason Bearup]]** — Lead Advisor
+- **[[Ken Fortier]]** — Relationship Manager
 - **Grace Morris** — Account Manager
 - Placeholder phone numbers throughout (need real numbers)
 

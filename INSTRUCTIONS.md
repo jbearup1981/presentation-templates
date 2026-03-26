@@ -495,32 +495,11 @@ If the advisor wants something different from the recipes, they pick slides from
 
 ## Assembling a Deck
 
-### Preferred Method: Start from a Starter Deck
+### How to Build a Deck (Browser)
 
-**For standard recipe builds, always start from the pre-built starter deck.** Four complete starter decks are available as project files:
+Build decks from individual components in `nexus-components-master.html`. Use the **component index** at the top of that file to jump directly to the line ranges you need — don't scan the whole file.
 
-| File | Recipe | Slides |
-|------|--------|--------|
-| `starter-small-group-renewal.html` | Small Group Renewal | 24 |
-| `starter-mid-market-renewal.html` | Mid-Market Renewal | 23 |
-| `starter-small-group-prospect.html` | Small Group Prospect | 19 |
-| `starter-amaze-standalone.html` | Amaze Standalone | 17 |
-
-Each starter has all components assembled, base CSS/JS included, base64 images embedded, default team (Jason, Ken, Grace) populated, and generic placeholders for client-specific data.
-
-**To build from a starter:**
-1. Read the starter deck file
-2. Find-and-replace placeholders: `[Company Name]`, `[Renewal Date]`, `[Current Premium]`, etc.
-3. Swap team members if needed (read team directory from component library)
-4. Add client-specific images (logo, hero photo) if provided
-5. Update the build log comment at the top
-6. Output as artifact
-
-**This is dramatically faster than building from components.** Only build from components when the advisor wants a fully custom deck that doesn't match any recipe.
-
-### Building from Components (Custom Decks Only)
-
-Use this method only when no starter deck fits. Use the **component index** at the top of `nexus-components-master.html` to jump directly to the line ranges you need — don't scan the whole file.
+Follow a recipe (see Recipes section) to know which components to include and in what order. Customize the editable fields, embed images from `nexus-assets-base64.html`, and output as an artifact.
 
 **Step 1:** Get the base shell — find `base-css` (use index line range) and `base-js` (use index line range). The output HTML structure is:
 
@@ -620,7 +599,7 @@ Based on their answer, confirm the recipe and ask only what you MUST know to sta
 - One recipe-specific question (e.g., "What's the current carrier?" for renewals)
 
 ### Turn 3: Build the skeleton
-Don't wait for complete data. Grab the starter deck, customize what you can, and present it with placeholders. Say: "Here's your deck — I used placeholders for the rates and plan details. Drop those in when you have them and I'll fill them in."
+Don't wait for complete data. Build the deck, customize what you can, and present it with placeholders. Say: "Here's your deck — I used placeholders for the rates and plan details. Drop those in when you have them and I'll fill them in."
 
 ### Turns 4+: Refine
 Handle revisions, fill in data, swap slides, adjust content. Each revision is a quick edit, not a rebuild.
@@ -817,7 +796,7 @@ Advisor: [Who requested the deck]
 Date: [Build date]
 Recipe: [Recipe name + "modified" if changed, or "Custom" if no recipe]
 Slides: [Total count]
-Source: [starter deck used, or "Built from components"]
+Source: [recipe used, components selected]
 
 CUSTOMIZATION DECISIONS:
 - [Key decisions made during the conversation]
