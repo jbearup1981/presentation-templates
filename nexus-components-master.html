@@ -58,6 +58,31 @@ blank-transition:        lines 2410-2421
 -->
 
 <!-- ============================================ -->
+<!-- KNOWN QUIRKS — READ BEFORE BUILDING          -->
+<!-- ============================================ -->
+<!--
+QUIRK 1: First slide must use class="slide active", not class="slide"
+  The navigation JS marks the first slide as visible via the "active" class.
+  When extracting a slide from this file to start a new deck, make sure the
+  FIRST slide in the output has class="slide active" — all others just class="slide".
+  Easy to miss when copying from this library since all components here use class="slide".
+
+QUIRK 2: GitHub Pages asset retrieval in browser mode
+  The artifact sandbox blocks direct GitHub Pages URLs in <img> tags.
+  DO NOT use https://jbearup1981.github.io/... in browser-mode decks — images won't load.
+  Use base64 data URIs from nexus-assets-base64.html instead.
+  In local tools mode (Claude Code), GitHub Pages URLs ARE correct — use them.
+  The assemble_deck.py --to-urls command handles the conversion automatically.
+
+QUIRK 3: Slide count in the navigation counter
+  The base JS auto-counts slides. The "X of Y" counter updates from the DOM —
+  you don't need to hardcode the slide count. But double-check if you manually
+  splice or rearrange slides: the counter reads div.slide elements, so nested
+  divs with class="slide" will cause an off-by-one. Use assemble_deck.py
+  --list-slides to verify the count after any structural changes.
+-->
+
+<!-- ============================================ -->
 <!-- BASE CSS — paste into <style> of every deck  -->
 <!-- ============================================ -->
 <style id="base-css">

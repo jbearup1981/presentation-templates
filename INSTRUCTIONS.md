@@ -263,7 +263,7 @@ For standard meetings, start with a recipe and customize from there. Recipes are
 | # | Component | Notes |
 |---|-----------|-------|
 | 1 | `nexus-title` | Company name, renewal date, company image |
-| 2 | `nexus-agenda` | Items: Renewal Analysis, Industry Benchmarking, Introducing Nexus, Strategic Approach, [[Amaze_Health|Amaze Health]] & Biomed, Implementation |
+| 2 | `nexus-agenda` | Items: Renewal Analysis, Industry Benchmarking, Introducing Nexus, Strategic Approach, Amaze Health & Biomed, Implementation |
 | 3 | `nexus-team` | Advisors on this account (read team directory) |
 | 4 | `benchmarking-simple` | Industry benchmarking vs. KFF norms |
 | 5 | `nexus-intro` | Introducing Nexus value proposition |
@@ -276,7 +276,7 @@ For standard meetings, start with a recipe and customize from there. Recipes are
 | 12 | `supplemental` | Supplemental & voluntary benefits |
 | 13 | `section-transition` | "Something More for Your Team" bridge |
 | 14 | `amaze-problem` | The healthcare problem (4 cards) |
-| 15 | `amaze-solutions` | What employees get with [[Amaze_Health|Amaze Health]] |
+| 15 | `amaze-solutions` | What employees get with Amaze Health |
 | 16 | `amaze-biomed` | The Biomed / Section 125 solution |
 | 17 | `amaze-insurance` | Insurance benefits comparison |
 | 18 | `amaze-paycheck` | Paycheck impact example |
@@ -311,7 +311,7 @@ For standard meetings, start with a recipe and customize from there. Recipes are
 - Specific FICA savings calculation (defaults to enrolled count × ~$900/yr)
 
 **Handled automatically:**
-- All [[Amaze_Health|Amaze Health]] slides (standard content)
+- All Amaze Health slides (standard content)
 - Team photos, titles, contact info (from team directory)
 - Benchmarking data (from KFF norms)
 - Navigation, formatting, slide counter
@@ -325,7 +325,7 @@ For standard meetings, start with a recipe and customize from there. Recipes are
 | # | Component | Notes |
 |---|-----------|-------|
 | 1 | `nexus-title` | Company name, renewal date, company image |
-| 2 | `nexus-agenda` | Items: Claims Review, Stop-Loss Renewal, Funding Strategy, Network Analysis, Plan Options, [[Amaze_Health|Amaze Health]], Implementation |
+| 2 | `nexus-agenda` | Items: Claims Review, Stop-Loss Renewal, Funding Strategy, Network Analysis, Plan Options, Amaze Health, Implementation |
 | 3 | `nexus-team` | Advisors on this account (read team directory) |
 | 4 | `claims-analysis` | 3-year claims trending, large claimants, loss ratio |
 | 5 | `stop-loss-renewal` | Specific & aggregate stop-loss, lasers, rate history |
@@ -339,7 +339,7 @@ For standard meetings, start with a recipe and customize from there. Recipes are
 | 13 | `supplemental` | Supplemental & voluntary benefits |
 | 14 | `section-transition` | "Something More for Your Team" bridge |
 | 15 | `amaze-problem` | The healthcare problem (4 cards) |
-| 16 | `amaze-solutions` | What employees get with [[Amaze_Health|Amaze Health]] |
+| 16 | `amaze-solutions` | What employees get with Amaze Health |
 | 17 | `amaze-biomed` | The Biomed / Section 125 solution |
 | 18 | `amaze-insurance` | Insurance benefits comparison |
 | 19 | `amaze-paycheck` | Paycheck impact example |
@@ -374,7 +374,7 @@ For standard meetings, start with a recipe and customize from there. Recipes are
 - Detailed funding comparison numbers
 
 **Handled automatically:**
-- All [[Amaze_Health|Amaze Health]] slides, team info, benchmarking norms, navigation
+- All Amaze Health slides, team info, benchmarking norms, navigation
 
 ---
 
@@ -385,7 +385,7 @@ For standard meetings, start with a recipe and customize from there. Recipes are
 | # | Component | Notes |
 |---|-----------|-------|
 | 1 | `nexus-title` | Company name, date, company image |
-| 2 | `nexus-agenda` | Items: Where We Left Off, Industry Benchmarking, Introducing Nexus, Strategic Approach, [[Amaze_Health|Amaze Health]] & Biomed, Next Steps |
+| 2 | `nexus-agenda` | Items: Where We Left Off, Industry Benchmarking, Introducing Nexus, Strategic Approach, Amaze Health & Biomed, Next Steps |
 | 3 | `nexus-team` | Advisors on this account (read team directory) |
 | 4 | `discovery-recap` | "Where We Left Off" conversation summary |
 | 5 | `benchmarking-simple` | Industry benchmarking vs. KFF norms |
@@ -394,7 +394,7 @@ For standard meetings, start with a recipe and customize from there. Recipes are
 | 8 | `nexus-capabilities` | Full-service capabilities grid |
 | 9 | `section-transition` | "Beyond Insurance" bridge (or skip) |
 | 10 | `amaze-problem` | The healthcare problem (4 cards) |
-| 11 | `amaze-solutions` | What employees get with [[Amaze_Health|Amaze Health]] |
+| 11 | `amaze-solutions` | What employees get with Amaze Health |
 | 12 | `amaze-biomed` | The Biomed / Section 125 solution |
 | 13 | `amaze-insurance` | Insurance benefits comparison |
 | 14 | `amaze-paycheck` | Paycheck impact example |
@@ -427,11 +427,11 @@ For standard meetings, start with a recipe and customize from there. Recipes are
 
 ### Recipe: Amaze Standalone (17 slides)
 
-**Use when:** Standalone [[Amaze_Health|Amaze Health]] / Biomed program pitch. Not tied to a specific client's renewal. Used with Amaze reps or as a generic employer presentation.
+**Use when:** Standalone Amaze Health / Biomed program pitch. Not tied to a specific client's renewal. Used with Amaze reps or as a generic employer presentation.
 
 | # | Component | Notes |
 |---|-----------|-------|
-| 1 | `nexus-title` | [[Amaze_Health|Amaze Health]] + Biomed Program title (no company-specific image) |
+| 1 | `nexus-title` | Amaze Health + Biomed Program title (no company-specific image) |
 | 2 | `nexus-agenda` | Items: Why We're Here, The Problem, Amaze Health, Biomed Program, Client Momentum, Implementation |
 | 3 | `nexus-team` | Advisors presenting (read team directory) |
 | 4 | `nexus-intro` | Why We're Here / opportunity framing |
@@ -485,7 +485,7 @@ If the advisor wants something different from the recipes, they pick slides from
 **Medical Renewal — Advanced (Self-Funded / Level-Funded):**
 `claims-analysis` · `stop-loss-renewal` · `funding-comparison` · `network-analysis`
 
-**[[Amaze_Health|Amaze Health]] (Blue):**
+**Amaze Health (Blue):**
 `amaze-problem` · `amaze-solutions` · `amaze-how-it-works` · `amaze-patient-stories` · `amaze-biomed` · `amaze-insurance` · `amaze-paycheck` · `amaze-everybody-wins` · `amaze-faq` · `amaze-market-comparison` · `amaze-client-momentum` · `amaze-implementation`
 
 **Blank Templates:**
@@ -598,8 +598,8 @@ Based on their answer, confirm the recipe and ask only what you MUST know to sta
 - Who from Nexus is on this account?
 - One recipe-specific question (e.g., "What's the current carrier?" for renewals)
 
-### Turn 3: Build the skeleton
-Don't wait for complete data. Build the deck, customize what you can, and present it with placeholders. Say: "Here's your deck — I used placeholders for the rates and plan details. Drop those in when you have them and I'll fill them in."
+### Turn 3: Build it
+Build the deck with whatever data you have. For **prospect decks and Amaze-only pitches**, a skeleton with placeholders is fine — use default content and say "Here's your deck — I used placeholders for rates and company details. Drop those in when you have them." For **renewal decks**, do not output a skeleton if you don't have the rates and plan data — the whole point of a renewal deck is the numbers. Ask for them first, then build.
 
 ### Turns 4+: Refine
 Handle revisions, fill in data, swap slides, adjust content. Each revision is a quick edit, not a rebuild.
@@ -636,7 +636,7 @@ Not every deck needs all 12 Amaze slides. Ask the advisor how deep they want to 
 
 **Quick Intro (5 slides)** — "Here's the concept, here's the math, let's talk"
 1. `amaze-problem` — why healthcare is broken for working families
-2. `amaze-solutions` — what employees get with [[Amaze_Health|Amaze Health]]
+2. `amaze-solutions` — what employees get with Amaze Health
 3. `amaze-biomed` — the Section 125 / pre-tax wrapper
 4. `amaze-paycheck` — take-home pay goes UP (the money slide)
 5. `amaze-everybody-wins` — employer wins too (FICA savings)
@@ -662,31 +662,9 @@ Not every deck needs all 12 Amaze slides. Ask the advisor how deep they want to 
 
 ---
 
-## Key Data to Gather (By Slide Type)
+## Key Data to Gather — Advanced Medical Slides
 
-### For `nexus-title`:
-- Company name, date/subtitle, company image URL (or use color block default)
-
-### For `nexus-team`:
-- Which advisors are on this account. Read the team directory from the component library for photos, titles, phones, emails.
-
-### For `benchmarking-simple`:
-- Company name, employee count, industry, benefits offered, contribution %, eligibility %
-
-### For `benchmarking-renewal`:
-- Current carrier/plan, current premium, renewal premium, % increase, employee counts
-
-### For `plan-comparison`:
-- Up to 4 plan options: plan names, monthly/annual rates, % changes, deductibles, copays, savings
-
-### For `discovery-recap`:
-- What was discussed in the discovery meeting. Rewrite bullet points to match the real conversation.
-
-### For `amaze-everybody-wins`:
-- Employee count for FICA savings calculation (enrolled count x ~$900/yr)
-
-### For `amaze-client-momentum`:
-- Current Biomed client names, industries, locations, logos
+These four slides require specialized data not covered by the per-recipe checklists above.
 
 ### For `claims-analysis`:
 - Plan years (3 years), paid claims per year, fixed costs, total cost, loss ratios, large claimant details (anonymized), target loss ratio
@@ -699,9 +677,6 @@ Not every deck needs all 12 Amaze slides. Ask the advisor how deep they want to 
 
 ### For `network-analysis`:
 - Current network name, alternative network names, provider types (PCP, specialist, hospital, urgent care), in-network counts per network, key providers/health systems used by employees, which are in/out per network
-
-### For `nexus-closing`:
-- Team contacts (read from team directory in component library)
 
 ---
 
@@ -748,7 +723,7 @@ python3 tools/assemble_deck.py --replace-slide deck.html --slide-num 9 --slide-h
 ## Design Rules
 
 1. **Keep the color flow:** Green (Nexus intro) → Blue (Amaze section) → Green (closing). Don't mix.
-2. **All shared images** come from the base64 asset library. Embed them as data URIs so artifacts render correctly. Only use external URLs for client-specific images the advisor provides.
+2. **Images — browser mode:** All shared images come from the base64 asset library. Embed them as data URIs so artifacts render correctly. Only use external URLs for client-specific images the advisor provides. **Images — local tools mode:** Use GitHub Pages URLs (`jbearup1981.github.io/presentation-templates/assets/`). The `assemble_deck.py --to-urls` command handles this automatically.
 3. **Fonts:** DM Serif Display (headings) + DM Sans (body) — never substitute
 4. **Slide size:** 960x540px fixed
 5. **FIXED components** should not be modified unless the advisor specifically requests changes
@@ -762,11 +737,11 @@ python3 tools/assemble_deck.py --replace-slide deck.html --slide-num 9 --slide-h
 
 The full team directory is in the component library file (look for `<!-- TEAM-DIRECTORY -->`). Read it when building any deck.
 
-**Default team (if advisor doesn't specify):** [[Jason Bearup]], [[Ken Fortier]], [[Grace Morris]].
+**Default team (if advisor doesn't specify):** Jason Bearup, Ken Fortier, Grace Morris.
 
 But always ask who should be on the deck. Pull names, titles, photos, phones, and emails from the team directory.
 
-**Current team:** [[Jason Bearup]], [[Ken Fortier]], [[Brenda|Brenda Manning]], [[Cameron Manning]], [[Tom Snikkers]], [[Grace Morris]], [[sophie|Sophie]] Sanders.
+**Current team:** Jason Bearup, Ken Fortier, Brenda Manning, Cameron Manning, Tom Snikkers, Grace Morris, Sophie Sanders.
 
 ---
 
@@ -831,9 +806,9 @@ COMPONENT MODS:
 
 ### 2. Auto-Save to the Deck Build History Folder
 
-After presenting the finished deck to the advisor, **automatically save a copy of everything to the shared Deck Build History folder on [[OneDrive]]** using the [[M365]] connector. The advisor does not need to do this — you do it silently after the build is complete.
+After presenting the finished deck to the advisor, **automatically save a copy of everything to the shared Deck Build History folder on OneDrive** using the M365 connector. The advisor does not need to do this — you do it silently after the build is complete.
 
-**Shared folder path:** `https://nexusbenefitsolutions-my.[[SharePoint|sharepoint]].com/:f:/p/jason/IgBTUlxFQ_OJSJQMsgTX4b9qASydwrl0tifO7Nf5FD4YklU?e=6MdzXW`
+**Shared folder path:** `https://nexusbenefitsolutions-my.sharepoint.com/:f:/p/jason/IgBTUlxFQ_OJSJQMsgTX4b9qASydwrl0tifO7Nf5FD4YklU?e=6MdzXW`
 
 **For each build, create a subfolder and save:**
 
@@ -880,25 +855,9 @@ Deck_Build_History/
 - [Or "None"]
 ```
 
-**If the [[M365]] connector is not available** (advisor hasn't connected their account), skip the auto-save silently — don't error or ask the advisor to set it up. The embedded HTML comment log is the fallback. Just build the deck as normal.
+**If the M365 connector is not available** (advisor hasn't connected their account), skip the auto-save silently — don't error or ask the advisor to set it up. The embedded HTML comment log is the fallback. Just build the deck as normal.
+
+**If the M365 connector IS connected but the save fails unexpectedly**, surface one line: "Note: auto-save to OneDrive didn't complete — [reason if known]. The deck is in the artifact above." Don't let a silent failure leave the advisor thinking the file was saved when it wasn't.
 
 This is how the component library grows over time. Jason reviews the Deck Build History folder periodically, and the best custom slides and assets get added to the official component library.
 
----
-
-## Slide Packs (Multi-Slide Topics)
-
-Some topics naturally come as a set of slides. When the component library includes packs, they're marked in the master file with `<!-- PACK: pack-name -->` markers. Advisors can say "add the level funding pack" instead of picking individual slides.
-
-**Current packs:** None yet — all 36 components are individual slides.
-
-**Future packs (as components are added):**
-- **Level Funding Explainer** (3 slides): What it is, how it works, is it right for you
-- **HSA Strategy** (2-3 slides): HSA basics, contribution strategy, long-term value
-- **Compliance & ACA** (2 slides): ACA obligations, reporting requirements
-- **[[wellness-insurance-program-details|Wellness Program]]** (2-3 slides): Program overview, ROI, implementation
-- **PEO vs. Broker** (2 slides): Why a broker, what a PEO misses
-- **[[ichra-expertise|ICHRA]] Explainer** (2-3 slides): What [[ichra-expertise|ICHRA]] is, how it works, who it's for
-- **Voluntary Benefits Overview** (2 slides): What's available, why it matters
-
-Advisors can still pick individual slides from a pack. The pack is a shortcut, not a requirement.
