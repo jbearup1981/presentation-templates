@@ -12,7 +12,7 @@ This project works in **two environments**. Detect which one you're in and follo
 
 Try to check if the file `tools/assemble_deck.py` exists in the project folder. If you can read local files and run terminal commands:
 
-→ **You are in Co-Work or Claude Code.** Use the **Local Tools Workflow** (below). This is the better path — URL-based images, YAML comparison generators, slide-level editing, no artifact size limits.
+→ **You are in Co-Work or [[Claude Code]].** Use the **Local Tools Workflow** (below). This is the better path — URL-based images, YAML comparison generators, slide-level editing, no artifact size limits.
 
 If you CANNOT access local files or run commands:
 
@@ -50,7 +50,7 @@ When an advisor provides a new image (carrier logo, client logo, team photo, etc
 
 1. **Save it to `assets/`** with a descriptive kebab-case filename following these conventions:
 
-   **Carrier logos:** `<carrier>-logo.png` — e.g., `humana-logo.png`, `cigna-logo.png`, `aetna-logo.svg`
+   **Carrier logos:** `<carrier>-logo.png` — e.g., `[[Humana|humana]]-logo.png`, `[[Cigna|cigna]]-logo.png`, `[[Aetna|aetna]]-logo.svg`
    **Client/company logos:** `<company>-logo.png` — e.g., `sena-info-tech-logo.png`, `northern-jet-logo.png`
    **Team photos:** `<firstname>-<lastname>.jpg` — e.g., `tom-snikkers.jpg`, `courtney-uhrig.jpg`
    **Product/program logos:** `<product>-logo.png` — e.g., `amaze-logo.png`, `teladoc-logo.png`
@@ -149,10 +149,10 @@ All images are hosted at `https://jbearup1981.github.io/presentation-templates/a
 **Team:** `jason-bearup.jpg` · `ken-fortier.jpg` · `grace-morris.jpg` · `brenda-manning.jpg` · `cameron-manning.jpg`
 **Nexus:** `nexus-logo-white.svg` · `nexus-logo.svg`
 **Amaze:** `amaze-logo.png` · `doctor-telehealth.jpg`
-**Carriers:** `uhc-logo.png` · `bcbs-michigan-logo.png` · `beam-logo.png` · `optimyl-logo.png` · `trustmark-logo.png` · `sana-logo.png` · `priorityhealth-logo-green.svg`
+**Carriers:** `[[United Healthcare|uhc]]-logo.png` · `bcbs-michigan-logo.png` · `[[Beam|beam]]-logo.png` · `optimyl-logo.png` · `trustmark-logo.png` · `sana-logo.png` · `priorityhealth-logo-green.svg`
 **Competitors:** `cerebral-logo.png` · `firefly-logo.png` · `galileo-logo.svg` · `healthjoy-logo.png` · `mdlive-logo.svg` · `recuro-logo.png` · `talkspace-logo.png` · `teladoc-logo.png`
 
-Use in HTML: `<img src="https://jbearup1981.github.io/presentation-templates/assets/uhc-logo.png">`
+Use in HTML: `<img src="https://jbearup1981.github.io/presentation-templates/assets/[[United Healthcare|uhc]]-logo.png">`
 
 ### Rules (Local Tools)
 - **ALWAYS use `--to-urls` immediately after `--new-deck`**
@@ -263,7 +263,7 @@ For standard meetings, start with a recipe and customize from there. Recipes are
 | # | Component | Notes |
 |---|-----------|-------|
 | 1 | `nexus-title` | Company name, renewal date, company image |
-| 2 | `nexus-agenda` | Items: Renewal Analysis, Industry Benchmarking, Introducing Nexus, Strategic Approach, Amaze Health & Biomed, Implementation |
+| 2 | `nexus-agenda` | Items: Renewal Analysis, Industry Benchmarking, Introducing Nexus, Strategic Approach, [[Amaze_Health|Amaze Health]] & Biomed, Implementation |
 | 3 | `nexus-team` | Advisors on this account (read team directory) |
 | 4 | `benchmarking-simple` | Industry benchmarking vs. KFF norms |
 | 5 | `nexus-intro` | Introducing Nexus value proposition |
@@ -276,7 +276,7 @@ For standard meetings, start with a recipe and customize from there. Recipes are
 | 12 | `supplemental` | Supplemental & voluntary benefits |
 | 13 | `section-transition` | "Something More for Your Team" bridge |
 | 14 | `amaze-problem` | The healthcare problem (4 cards) |
-| 15 | `amaze-solutions` | What employees get with Amaze Health |
+| 15 | `amaze-solutions` | What employees get with [[Amaze_Health|Amaze Health]] |
 | 16 | `amaze-biomed` | The Biomed / Section 125 solution |
 | 17 | `amaze-insurance` | Insurance benefits comparison |
 | 18 | `amaze-paycheck` | Paycheck impact example |
@@ -311,7 +311,7 @@ For standard meetings, start with a recipe and customize from there. Recipes are
 - Specific FICA savings calculation (defaults to enrolled count × ~$900/yr)
 
 **Handled automatically:**
-- All Amaze Health slides (standard content)
+- All [[Amaze_Health|Amaze Health]] slides (standard content)
 - Team photos, titles, contact info (from team directory)
 - Benchmarking data (from KFF norms)
 - Navigation, formatting, slide counter
@@ -325,7 +325,7 @@ For standard meetings, start with a recipe and customize from there. Recipes are
 | # | Component | Notes |
 |---|-----------|-------|
 | 1 | `nexus-title` | Company name, renewal date, company image |
-| 2 | `nexus-agenda` | Items: Claims Review, Stop-Loss Renewal, Funding Strategy, Network Analysis, Plan Options, Amaze Health, Implementation |
+| 2 | `nexus-agenda` | Items: Claims Review, Stop-Loss Renewal, Funding Strategy, Network Analysis, Plan Options, [[Amaze_Health|Amaze Health]], Implementation |
 | 3 | `nexus-team` | Advisors on this account (read team directory) |
 | 4 | `claims-analysis` | 3-year claims trending, large claimants, loss ratio |
 | 5 | `stop-loss-renewal` | Specific & aggregate stop-loss, lasers, rate history |
@@ -339,7 +339,7 @@ For standard meetings, start with a recipe and customize from there. Recipes are
 | 13 | `supplemental` | Supplemental & voluntary benefits |
 | 14 | `section-transition` | "Something More for Your Team" bridge |
 | 15 | `amaze-problem` | The healthcare problem (4 cards) |
-| 16 | `amaze-solutions` | What employees get with Amaze Health |
+| 16 | `amaze-solutions` | What employees get with [[Amaze_Health|Amaze Health]] |
 | 17 | `amaze-biomed` | The Biomed / Section 125 solution |
 | 18 | `amaze-insurance` | Insurance benefits comparison |
 | 19 | `amaze-paycheck` | Paycheck impact example |
@@ -374,7 +374,7 @@ For standard meetings, start with a recipe and customize from there. Recipes are
 - Detailed funding comparison numbers
 
 **Handled automatically:**
-- All Amaze Health slides, team info, benchmarking norms, navigation
+- All [[Amaze_Health|Amaze Health]] slides, team info, benchmarking norms, navigation
 
 ---
 
@@ -385,7 +385,7 @@ For standard meetings, start with a recipe and customize from there. Recipes are
 | # | Component | Notes |
 |---|-----------|-------|
 | 1 | `nexus-title` | Company name, date, company image |
-| 2 | `nexus-agenda` | Items: Where We Left Off, Industry Benchmarking, Introducing Nexus, Strategic Approach, Amaze Health & Biomed, Next Steps |
+| 2 | `nexus-agenda` | Items: Where We Left Off, Industry Benchmarking, Introducing Nexus, Strategic Approach, [[Amaze_Health|Amaze Health]] & Biomed, Next Steps |
 | 3 | `nexus-team` | Advisors on this account (read team directory) |
 | 4 | `discovery-recap` | "Where We Left Off" conversation summary |
 | 5 | `benchmarking-simple` | Industry benchmarking vs. KFF norms |
@@ -394,7 +394,7 @@ For standard meetings, start with a recipe and customize from there. Recipes are
 | 8 | `nexus-capabilities` | Full-service capabilities grid |
 | 9 | `section-transition` | "Beyond Insurance" bridge (or skip) |
 | 10 | `amaze-problem` | The healthcare problem (4 cards) |
-| 11 | `amaze-solutions` | What employees get with Amaze Health |
+| 11 | `amaze-solutions` | What employees get with [[Amaze_Health|Amaze Health]] |
 | 12 | `amaze-biomed` | The Biomed / Section 125 solution |
 | 13 | `amaze-insurance` | Insurance benefits comparison |
 | 14 | `amaze-paycheck` | Paycheck impact example |
@@ -427,12 +427,12 @@ For standard meetings, start with a recipe and customize from there. Recipes are
 
 ### Recipe: Amaze Standalone (17 slides)
 
-**Use when:** Standalone Amaze Health / Biomed program pitch. Not tied to a specific client's renewal. Used with Amaze reps or as a generic employer presentation.
+**Use when:** Standalone [[Amaze_Health|Amaze Health]] / Biomed program pitch. Not tied to a specific client's renewal. Used with Amaze reps or as a generic employer presentation.
 
 | # | Component | Notes |
 |---|-----------|-------|
-| 1 | `nexus-title` | Amaze Health + Biomed Program title (no company-specific image) |
-| 2 | `nexus-agenda` | Items: Why We're Here, The Problem, Amaze Health, Biomed Program, Client Momentum, Implementation |
+| 1 | `nexus-title` | [[Amaze_Health|Amaze Health]] + Biomed Program title (no company-specific image) |
+| 2 | `nexus-agenda` | Items: Why We're Here, The Problem, [[Amaze_Health|Amaze Health]], Biomed Program, Client Momentum, Implementation |
 | 3 | `nexus-team` | Advisors presenting (read team directory) |
 | 4 | `nexus-intro` | Why We're Here / opportunity framing |
 | 5 | `amaze-problem` | The healthcare problem (4 cards) |
@@ -485,7 +485,7 @@ If the advisor wants something different from the recipes, they pick slides from
 **Medical Renewal — Advanced (Self-Funded / Level-Funded):**
 `claims-analysis` · `stop-loss-renewal` · `funding-comparison` · `network-analysis`
 
-**Amaze Health (Blue):**
+**[[Amaze_Health|Amaze Health]] (Blue):**
 `amaze-problem` · `amaze-solutions` · `amaze-how-it-works` · `amaze-patient-stories` · `amaze-biomed` · `amaze-insurance` · `amaze-paycheck` · `amaze-everybody-wins` · `amaze-faq` · `amaze-market-comparison` · `amaze-client-momentum` · `amaze-implementation`
 
 **Blank Templates:**
@@ -633,7 +633,7 @@ Not every deck needs all 12 Amaze slides. Ask the advisor how deep they want to 
 
 **Quick Intro (5 slides)** — "Here's the concept, here's the math, let's talk"
 1. `amaze-problem` — why healthcare is broken for working families
-2. `amaze-solutions` — what employees get with Amaze Health
+2. `amaze-solutions` — what employees get with [[Amaze_Health|Amaze Health]]
 3. `amaze-biomed` — the Section 125 / pre-tax wrapper
 4. `amaze-paycheck` — take-home pay goes UP (the money slide)
 5. `amaze-everybody-wins` — employer wins too (FICA savings)
@@ -734,11 +734,11 @@ python3 tools/assemble_deck.py --replace-slide deck.html --slide-num 9 --slide-h
 
 The full team directory is in the component library file (look for `<!-- TEAM-DIRECTORY -->`). Read it when building any deck.
 
-**Default team (if advisor doesn't specify):** Jason Bearup, Ken Fortier, Grace Morris.
+**Default team (if advisor doesn't specify):** [[Jason Bearup]], [[Ken Fortier]], [[Grace Morris]].
 
 But always ask who should be on the deck. Pull names, titles, photos, phones, and emails from the team directory.
 
-**Current team:** Jason Bearup, Ken Fortier, Brenda Manning, Cameron Manning, Tom Snikkers, Grace Morris, Sophie Sanders.
+**Current team:** [[Jason Bearup]], [[Ken Fortier]], [[Brenda|Brenda Manning]], [[Cameron Manning]], [[Tom Snikkers]], [[Grace Morris]], [[sophie|Sophie]] Sanders.
 
 ---
 
@@ -803,9 +803,9 @@ COMPONENT MODS:
 
 ### 2. Auto-Save to the Deck Build History Folder
 
-After presenting the finished deck to the advisor, **automatically save a copy of everything to the shared Deck Build History folder on OneDrive** using the M365 connector. The advisor does not need to do this — you do it silently after the build is complete.
+After presenting the finished deck to the advisor, **automatically save a copy of everything to the shared Deck Build History folder on [[OneDrive]]** using the [[M365]] connector. The advisor does not need to do this — you do it silently after the build is complete.
 
-**Shared folder path:** `https://nexusbenefitsolutions-my.sharepoint.com/:f:/p/jason/IgBTUlxFQ_OJSJQMsgTX4b9qASydwrl0tifO7Nf5FD4YklU?e=6MdzXW`
+**Shared folder path:** `https://nexusbenefitsolutions-my.[[SharePoint|sharepoint]].com/:f:/p/jason/IgBTUlxFQ_OJSJQMsgTX4b9qASydwrl0tifO7Nf5FD4YklU?e=6MdzXW`
 
 **For each build, create a subfolder and save:**
 
@@ -852,9 +852,9 @@ Deck_Build_History/
 - [Or "None"]
 ```
 
-**If the M365 connector is not available** (advisor hasn't connected their account), skip the auto-save silently — don't error or ask the advisor to set it up. The embedded HTML comment log is the fallback. Just build the deck as normal.
+**If the [[M365]] connector is not available** (advisor hasn't connected their account), skip the auto-save silently — don't error or ask the advisor to set it up. The embedded HTML comment log is the fallback. Just build the deck as normal.
 
-**If the M365 connector IS connected but the save fails unexpectedly**, surface one line: "Note: auto-save to OneDrive didn't complete — [reason if known]. The deck is in the artifact above." Don't let a silent failure leave the advisor thinking the file was saved when it wasn't.
+**If the [[M365]] connector IS connected but the save fails unexpectedly**, surface one line: "Note: auto-save to [[OneDrive]] didn't complete — [reason if known]. The deck is in the artifact above." Don't let a silent failure leave the advisor thinking the file was saved when it wasn't.
 
 This is how the component library grows over time. Jason reviews the Deck Build History folder periodically, and the best custom slides and assets get added to the official component library.
 

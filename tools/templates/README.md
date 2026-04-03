@@ -26,6 +26,6 @@ python3 assemble_deck.py --dental-vision dv.yaml -o slide.html
 
 ## Available Carrier Logos
 Run `python3 assemble_deck.py --list-assets` for full list. Common ones:
-- `uhc-logo.png`, `bcbs-michigan-logo.png`, `beam-logo.png`
+- `[[United Healthcare|uhc]]-logo.png`, `bcbs-michigan-logo.png`, `[[Beam|beam]]-logo.png`
 - `optimyl-logo.png`, `trustmark-logo.png`, `sana-logo.png`
 - `priorityhealth-logo-green.svg`

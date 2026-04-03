@@ -69,7 +69,7 @@ All 47+ assets are hosted at `https://jbearup1981.github.io/presentation-templat
 
 **Key assets:**
 - Team photos: `jason-bearup.jpg`, `ken-fortier.jpg`, `grace-morris.jpg`, `brenda-manning.jpg`, `cameron-manning.jpg`
-- Carrier logos: `uhc-logo.png`, `bcbs-michigan-logo.png`, `beam-logo.png`, `optimyl-logo.png`, `trustmark-logo.png`, `sana-logo.png`, `priorityhealth-logo-green.svg`
+- Carrier logos: `[[United Healthcare|uhc]]-logo.png`, `bcbs-michigan-logo.png`, `[[Beam|beam]]-logo.png`, `optimyl-logo.png`, `trustmark-logo.png`, `sana-logo.png`, `priorityhealth-logo-green.svg`
 - Branding: `nexus-logo-white.svg`, `nexus-logo.svg`, `amaze-logo.png`
 - Full list: `python3 tools/assemble_deck.py --list-assets`
 
@@ -291,7 +291,7 @@ Educational slides (introduce concepts) vs. Data slides (client-specific numbers
   - `--plan-comparison`: Generate medical plan comparison from YAML (auto-splits 4+ cards into 2 slides, tag presets, benefit highlights, auto-dividers)
   - `--dental-vision`: Generate dental & vision comparison slide from YAML
   - `--list-slides`: Now shows sizes and image counts per slide
-- **9 carrier logos pushed to GitHub Pages** (UHC, Beam, Optimyl, Sana, TrustMark + variants)
+- **9 carrier logos pushed to GitHub Pages** ([[United Healthcare|UHC]], [[Beam]], Optimyl, Sana, TrustMark + variants)
 - **YAML template system** — `tools/templates/medical-comparison.yaml` and `dental-vision.yaml` for agents to copy and fill
 - **Design system match** — generated slides use exact Nexus CSS vars (`--df`, `--sg`, `--ch`, `--rs`, `--fl`, `--az-dk`, `--az-md`), fonts (`--display`, `--body`), shadows, and layout from Northern Jet reference
 - **Sena deck converted** as proof of concept — 454KB → 132KB, zero base64, 19 images all on GitHub Pages URLs
@@ -312,7 +312,7 @@ Educational slides (introduce concepts) vs. Data slides (client-specific numbers
 - **Carrier logos added to `assets/`:** [[United Healthcare|UHC]], [[Beam]], Optimyl, Sana, TrustMark
 - **`/sales-deck` skill updated** to enforce assembly tool workflow
 - **Memory saved:** `feedback_deck_building_workflow.md` — permanent rules for [[Claude Code]] deck building
-- **Dual-environment architecture documented** in this file (Claude Projects vs Claude Code)
+- **Dual-environment architecture documented** in this file (Claude Projects vs [[Claude Code]])
 
 ## Open Items
 - [x] ~~Test in Claude Projects~~ — SHIPPED Mar 3, Amaze deck built perfectly
