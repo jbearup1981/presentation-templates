@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexus Benefit Solutions — Quarterly Business Review Deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+:root {
+  --nw: #FAFAF8;
+  --df: #1F3D2E;
+  --rs: #B8522A;
+  --sg: #7A9282;
+  --ps: #E8EBE4;
+  --fl: #2A5240;
+  --rl: #D4693F;
+  --ch: #2D2D2D;
+  --az-dk: #1A3F6B;
+  --az-md: #2B6CB0;
+  --az-bg: #EDF3FA;
+  --az-teal: #49B7C4;
+  --display: 'DM Serif Display', Georgia, serif;
+  --body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --white-06: rgba(255,255,255,0.06);
+  --white-08: rgba(255,255,255,0.08);
+  --white-10: rgba(255,255,255,0.1);
+  --white-15: rgba(255,255,255,0.15);
+  --white-25: rgba(255,255,255,0.25);
+  --white-45: rgba(255,255,255,0.45);
+  --white-50: rgba(255,255,255,0.5);
+  --white-60: rgba(255,255,255,0.6);
+  --white-65: rgba(255,255,255,0.65);
+  --white-75: rgba(255,255,255,0.75);
+  --white-80: rgba(255,255,255,0.8);
+  --white-85: rgba(255,255,255,0.85);
+  --white-90: rgba(255,255,255,0.9);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; overflow: hidden; background: #1a1a1a; }
+body { font-family: var(--body); color: var(--ch); -webkit-font-smoothing: antialiased; }
+.deck { width: 100%; height: 100%; position: relative; }
+.slide {
+  width: 960px; height: 540px;
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(var(--scale, 1));
+  transform-origin: center center;
+  overflow: hidden; opacity: 0; pointer-events: none;
+  transition: opacity 0.7s cubic-bezier(0.25, 0.1, 0.25, 1), transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+.slide.active { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%) scale(var(--scale, 1)); }
+.controls {
+  position: fixed; bottom: 24px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; align-items: center; gap: 16px; z-index: 100;
+  background: rgba(0,0,0,0.6); backdrop-filter: blur(8px);
+  padding: 8px 20px; border-radius: 40px;
+}
+.controls button {
+  background: none; border: none; color: rgba(255,255,255,0.7);
+  cursor: pointer; font-size: 18px; padding: 4px 8px;
+  transition: color 0.2s; font-family: var(--body);
+}
+.controls button:hover { color: #fff; }
+.controls button:disabled { color: rgba(255,255,255,0.2); cursor: default; }
+.slide-counter {
+  font-size: 12px; color: var(--white-50);
+  font-family: monospace; letter-spacing: 1px;
+  min-width: 60px; text-align: center;
+}
+.fullscreen-btn {
+  position: fixed; top: 16px; right: 16px; z-index: 100;
+  background: rgba(0,0,0,0.5); border: none; color: var(--white-60);
+  cursor: pointer; padding: 8px 12px; border-radius: 6px;
+  font-size: 11px; font-family: var(--body); letter-spacing: 1px;
+  text-transform: uppercase; transition: all 0.2s; backdrop-filter: blur(8px);
+}
+.fullscreen-btn:hover { background: rgba(0,0,0,0.7); color: #fff; }
+.slide-header-tag {
+  font-family: var(--body); font-size: 11px; color: var(--sg);
+  letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px;
+}
+.slide-title { font-family: var(--display); font-size: 30px; color: var(--df); line-height: 1.2; }
+.plan-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.plan-table th { background: var(--df); color: #fff; padding: 8px 12px; text-align: left; font-weight: 600; font-size: 10px; letter-spacing: 0.5px; }
+.plan-table td { padding: 9px 12px; border-bottom: 1px solid var(--ps); color: var(--ch); }
+.plan-table td:not(:first-child) { text-align: left; font-weight: 500; }
+.plan-table tr:last-child td { background: rgba(184,82,42,0.06); font-weight: 700; color: var(--rs); border-bottom: none; }
+.slide-footer {
+  position: absolute; bottom: 8px; left: 64px;
+  font-size: 8px; color: var(--sg); letter-spacing: 0.5px;
+  font-family: var(--body); opacity: 0.5;
+}
+.slide-footer.dark { color: var(--white-25); }
+.pay-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.pay-table th { background: var(--az-dk); color: #fff; padding: 8px 10px; text-align: right; font-weight: 600; font-size: 11px; }
+.pay-table th:first-child { text-align: left; }
+.pay-table td { padding: 5px 10px; border-bottom: 1px solid var(--white-08); text-align: right; color: var(--white-80); }
+.pay-table td:first-child { text-align: left; color: var(--white-65); font-size: 11px; }
+.pay-table .highlight-row td { background: rgba(26,63,107,0.08); font-weight: 700; color: var(--az-dk); }
+.pay-table .diff-positive { color: var(--az-dk); font-weight: 600; }
+.pay-table .section-header td { background: var(--az-bg); font-weight: 600; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--az-md); padding: 5px 10px; border-bottom: none; }
+.plan-table td.r8 { color: var(--white-85); font-weight: 400; border-color: var(--white-10); }
+.r8 { color: #fff; font-weight: 600; border-color: var(--white-10); }
+.r9 { font-size: 9px; color: var(--white-45); }
+.r10 { font-size: 12px; color: var(--sg); line-height: 1.7; }
+.r16 { color: var(--az-teal); font-size: 12px; margin-top: 1px; }
+.r12 { font-family: var(--display); font-size: 15px; color: var(--df); }
+.r13 { font-size: 11px; color: #3d4f44; line-height: 1.4; }
+.r14 { font-size: 13px; color: var(--ch); line-height: 1.7; }
+.r15 { flex: 1; text-align: center; position: relative; z-index: 1; }
+.r11 { font-weight: 600; color: var(--df); padding: 7px 8px; }
+.bench-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+.bench-table th { background: var(--df); color: #fff; padding: 7px 12px; text-align: left; font-weight: 600; font-size: 10px; letter-spacing: 0.5px; }
+.bench-table th:nth-child(2), .bench-table th:nth-child(3) { text-align: center; }
+.bench-table td { padding: 7px 12px; border-bottom: 1px solid var(--ps); color: var(--ch); font-size: 11px; }
+.bench-table td:nth-child(2) { text-align: center; font-weight: 500; }
+.bench-table td:nth-child(3) { text-align: center; }
+.bench-table .gap-neg { color: var(--rs); font-weight: 600; }
+.bench-table .gap-ok { color: var(--df); font-weight: 600; }
+@media print {
+  html, body { overflow: visible; background: white; height: auto; }
+  .controls, .fullscreen-btn { display: none !important; }
+  .slide {
+    position: relative; transform: none !important;
+    opacity: 1; pointer-events: auto;
+    page-break-after: always; page-break-inside: avoid;
+    margin: 0 auto; top: auto; left: auto;
+    box-shadow: none;
+  }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .slide-footer { position: relative; bottom: auto; left: auto; margin-top: 8px; }
+}
+/* Responsive scrollable mode — activate with ?mode=responsive */
+body.responsive-mode { overflow: auto; background: #f5f5f5; }
+body.responsive-mode .controls,
+body.responsive-mode .fullscreen-btn { display: none; }
+body.responsive-mode .slide {
+  position: relative; opacity: 1; pointer-events: auto;
+  top: auto; left: auto; transform: none !important;
+  width: 100%; max-width: 960px; height: auto; min-height: 540px;
+  margin: 24px auto; border-radius: 8px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+}
+body.responsive-mode .slide-footer {
+  position: relative; bottom: auto; left: auto;
+  padding: 12px 64px; margin-top: 8px;
+}
+
+/* Extracted utility classes */
+.check-item { display: flex; gap: 7px; align-items: flex-start; margin-bottom: 6px; }
+.check-text { font-size: 11px; color: var(--white-80); line-height: 1.5; }
+.faq-card { padding: 16px 18px; background: var(--white-06); border-radius: 8px; border-left: 3px solid var(--az-teal); }
+.faq-q { font-size: 15px; color: #6DD8E5; font-weight: 700; margin-bottom: 6px; }
+.faq-a { font-size: 11px; color: var(--white-75); line-height: 1.55; }
+.client-card { padding: 20px; background: var(--white-06); border: 1px solid var(--white-10); border-radius: 10px; display: flex; align-items: center; gap: 14px; }
+.client-logo-box { width: 48px; height: 48px; background: var(--white-08); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.section-tag-blue { font-size: 11px; color: var(--az-teal); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+.section-title-white { font-family: var(--display); font-size: 26px; color: white; }
+.section-title-white-sm { font-family: var(--display); font-size: 26px; color: #fff; line-height: 1.3; }
+.stat-badge { padding: 10px; background: var(--az-dk); border-radius: 6px; text-align: center; border: 1px solid rgba(73,183,196,0.3); }
+.feature-card { padding: 14px 16px; background: rgba(255,255,255,0.55); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-radius: 8px; border-left: 3px solid var(--az-teal); box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+.feature-title { font-size: 14px; color: #0d2a4a; font-weight: 700; margin-bottom: 5px; line-height: 1.2; }
+.feature-desc { font-size: 12px; color: #2a4a6a; line-height: 1.5; }
+
+/* QBR-specific: scorecard metric tile */
+.metric-tile { background: var(--ps); border: 1px solid rgba(31,61,46,0.1); border-radius: 8px; padding: 16px 14px; display: flex; flex-direction: column; gap: 4px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
+.metric-num { font-family: var(--display); font-size: 32px; color: var(--df); line-height: 1; }
+.metric-label { font-size: 10px; color: var(--rs); letter-spacing: 1.2px; text-transform: uppercase; font-weight: 600; }
+.metric-desc { font-size: 10px; color: var(--sg); line-height: 1.45; margin-top: 4px; }
+
+/* QBR-specific: market news card */
+.news-card { background: var(--nw); border: 1px solid var(--ps); border-left: 3px solid var(--rs); border-radius: 0 6px 6px 0; padding: 12px 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+.news-tag { font-size: 9px; color: var(--rs); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; margin-bottom: 4px; }
+.news-title { font-family: var(--display); font-size: 14px; color: var(--df); line-height: 1.25; margin-bottom: 6px; }
+.news-body { font-size: 10.5px; color: var(--ch); line-height: 1.5; }
+</style>
+</head>
+<body>
+<button class="fullscreen-btn" id="fullscreenBtn">&#x26F6; Fullscreen</button>
+<div class="controls">
+  <button id="prevBtn">&#9664;</button>
+  <span class="slide-counter" id="counter">1 / 15</span>
+  <button id="nextBtn">&#9654;</button>
+</div>
+<div class="deck">
+
+<!-- COMPONENT: nexus-title -->
+<!-- EDITABLE: Company name, quarter, year, meeting date, advisor name -->
+<!-- SLIDE 1 — Title -->
+<div class="slide active" style="padding: 0; position: relative; overflow: hidden;">
+  <!-- Right: client image area -->
+  <div style="position: absolute; top: 0; right: 0; bottom: 0; width: 58%; background: linear-gradient(160deg, #3a5a4a 0%, #2a4a3a 50%, #1a3a2a 100%); overflow: hidden;">
+    <!-- Color overlay + texture -->
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(160deg, rgba(31,61,46,0.35) 0%, rgba(26,63,107,0.25) 50%, rgba(15,45,77,0.4) 100%); z-index: 1;"></div>
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px); z-index: 2;"></div>
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at 30% 30%, var(--white-15) 0%, transparent 50%), radial-gradient(ellipse at 80% 80%, rgba(0,0,0,0.2) 0%, transparent 50%); z-index: 3;"></div>
+    <!-- Nexus logo watermark -->
+    <div style="position: absolute; bottom: 40px; right: 40px; z-index: 4;">
+      <img src="https://jbearup1981.github.io/presentation-templates/assets/nexus-logo-white.svg" alt="Nexus" style="height: 40px; opacity: 0.25;">
+    </div>
+    <!-- Template identifier -->
+    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; z-index: 4;">
+      <div style="font-family: var(--display); font-size: 48px; color: rgba(255,255,255,0.3); line-height: 1;">Quarterly</div>
+      <div style="font-family: var(--display); font-size: 48px; color: rgba(255,255,255,0.3); line-height: 1; margin-top: 4px;">Business</div>
+      <div style="font-family: var(--display); font-size: 48px; color: rgba(255,255,255,0.3); line-height: 1; margin-top: 4px;">Review</div>
+      <div style="font-size: 14px; color: rgba(184,82,42,0.6); letter-spacing: 4px; text-transform: uppercase; margin-top: 12px; font-weight: 600;">QBR</div>
+      <div style="font-size: 10px; color: rgba(255,255,255,0.25); letter-spacing: 2px; text-transform: uppercase; margin-top: 8px;">Service Touchpoint &middot; Quiet-Season Review</div>
+    </div>
+  </div>
+  <!-- Rust stripe with shadow -->
+  <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; filter: drop-shadow(4px 0 8px rgba(0,0,0,0.4));"><div style="width: 100%; height: 100%; background: var(--rs); clip-path: polygon(57% 0, 59.2% 0, 43% 100%, 40.8% 100%);"></div></div>
+  <!-- Green panel with shadow -->
+  <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 11; filter: drop-shadow(4px 0 6px rgba(0,0,0,0.35));"><div style="position: absolute; top: 0; left: 0; width: 58%; height: 100%; background: var(--df); background-image: radial-gradient(ellipse at top left, rgba(184,82,42,0.2) 0%, transparent 35%); clip-path: polygon(0 0, 100% 0, 72% 100%, 0 100%);"></div></div>
+  <!-- Left: text content -->
+  <div style="position: relative; width: 58%; height: 100%; padding: 44px 64px; display: flex; flex-direction: column; justify-content: center; z-index: 12;">
+    <div>
+      <div style="width: 48px; height: 2px; background: var(--rs); margin-bottom: 20px;"></div>
+      <div style="font-family: var(--display); font-size: 32px; color: #FFFFFF; line-height: 1.2; margin-bottom: 4px;">[Company Name]</div>
+      <div style="font-family: var(--display); font-size: 26px; color: #FFFFFF; line-height: 1.2; margin-bottom: 6px;">Q[X] [Year] Business Review</div>
+      <div style="font-family: var(--display); font-size: 20px; color: var(--rl); line-height: 1.3; margin-bottom: 14px;">Last 90 Days &middot; Next 90 Days</div>
+      <div style="font-size: 13px; color: var(--white-45);">Prepared for [Meeting Date] &middot; Presented by [Advisor Name]</div>
+    </div>
+  <div style="position: absolute; bottom: 32px; left: 64px; display: flex; align-items: center; gap: 3px;">
+    <svg width="42" height="30" style="opacity: 0.45;" version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 867" preserveAspectRatio="xMidYMid meet">
+<g transform="translate(0,867) scale(0.1,-0.1)" fill="#FAFAF8" stroke="none">
+<path d="M5760 8014 c-1080 -77 -2054 -604 -2704 -1464 -381 -503 -621 -1090 -712 -1740 -22 -157 -30 -628 -14 -802 81 -893 474 -1710 1119 -2330 582 -559 1305 -901 2126 -1005 196 -24 654 -24 850 0 821 104 1544 446 2126 1005 645 620 1038 1437 1119 2330 16 174 8 645 -14 802 -119 849 -492 1588 -1097 2174 -580 562 -1320 914 -2129 1011 -129 16 -550 27 -670 19z m455 -174 c493 -33 913 -146 1355 -366 352 -175 636 -380 916 -660 591 -593 948 -1366 1015 -2198 14 -184 7 -543 -15 -716 -137 -1056 -723 -1974 -1623 -2543 -145 -92 -447 -241 -617 -306 -800 -303 -1692 -303 -2492 0 -170 65 -472 214 -617 306 -819 518 -1389 1340 -1577 2273 -44 220 -61 373 -67 616 -6 253 6 447 43 669 167 991 744 1856 1601 2398 144 91 446 241 613 304 472 179 974 255 1465 223z"/>
+<path d="M5735 7599 c-649 -53 -1275 -303 -1790 -715 -134 -107 -383 -355 -486 -484 -381 -477 -607 -992 -699 -1595 -28 -178 -38 -574 -21 -761 132 -1402 1113 -2546 2476 -2888 256 -64 486 -91 785 -91 305 0 530 27 800 95 1172 296 2092 1221 2380 2394 70 289 95 526 87 864 -5 253 -23 414 -68 617 -93 421 -281 846 -522 1185 -227 318 -518 605 -832 819 -615 420 -1370 621 -2110 560z m-230 -767 c6 -4 177 -349 380 -767 203 -418 423 -872 490 -1010 67 -137 238 -491 381 -785 l259 -534 3 1109 c4 1455 -3 1548 -120 1711 -58 81 -183 144 -286 144 l-33 0 3 68 3 67 500 0 500 0 3 -67 3 -67 -43 -11 c-119 -31 -189 -63 -230 -107 -36 -38 -83 -142 -105 -233 -16 -70 -18 -218 -23 -2355 l-5 -2280 -37 -3 -37 -3 -120 239 -120 240 -11 108 c-51 498 -212 891 -492 1199 -66 72 -227 226 -256 244 -8 5 -585 1157 -996 1991 l-71 145 -5 -696 -5 -697 -77 65 -78 65 0 809 0 809 -56 113 c-128 254 -191 321 -329 346 -32 6 -60 11 -62 11 -2 0 -3 32 -3 70 l0 70 533 0 c292 0 537 -4 542 -8z m-1250 -252 c-12 -19 -55 -179 -74 -272 -90 -441 -29 -839 181 -1196 189 -320 523 -631 1041 -967 575 -375 660 -437 842 -620 156 -156 242 -273 335 -458 150 -298 217 -603 225 -1026 2 -112 3 -202 1 -200 -2 2 -23 49 -46 104 -90 215 -185 369 -305 494 -100 104 -174 157 -306 220 -134 64 -244 96 -591 172 -487 106 -708 182 -948 327 -399 241 -648 592 -727 1025 -23 129 -23 389 1 522 20 110 75 290 106 345 16 28 19 30 15 10 -13 -64 -25 -215 -25 -315 0 -365 106 -656 318 -871 114 -116 230 -196 417 -289 207 -102 314 -141 667 -244 358 -104 488 -150 633 -220 222 -109 400 -262 525 -452 33 -50 60 -88 60 -85 0 4 -18 41 -39 84 -65 129 -154 254 -257 362 -154 160 -299 262 -699 490 -375 215 -551 332 -755 503 -523 438 -814 955 -860 1532 -23 293 37 621 161 867 41 81 95 168 105 168 3 0 2 -5 -1 -10z m787 -3891 c8 -279 38 -443 96 -539 25 -40 94 -110 135 -136 44 -29 135 -54 194 -54 l43 0 0 -65 0 -65 -540 0 -540 0 0 65 0 64 38 6 c141 22 191 42 258 107 107 104 154 323 154 724 l0 153 78 -28 77 -29 7 -203z"/>
+</g>
+</svg>
+    <div><div style="font-size: 11px; color: rgba(255,255,255,0.55); line-height: 1.4;">Nexus Benefit Solutions</div><div style="font-size: 10px; color: rgba(255,255,255,0.4);">Grand Rapids, Michigan</div></div>
+  </div>
+  </div>
+</div>
+
+<!-- COMPONENT: qbr-agenda -->
+<!-- EDITABLE: Agenda copy, time allocations -->
+<!-- SLIDE 2 — Agenda -->
+<div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
+  <div style="margin-bottom: 18px;">
+    <div class="slide-header-tag">00 &mdash; Agenda</div>
+    <div class="slide-title">Today's 30 Minutes</div>
+  </div>
+  <div style="font-size: 13px; color: var(--ch); line-height: 1.7; max-width: 760px; margin-bottom: 28px;">A working session, not a sales pitch. We're here to show what we did for [Company Name] this quarter, surface what's coming, and align on what needs your attention next.</div>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; grid-auto-flow: column; grid-template-rows: repeat(3, auto); gap: 14px 40px;">
+    <div style="display: flex; gap: 14px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid var(--ps);"><div style="font-family: var(--display); font-size: 25px; color: var(--rs); min-width: 32px;">01</div><div><div style="font-size: 15px; color: var(--df); font-weight: 600;">What We Did This Quarter</div><div style="font-size: 12px; color: var(--sg); margin-top: 2px;">Service scorecard &mdash; tickets, escalations, filings &middot; ~6 min</div></div></div>
+    <div style="display: flex; gap: 14px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid var(--ps);"><div style="font-family: var(--display); font-size: 25px; color: var(--rs); min-width: 32px;">02</div><div><div style="font-size: 15px; color: var(--df); font-weight: 600;">Claims &amp; Cost Pulse</div><div style="font-size: 12px; color: var(--sg); margin-top: 2px;">Where you are vs. renewal projection &middot; ~6 min</div></div></div>
+    <div style="display: flex; gap: 14px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid var(--ps);"><div style="font-family: var(--display); font-size: 25px; color: var(--rs); min-width: 32px;">03</div><div><div style="font-size: 15px; color: var(--df); font-weight: 600;">Compliance Calendar</div><div style="font-size: 12px; color: var(--sg); margin-top: 2px;">Next 6 months of dates that affect you &middot; ~5 min</div></div></div>
+    <div style="display: flex; gap: 14px; align-items: flex-start; padding: 12px 0;"><div style="font-family: var(--display); font-size: 25px; color: var(--rs); min-width: 32px;">04</div><div><div style="font-size: 15px; color: var(--df); font-weight: 600;">What's Changing in the Market</div><div style="font-size: 12px; color: var(--sg); margin-top: 2px;">Carrier &amp; vendor news that touches you &middot; ~5 min</div></div></div>
+    <div style="display: flex; gap: 14px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid var(--ps);"><div style="font-family: var(--display); font-size: 25px; color: var(--rs); min-width: 32px;">05</div><div><div style="font-size: 15px; color: var(--df); font-weight: 600;">Next 90 Days</div><div style="font-size: 12px; color: var(--sg); margin-top: 2px;">Recommendations, decisions, what we're working on &middot; ~6 min</div></div></div>
+    <div style="display: flex; gap: 14px; align-items: flex-start; padding: 12px 0;"><div style="font-family: var(--display); font-size: 25px; color: var(--rs); min-width: 32px;">06</div><div><div style="font-size: 15px; color: var(--df); font-weight: 600;">Open Questions &amp; Wrap</div><div style="font-size: 12px; color: var(--sg); margin-top: 2px;">FAQ &amp; next QBR date &middot; ~2 min</div></div></div>
+  </div>
+  <div class="slide-footer">Nexus Benefit Solutions</div>
+</div>
+
+<!-- COMPONENT: section-divider-1 -->
+<!-- SLIDE 3 — Section Divider: What we did -->
+<div class="slide" style="padding: 44px 64px; display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(160deg, var(--nw) 0%, var(--ps) 22%, #c5d2ca 42%, #8aa294 60%, var(--fl) 78%, var(--df) 100%);">
+  <div style="text-align: center; max-width: 640px;">
+    <div style="font-size: 13px; color: var(--df); letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 16px;">Section One</div>
+    <div style="font-family: var(--display); font-size: 38px; color: #fff; line-height: 1.25; margin-bottom: 16px; text-shadow: 0 2px 16px rgba(0,0,0,0.35);">What We Did<br>for You This Quarter</div>
+    <div style="width: 48px; height: 2px; background: var(--rs); margin: 0 auto 16px;"></div>
+    <div style="font-size: 16px; color: var(--white-85); line-height: 1.7; text-shadow: 0 1px 6px rgba(0,0,0,0.2);">90 days of work behind the scenes &mdash; tickets resolved, escalations closed, filings completed, employees served.</div>
+  </div>
+</div>
+
+<!-- COMPONENT: service-scorecard -->
+<!-- EDITABLE: All metric numbers, labels, descriptions. Pull from CRM activity log + Employee Navigator + Outlook. -->
+<!-- SLIDE 4 — Service Scorecard -->
+<div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
+  <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+    <div><div class="slide-header-tag">01 &mdash; Service Scorecard</div><div class="slide-title">By the Numbers, Last 90 Days</div></div>
+    <div style="font-size: 9px; color: var(--sg); text-align: right; line-height: 1.4;">Source: Nexus CRM activity log<br>+ Employee Navigator + ticketing</div>
+  </div>
+  <div style="font-size: 12px; color: var(--ch); line-height: 1.6; margin-bottom: 18px; max-width: 760px;">Every interaction with [Company Name] this quarter &mdash; logged, measured, and accountable. This is what a dedicated team looks like.</div>
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; flex: 1;">
+    <div class="metric-tile">
+      <div class="metric-label">Tickets Closed</div>
+      <div class="metric-num">XX</div>
+      <div class="metric-desc">Employee &amp; HR requests resolved this quarter &mdash; benefits questions, ID cards, claims help.</div>
+    </div>
+    <div class="metric-tile">
+      <div class="metric-label">Avg. Response Time</div>
+      <div class="metric-num">X.X<span style="font-size: 18px; color: var(--sg); font-family: var(--body); font-weight: 600; margin-left: 4px;">hrs</span></div>
+      <div class="metric-desc">From request received to first substantive response. Industry norm: 24&ndash;48 hours.</div>
+    </div>
+    <div class="metric-tile">
+      <div class="metric-label">Carrier Escalations</div>
+      <div class="metric-num">XX<span style="font-size: 18px; color: var(--sg); font-family: var(--body); font-weight: 600; margin-left: 4px;">/XX</span></div>
+      <div class="metric-desc">Resolved / opened. Claims disputes, eligibility errors, and billing fixes pushed to carriers on your behalf.</div>
+    </div>
+    <div class="metric-tile">
+      <div class="metric-label">Enrollment Changes</div>
+      <div class="metric-num">XX</div>
+      <div class="metric-desc">New hires, terminations, qualifying-event changes, and dependent updates processed end-to-end.</div>
+    </div>
+    <div class="metric-tile">
+      <div class="metric-label">Compliance Filings Met</div>
+      <div class="metric-num">X<span style="font-size: 18px; color: var(--sg); font-family: var(--body); font-weight: 600; margin-left: 4px;">/X</span></div>
+      <div class="metric-desc">All required filings and notices delivered on time this quarter &mdash; zero late, zero missed.</div>
+    </div>
+    <div class="metric-tile">
+      <div class="metric-label">Employee Questions</div>
+      <div class="metric-num">XX</div>
+      <div class="metric-desc">Direct employee questions answered &mdash; benefit selection help, claims navigation, provider lookups.</div>
+    </div>
+  </div>
+  <div style="margin-top: 16px; padding: 12px 18px; border-left: 3px solid var(--rs); background: rgba(184,82,42,0.04); border-radius: 0 6px 6px 0;">
+    <div style="font-size: 12px; color: var(--ch); line-height: 1.6;"><strong style="color: var(--df);">The scoreboard is the relationship.</strong> If a number doesn't look right, tell us &mdash; we'll show you the underlying activity log line by line.</div>
+  </div>
+  <div class="slide-footer">Nexus Benefit Solutions &mdash; Confidential</div>
+</div>
+
+<!-- COMPONENT: utilization-pulse -->
+<!-- EDITABLE: All three top-line numbers, ratios, narrative copy. Pull from carrier utilization report. -->
+<!-- SLIDE 5 — Plan Utilization Pulse -->
+<div class="slide" style="padding: 44px 64px; background: var(--az-dk); background-image: radial-gradient(ellipse at top left, rgba(43,108,176,0.5) 0%, transparent 45%), radial-gradient(ellipse at bottom right, rgba(75,183,196,0.35) 0%, transparent 50%), radial-gradient(ellipse at center, rgba(59,130,196,0.2) 0%, transparent 60%); display: flex; flex-direction: column;">
+  <div style="margin-bottom: 18px;">
+    <div class="section-tag-blue">02 &mdash; Cost &amp; Utilization Pulse</div>
+    <div class="section-title-white-sm">Where You Stand &mdash; YTD vs. Renewal Projection</div>
+  </div>
+  <div style="font-size: 12px; color: var(--white-75); line-height: 1.6; margin-bottom: 22px; max-width: 760px;">We don't wait for renewal to look at the data. Three numbers tell us whether your plan is performing as expected, ahead of schedule, or running hot.</div>
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; flex: 1;">
+    <div class="stat-badge" style="padding: 22px 18px; display: flex; flex-direction: column; justify-content: center; gap: 10px;">
+      <div style="font-size: 9px; color: var(--az-teal); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600;">Employer Medical Spend YTD</div>
+      <div style="font-family: var(--display); font-size: 36px; color: #fff; line-height: 1;">$XXX,XXX</div>
+      <div style="font-size: 11px; color: var(--white-75); line-height: 1.5;">Out of <strong style="color: #fff;">$XXX,XXX</strong> projected at renewal. <span style="color: #6DD8E5; font-weight: 600;">Tracking on plan.</span></div>
+    </div>
+    <div class="stat-badge" style="padding: 22px 18px; display: flex; flex-direction: column; justify-content: center; gap: 10px;">
+      <div style="font-size: 9px; color: var(--az-teal); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600;">Claims Loss Ratio</div>
+      <div style="font-family: var(--display); font-size: 36px; color: #fff; line-height: 1;">XX%</div>
+      <div style="font-size: 11px; color: var(--white-75); line-height: 1.5;">Paid claims as a percent of premium. <strong style="color: #fff;">Target &lt;85%</strong> to avoid renewal pressure.</div>
+    </div>
+    <div class="stat-badge" style="padding: 22px 18px; display: flex; flex-direction: column; justify-content: center; gap: 10px;">
+      <div style="font-size: 9px; color: var(--az-teal); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600;">In-Network Utilization</div>
+      <div style="font-family: var(--display); font-size: 36px; color: #fff; line-height: 1;">XX%</div>
+      <div style="font-size: 11px; color: var(--white-75); line-height: 1.5;">Higher is better. <strong style="color: #fff;">Benchmark: 92%+</strong> for groups your size on a PPO.</div>
+    </div>
+  </div>
+  <div style="margin-top: 18px; padding: 14px 22px; border-left: 3px solid var(--az-teal); background: var(--white-06); border-radius: 0 6px 6px 0;">
+    <div style="font-size: 12px; color: var(--white-85); line-height: 1.6;"><strong style="color: #6DD8E5;">Why this matters now.</strong> Renewal conversations should never be a surprise. If we see something trending wrong in Q1 or Q2, we have time to act &mdash; not just react in October.</div>
+  </div>
+  <div class="slide-footer dark">Nexus Benefit Solutions &mdash; Confidential</div>
+</div>
+
+<!-- COMPONENT: claims-trend-chart -->
+<!-- EDITABLE: All four quarter labels, dollar amounts, bar widths (percent), verdict text -->
+<!-- SLIDE 6 — Claims Trend Chart -->
+<div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
+  <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+    <div><div class="slide-header-tag">02 &mdash; Trailing Premium Spend</div><div class="slide-title" style="font-size: 26px;">Four-Quarter Claims Trend</div></div>
+    <div style="font-size: 9px; color: var(--sg); text-align: right; line-height: 1.4;">Source: [Carrier Name]<br>monthly utilization report</div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1.4fr 0.6fr; gap: 22px; flex: 1;">
+
+    <!-- LEFT: 4-bar chart + table -->
+    <div style="display: flex; flex-direction: column; gap: 14px;">
+      <div style="padding: 16px 18px; background: rgba(31,61,46,0.04); border-radius: 8px; border: 1px solid var(--ps); display: flex; flex-direction: column; gap: 10px;">
+        <div style="font-size: 9px; color: var(--sg); letter-spacing: 1.5px; text-transform: uppercase;">Paid Claims by Quarter (Trailing 4Q)</div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 10px; color: var(--ch); width: 70px; text-align: right;">Q[X-3] [Year-1]</span>
+          <div style="flex: 1; height: 18px; background: var(--ps); border-radius: 3px; overflow: hidden;">
+            <div style="width: 62%; height: 100%; background: var(--df); border-radius: 3px;"></div>
+          </div>
+          <span style="font-size: 10px; color: var(--ch); font-weight: 600; width: 70px;">$XX,XXX</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 10px; color: var(--ch); width: 70px; text-align: right;">Q[X-2] [Year-1]</span>
+          <div style="flex: 1; height: 18px; background: var(--ps); border-radius: 3px; overflow: hidden;">
+            <div style="width: 70%; height: 100%; background: var(--fl); border-radius: 3px;"></div>
+          </div>
+          <span style="font-size: 10px; color: var(--ch); font-weight: 600; width: 70px;">$XX,XXX</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 10px; color: var(--ch); width: 70px; text-align: right;">Q[X-1] [Year]</span>
+          <div style="flex: 1; height: 18px; background: var(--ps); border-radius: 3px; overflow: hidden;">
+            <div style="width: 78%; height: 100%; background: var(--rl); border-radius: 3px;"></div>
+          </div>
+          <span style="font-size: 10px; color: var(--ch); font-weight: 600; width: 70px;">$XX,XXX</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 10px; color: var(--ch); width: 70px; text-align: right; font-weight: 700;">Q[X] [Year]</span>
+          <div style="flex: 1; height: 18px; background: var(--ps); border-radius: 3px; overflow: hidden;">
+            <div style="width: 84%; height: 100%; background: var(--rs); border-radius: 3px;"></div>
+          </div>
+          <span style="font-size: 10px; color: var(--rs); font-weight: 700; width: 70px;">$XX,XXX</span>
+        </div>
+      </div>
+
+      <table class="bench-table" style="font-size: 10px;">
+        <thead>
+          <tr>
+            <th style="padding: 6px 8px;">Quarter</th>
+            <th style="padding: 6px 8px; text-align: right;">Paid Claims</th>
+            <th style="padding: 6px 8px; text-align: right;">Premium Collected</th>
+            <th style="padding: 6px 8px; text-align: right;">Loss Ratio</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="r11" style="padding: 5px 8px;">Q[X-3] [Year-1]</td>
+            <td style="padding: 5px 8px; text-align: right;">$XX,XXX</td>
+            <td style="padding: 5px 8px; text-align: right;">$XX,XXX</td>
+            <td style="padding: 5px 8px; text-align: right; font-weight: 600; color: var(--df);">XX%</td>
+          </tr>
+          <tr>
+            <td class="r11" style="padding: 5px 8px;">Q[X-2] [Year-1]</td>
+            <td style="padding: 5px 8px; text-align: right;">$XX,XXX</td>
+            <td style="padding: 5px 8px; text-align: right;">$XX,XXX</td>
+            <td style="padding: 5px 8px; text-align: right; font-weight: 600; color: var(--df);">XX%</td>
+          </tr>
+          <tr>
+            <td class="r11" style="padding: 5px 8px;">Q[X-1] [Year]</td>
+            <td style="padding: 5px 8px; text-align: right;">$XX,XXX</td>
+            <td style="padding: 5px 8px; text-align: right;">$XX,XXX</td>
+            <td style="padding: 5px 8px; text-align: right; font-weight: 600; color: var(--rl);">XX%</td>
+          </tr>
+          <tr>
+            <td class="r11" style="padding: 5px 8px;">Q[X] [Year]</td>
+            <td style="padding: 5px 8px; text-align: right; font-weight: 700;">$XX,XXX</td>
+            <td style="padding: 5px 8px; text-align: right;">$XX,XXX</td>
+            <td style="padding: 5px 8px; text-align: right; font-weight: 700; color: var(--rs);">XX%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- RIGHT: Verdict callout -->
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+      <div style="padding: 14px; background: rgba(184,82,42,0.06); border-radius: 8px; border-left: 3px solid var(--rs); text-align: center;">
+        <div style="font-size: 9px; color: var(--sg); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px;">Verdict</div>
+        <div style="font-family: var(--display); font-size: 24px; color: var(--rs); line-height: 1.15;">Trending<br>Over Budget</div>
+        <div style="font-size: 10px; color: var(--ch); margin-top: 8px; line-height: 1.5;">Q[X] is XX% above projection. Two more quarters at this pace puts renewal pressure at +XX%.</div>
+      </div>
+      <div style="padding: 12px 14px; background: rgba(31,61,46,0.04); border-radius: 6px; border: 1px solid var(--ps); flex: 1;">
+        <div style="font-family: var(--display); font-size: 12px; color: var(--df); margin-bottom: 8px;">What's Driving It</div>
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <div style="display: flex; gap: 6px; font-size: 10px; color: var(--ch); line-height: 1.4;"><span style="color: var(--rs); font-weight: 700;">&rarr;</span><span><strong>X large claimants</strong> over $25K threshold this quarter</span></div>
+          <div style="display: flex; gap: 6px; font-size: 10px; color: var(--ch); line-height: 1.4;"><span style="color: var(--rs); font-weight: 700;">&rarr;</span><span><strong>Specialty Rx</strong> up XX% YoY &mdash; one new high-cost drug</span></div>
+          <div style="display: flex; gap: 6px; font-size: 10px; color: var(--ch); line-height: 1.4;"><span style="color: var(--rs); font-weight: 700;">&rarr;</span><span><strong>ER utilization</strong> X visits this quarter, [Company Name] avg is X</span></div>
+        </div>
+      </div>
+      <div style="padding: 8px 12px; border-left: 3px solid var(--df); background: rgba(31,61,46,0.04); border-radius: 0 6px 6px 0;">
+        <div style="font-size: 10px; color: var(--ch); line-height: 1.5;"><strong style="color: var(--df);">We see this in real-time</strong> &mdash; not at renewal.</div>
+      </div>
+    </div>
+
+  </div>
+  <div class="slide-footer">Nexus Benefit Solutions &mdash; Confidential</div>
+</div>
+
+<!-- COMPONENT: section-divider-2 -->
+<!-- SLIDE 7 — Section Divider: Market -->
+<div class="slide" style="padding: 44px 64px; display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(160deg, var(--nw) 0%, var(--ps) 22%, #c5d2ca 42%, #8aa294 60%, var(--fl) 78%, var(--df) 100%);">
+  <div style="text-align: center; max-width: 660px;">
+    <div style="font-size: 13px; color: var(--df); letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 16px;">Section Two</div>
+    <div style="font-family: var(--display); font-size: 38px; color: #fff; line-height: 1.25; margin-bottom: 16px; text-shadow: 0 2px 16px rgba(0,0,0,0.35);">What's Happening<br>That Matters to You</div>
+    <div style="width: 48px; height: 2px; background: var(--rs); margin: 0 auto 16px;"></div>
+    <div style="font-size: 16px; color: var(--white-85); line-height: 1.7; text-shadow: 0 1px 6px rgba(0,0,0,0.2);">Carrier moves, vendor launches, and compliance shifts &mdash; filtered for what affects [Company Name] specifically.</div>
+  </div>
+</div>
+
+<!-- COMPONENT: market-news-cards -->
+<!-- EDITABLE: All news card titles, tags, body copy. Update each quarter from carrier briefings, vendor announcements, regulatory updates. -->
+<!-- SLIDE 8 — Carrier &amp; Vendor News -->
+<div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
+  <div style="margin-bottom: 14px;">
+    <div class="slide-header-tag">04 &mdash; Market &amp; Carrier News</div>
+    <div class="slide-title">What's Changing &mdash; Filtered for You</div>
+  </div>
+  <div style="font-size: 12px; color: var(--ch); line-height: 1.6; margin-bottom: 18px; max-width: 760px;">Hundreds of carrier announcements crossed our desk this quarter. Here are the four that touch [Company Name].</div>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; flex: 1;">
+    <div class="news-card">
+      <div class="news-tag">Carrier Network</div>
+      <div class="news-title">[Carrier Name] adds [Health System] to in-network</div>
+      <div class="news-body">Effective [Date]. Affects approximately X of your employees who currently see providers there. No member action needed &mdash; existing claims will reprocess in-network automatically.</div>
+    </div>
+    <div class="news-card">
+      <div class="news-tag">Rate Action</div>
+      <div class="news-title">[Carrier Name] announced trend assumption for [Year]</div>
+      <div class="news-body">Filed renewal trend: <strong>+XX%</strong> across the small/mid-group block. We're modeling your specific renewal against this baseline now &mdash; preliminary estimate ready by [Month].</div>
+    </div>
+    <div class="news-card">
+      <div class="news-tag">Vendor Launch</div>
+      <div class="news-title">New virtual PCP benefit available at no cost</div>
+      <div class="news-body">[Vendor / Amaze Health] is now bundled with your existing carrier package. Zero-cost-to-employer rollout option for [Company Name] &mdash; we're recommending you opt in. Details in next section.</div>
+    </div>
+    <div class="news-card">
+      <div class="news-tag">Compliance Shift</div>
+      <div class="news-title">[Regulation / RxDC / MHPAEA] update affects your filings</div>
+      <div class="news-body">[Brief plain-English description of the regulatory change and what it means for [Company Name]]. We're handling the filing &mdash; no action required from your team. Confirmed deadline: [Date].</div>
+    </div>
+  </div>
+  <div class="slide-footer">Nexus Benefit Solutions</div>
+</div>
+
+<!-- COMPONENT: compliance-calendar -->
+<!-- EDITABLE: All dates, deadlines, plan-year-specific items. Pull from compliance-package skill output. -->
+<!-- SLIDE 9 — Compliance Calendar -->
+<div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
+  <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+    <div><div class="slide-header-tag">03 &mdash; Compliance Calendar</div><div class="slide-title" style="font-size: 26px;">Next Six Months &mdash; What's Coming Due</div></div>
+    <div style="font-size: 9px; color: var(--sg); text-align: right; line-height: 1.4;">Plan year: [Effective Date]<br>Filing entity: [Company Name]</div>
+  </div>
+  <div style="font-size: 12px; color: var(--ch); line-height: 1.6; margin-bottom: 16px; max-width: 760px;">Every date below is owned by Nexus unless marked <strong style="color: var(--rs);">[Action Required]</strong>. We file, you review &mdash; not the other way around.</div>
+  <table class="bench-table" style="font-size: 11px;">
+    <thead>
+      <tr>
+        <th style="padding: 8px 12px; width: 18%;">Due Date</th>
+        <th style="padding: 8px 12px; width: 32%; text-align: left;">Filing / Action</th>
+        <th style="padding: 8px 12px; width: 30%; text-align: left;">Description</th>
+        <th style="padding: 8px 12px; width: 20%; text-align: left;">Owner</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="r11" style="padding: 7px 12px;">[Month/Day]</td>
+        <td style="padding: 7px 12px; text-align: left; font-weight: 600;">ACA 1094-C / 1095-C</td>
+        <td style="padding: 7px 12px; text-align: left;">Forms to IRS &amp; employees. Coverage offer reporting.</td>
+        <td style="padding: 7px 12px; text-align: left; font-weight: 600; color: var(--df);">Nexus</td>
+      </tr>
+      <tr>
+        <td class="r11" style="padding: 7px 12px;">[Month/Day]</td>
+        <td style="padding: 7px 12px; text-align: left; font-weight: 600;">Form 5500 Filing</td>
+        <td style="padding: 7px 12px; text-align: left;">Annual ERISA report. Welfare plan filing for groups 100+ enrolled.</td>
+        <td style="padding: 7px 12px; text-align: left; font-weight: 600; color: var(--df);">Nexus</td>
+      </tr>
+      <tr>
+        <td class="r11" style="padding: 7px 12px;">[Month/Day]</td>
+        <td style="padding: 7px 12px; text-align: left; font-weight: 600;">Non-Discrimination Testing</td>
+        <td style="padding: 7px 12px; text-align: left;">Section 125 / cafeteria plan testing window opens. We pull, run, file.</td>
+        <td style="padding: 7px 12px; text-align: left; font-weight: 600; color: var(--df);">Nexus</td>
+      </tr>
+      <tr>
+        <td class="r11" style="padding: 7px 12px;">[Month/Day]</td>
+        <td style="padding: 7px 12px; text-align: left; font-weight: 600;">RxDC Submission</td>
+        <td style="padding: 7px 12px; text-align: left;">Prescription drug data collection to CMS. Carrier files; we verify.</td>
+        <td style="padding: 7px 12px; text-align: left; font-weight: 600; color: var(--df);">Nexus + Carrier</td>
+      </tr>
+      <tr>
+        <td class="r11" style="padding: 7px 12px;">[Month/Day]</td>
+        <td style="padding: 7px 12px; text-align: left; font-weight: 600;">SPD &amp; SBC Distribution</td>
+        <td style="padding: 7px 12px; text-align: left;">Summary Plan Description / Benefits Coverage to all enrolled employees.</td>
+        <td style="padding: 7px 12px; text-align: left; font-weight: 600; color: var(--df);">Nexus</td>
+      </tr>
+      <tr>
+        <td class="r11" style="padding: 7px 12px;">[Month/Day]</td>
+        <td style="padding: 7px 12px; text-align: left; font-weight: 600;">COBRA Rate Refresh</td>
+        <td style="padding: 7px 12px; text-align: left;">New plan-year COBRA premiums posted to administrator. Notices update.</td>
+        <td style="padding: 7px 12px; text-align: left; font-weight: 600; color: var(--df);">Nexus</td>
+      </tr>
+      <tr>
+        <td class="r11" style="padding: 7px 12px;">[Month/Day]</td>
+        <td style="padding: 7px 12px; text-align: left; font-weight: 600;">Renewal Decision Window</td>
+        <td style="padding: 7px 12px; text-align: left;">Carrier release date through your binding signature deadline.</td>
+        <td style="padding: 7px 12px; text-align: left; font-weight: 700; color: var(--rs);">[Action Required]</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="slide-footer">Nexus Benefit Solutions &mdash; Confidential</div>
+</div>
+
+<!-- COMPONENT: section-divider-3 -->
+<!-- SLIDE 10 — Section Divider: Recommendations -->
+<div class="slide" style="padding: 44px 64px; display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(160deg, var(--nw) 0%, var(--ps) 22%, #c5d2ca 42%, #8aa294 60%, var(--fl) 78%, var(--df) 100%);">
+  <div style="text-align: center; max-width: 640px;">
+    <div style="font-size: 13px; color: var(--df); letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 16px;">Section Three</div>
+    <div style="font-family: var(--display); font-size: 38px; color: #fff; line-height: 1.25; margin-bottom: 16px; text-shadow: 0 2px 16px rgba(0,0,0,0.35);">What We Recommend<br>for the Next 90 Days</div>
+    <div style="width: 48px; height: 2px; background: var(--rs); margin: 0 auto 16px;"></div>
+    <div style="font-size: 16px; color: var(--white-85); line-height: 1.7; text-shadow: 0 1px 6px rgba(0,0,0,0.2);">Three things we'd like to do with you &mdash; specific, dated, and tied to where your plan is right now.</div>
+  </div>
+</div>
+
+<!-- COMPONENT: top-3-recommendations -->
+<!-- EDITABLE: Each recommendation title, ask, owner, deadline, ROI/rationale -->
+<!-- SLIDE 11 — Top 3 Recommendations -->
+<div class="slide" style="padding: 44px 64px; background: var(--az-dk); background-image: radial-gradient(ellipse at top left, rgba(43,108,176,0.5) 0%, transparent 45%), radial-gradient(ellipse at bottom right, rgba(75,183,196,0.35) 0%, transparent 50%), radial-gradient(ellipse at center, rgba(59,130,196,0.2) 0%, transparent 60%); display: flex; flex-direction: column;">
+  <div style="margin-bottom: 18px;">
+    <div class="section-tag-blue">05 &mdash; Recommendations</div>
+    <div class="section-title-white-sm">Three Moves Worth Making This Quarter</div>
+  </div>
+  <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; flex: 1;">
+    <div class="feature-card" style="display: flex; flex-direction: column; gap: 8px;">
+      <div style="font-size: 9px; color: var(--az-md); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700;">Recommendation 01</div>
+      <div class="feature-title" style="font-size: 16px;">Roll out the new virtual PCP benefit</div>
+      <div class="feature-desc">Zero-cost-to-employer add-on bundled with your carrier package. Estimated XX% employee adoption based on similar groups. We handle launch comms, you approve the message.</div>
+      <div style="margin-top: auto; padding-top: 8px; border-top: 1px solid rgba(26,63,107,0.15); display: flex; justify-content: space-between; font-size: 10px;"><span style="color: #2a4a6a;"><strong>Owner:</strong> Nexus</span><span style="color: var(--rs); font-weight: 600;">Launch by [Date]</span></div>
+    </div>
+    <div class="feature-card" style="display: flex; flex-direction: column; gap: 8px;">
+      <div style="font-size: 9px; color: var(--az-md); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700;">Recommendation 02</div>
+      <div class="feature-title" style="font-size: 16px;">Run a 5-question employee survey</div>
+      <div class="feature-desc">Get ahead of open enrollment with real signal on what employees actually value. Three minutes per response. We design, send, and synthesize results &mdash; you see the deck.</div>
+      <div style="margin-top: auto; padding-top: 8px; border-top: 1px solid rgba(26,63,107,0.15); display: flex; justify-content: space-between; font-size: 10px;"><span style="color: #2a4a6a;"><strong>Owner:</strong> Nexus</span><span style="color: var(--rs); font-weight: 600;">Field by [Date]</span></div>
+    </div>
+    <div class="feature-card" style="display: flex; flex-direction: column; gap: 8px;">
+      <div style="font-size: 9px; color: var(--az-md); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700;">Recommendation 03</div>
+      <div class="feature-title" style="font-size: 16px;">Pull alternate carrier quotes early</div>
+      <div class="feature-desc">Given Q[X] claims trend, we want a [Carrier] second-opinion quote in hand before your renewal release. Worst case: it confirms the incumbent. Best case: it gives you negotiating leverage.</div>
+      <div style="margin-top: auto; padding-top: 8px; border-top: 1px solid rgba(26,63,107,0.15); display: flex; justify-content: space-between; font-size: 10px;"><span style="color: #2a4a6a;"><strong>Owner:</strong> Nexus</span><span style="color: var(--rs); font-weight: 600;">Quote by [Date]</span></div>
+    </div>
+  </div>
+  <div style="margin-top: 16px; padding: 12px 18px; border-left: 3px solid var(--az-teal); background: var(--white-06); border-radius: 0 6px 6px 0;">
+    <div style="font-size: 12px; color: var(--white-85); line-height: 1.6;"><strong style="color: #6DD8E5;">All three are funded by us</strong> &mdash; no incremental cost to [Company Name]. We just need a thumbs-up to move.</div>
+  </div>
+  <div class="slide-footer dark">Nexus Benefit Solutions</div>
+</div>
+
+<!-- COMPONENT: decisions-needed -->
+<!-- EDITABLE: Each decision item, owner on your side, deadline -->
+<!-- SLIDE 12 — Decisions We Need from You -->
+<div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
+  <div style="margin-bottom: 16px;">
+    <div class="slide-header-tag">05 &mdash; Decisions Needed</div>
+    <div class="slide-title">What We Need from You</div>
+  </div>
+  <div style="font-size: 13px; color: var(--ch); line-height: 1.7; margin-bottom: 22px; max-width: 760px;">Four small decisions today &mdash; or by [Date] &mdash; keep us moving. Anything yellow or red below blocks downstream work.</div>
+  <div style="display: flex; flex-direction: column; gap: 14px; flex: 1;">
+    <div style="display: flex; gap: 16px; align-items: center; padding: 16px 20px; background: var(--ps); border-radius: 8px; border-left: 4px solid var(--rs);">
+      <div style="width: 28px; height: 28px; border: 2px solid var(--rs); border-radius: 6px; flex-shrink: 0;"></div>
+      <div style="flex: 1;">
+        <div style="font-family: var(--display); font-size: 16px; color: var(--df); margin-bottom: 3px;">Approve virtual PCP rollout</div>
+        <div style="font-size: 11px; color: var(--sg); line-height: 1.5;">Yes/no on launching the no-cost add-on. We need 60 days lead time for comms.</div>
+      </div>
+      <div style="text-align: right;"><div style="font-size: 9px; color: var(--rs); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700;">By</div><div style="font-size: 13px; color: var(--df); font-weight: 600;">[Date]</div></div>
+    </div>
+    <div style="display: flex; gap: 16px; align-items: center; padding: 16px 20px; background: var(--ps); border-radius: 8px; border-left: 4px solid var(--rs);">
+      <div style="width: 28px; height: 28px; border: 2px solid var(--rs); border-radius: 6px; flex-shrink: 0;"></div>
+      <div style="flex: 1;">
+        <div style="font-family: var(--display); font-size: 16px; color: var(--df); margin-bottom: 3px;">Confirm employee survey messaging</div>
+        <div style="font-size: 11px; color: var(--sg); line-height: 1.5;">We'll draft and send to you for HR review. Need approver named.</div>
+      </div>
+      <div style="text-align: right;"><div style="font-size: 9px; color: var(--rs); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700;">By</div><div style="font-size: 13px; color: var(--df); font-weight: 600;">[Date]</div></div>
+    </div>
+    <div style="display: flex; gap: 16px; align-items: center; padding: 16px 20px; background: var(--ps); border-radius: 8px; border-left: 4px solid var(--rs);">
+      <div style="width: 28px; height: 28px; border: 2px solid var(--rs); border-radius: 6px; flex-shrink: 0;"></div>
+      <div style="flex: 1;">
+        <div style="font-family: var(--display); font-size: 16px; color: var(--df); margin-bottom: 3px;">Greenlight alternate-carrier quoting</div>
+        <div style="font-size: 11px; color: var(--sg); line-height: 1.5;">Authorizes us to release your census to [Carrier] for a marketing quote.</div>
+      </div>
+      <div style="text-align: right;"><div style="font-size: 9px; color: var(--rs); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700;">By</div><div style="font-size: 13px; color: var(--df); font-weight: 600;">[Date]</div></div>
+    </div>
+    <div style="display: flex; gap: 16px; align-items: center; padding: 16px 20px; background: var(--ps); border-radius: 8px; border-left: 4px solid var(--df);">
+      <div style="width: 28px; height: 28px; border: 2px solid var(--df); border-radius: 6px; flex-shrink: 0;"></div>
+      <div style="flex: 1;">
+        <div style="font-family: var(--display); font-size: 16px; color: var(--df); margin-bottom: 3px;">Confirm next QBR date</div>
+        <div style="font-size: 11px; color: var(--sg); line-height: 1.5;">Lock 60 minutes on the calendar 90 days from today &mdash; we'll send a hold.</div>
+      </div>
+      <div style="text-align: right;"><div style="font-size: 9px; color: var(--df); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700;">Today</div><div style="font-size: 13px; color: var(--df); font-weight: 600;">If possible</div></div>
+    </div>
+  </div>
+  <div class="slide-footer">Nexus Benefit Solutions</div>
+</div>
+
+<!-- COMPONENT: behind-the-scenes -->
+<!-- EDITABLE: Each in-flight workstream, owner, expected completion -->
+<!-- SLIDE 13 — Behind the Scenes -->
+<div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
+  <div style="margin-bottom: 14px;">
+    <div class="slide-header-tag">05 &mdash; Behind the Scenes</div>
+    <div class="slide-title">What We're Working on Without Bothering You</div>
+  </div>
+  <div style="font-size: 13px; color: var(--ch); line-height: 1.7; margin-bottom: 22px; max-width: 760px;">Four workstreams in motion right now that don't need a meeting. Listed here so you have visibility &mdash; if anything raises a question, flag it.</div>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; flex: 1;">
+    <div style="padding: 16px 18px; background: rgba(31,61,46,0.04); border: 1px solid var(--ps); border-radius: 8px; display: flex; flex-direction: column; gap: 8px;">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div style="font-family: var(--display); font-size: 16px; color: var(--df);">[Carrier] EOB cleanup</div>
+        <div style="font-size: 9px; color: var(--sg); letter-spacing: 1px; text-transform: uppercase; font-weight: 600;">In Progress</div>
+      </div>
+      <div style="font-size: 11px; color: var(--ch); line-height: 1.5;">Disputing a batch of misprocessed claims for X members. Carrier ops engaged; expected resolution in [N] weeks.</div>
+    </div>
+    <div style="padding: 16px 18px; background: rgba(31,61,46,0.04); border: 1px solid var(--ps); border-radius: 8px; display: flex; flex-direction: column; gap: 8px;">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div style="font-family: var(--display); font-size: 16px; color: var(--df);">Section 125 plan refresh</div>
+        <div style="font-size: 9px; color: var(--sg); letter-spacing: 1px; text-transform: uppercase; font-weight: 600;">Drafted</div>
+      </div>
+      <div style="font-size: 11px; color: var(--ch); line-height: 1.5;">Updated cafeteria plan document drafted, ready for adoption signature ahead of [Plan Year] effective date.</div>
+    </div>
+    <div style="padding: 16px 18px; background: rgba(31,61,46,0.04); border: 1px solid var(--ps); border-radius: 8px; display: flex; flex-direction: column; gap: 8px;">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div style="font-family: var(--display); font-size: 16px; color: var(--df);">Renewal modeling for [Date]</div>
+        <div style="font-size: 9px; color: var(--sg); letter-spacing: 1px; text-transform: uppercase; font-weight: 600;">Modeling</div>
+      </div>
+      <div style="font-size: 11px; color: var(--ch); line-height: 1.5;">Building three plan-design scenarios using YTD claims and carrier trend assumptions. Preliminary estimate to you [N] days before carrier release.</div>
+    </div>
+    <div style="padding: 16px 18px; background: rgba(31,61,46,0.04); border: 1px solid var(--ps); border-radius: 8px; display: flex; flex-direction: column; gap: 8px;">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div style="font-family: var(--display); font-size: 16px; color: var(--df);">EE Nav termination cleanup</div>
+        <div style="font-size: 9px; color: var(--sg); letter-spacing: 1px; text-transform: uppercase; font-weight: 600;">Ongoing</div>
+      </div>
+      <div style="font-size: 11px; color: var(--ch); line-height: 1.5;">Reconciling X open termination wall notifications. COBRA notices triggered, carrier audits cleared.</div>
+    </div>
+  </div>
+  <div class="slide-footer">Nexus Benefit Solutions</div>
+</div>
+
+<!-- COMPONENT: faq -->
+<!-- EDITABLE: Each FAQ Q/A pair. These are the standing three; replace with client-specific questions if surfaced. -->
+<!-- SLIDE 14 — FAQ -->
+<div class="slide" style="padding: 44px 64px; background: var(--az-dk); background-image: radial-gradient(ellipse at top left, rgba(43,108,176,0.5) 0%, transparent 45%), radial-gradient(ellipse at bottom right, rgba(75,183,196,0.35) 0%, transparent 50%), radial-gradient(ellipse at center, rgba(59,130,196,0.2) 0%, transparent 60%); display: flex; flex-direction: column;">
+  <div style="margin-bottom: 22px;">
+    <div class="section-tag-blue">06 &mdash; Standing Questions</div>
+    <div class="section-title-white-sm">What Clients Always Ask Us</div>
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 14px; flex: 1;">
+    <div class="faq-card">
+      <div class="faq-q">Where are we on HR accruals &amp; PTO tracking?</div>
+      <div class="faq-a">If you're using [HRIS / EE Nav], your accruals and PTO balances are current as of [Date]. We pull a reconciliation report monthly &mdash; if anything looks off, we surface it before payroll runs. No surprises in your year-end report.</div>
+    </div>
+    <div class="faq-card">
+      <div class="faq-q">Are we still on track for the renewal timeline?</div>
+      <div class="faq-a">Yes. Carrier release date is [Date]. Our preliminary estimate hits your inbox [N] days earlier so you're never reading a renewal cold. Final decision window closes [Date] &mdash; we manage the calendar end-to-end.</div>
+    </div>
+    <div class="faq-card">
+      <div class="faq-q">What's our hold-harmless if rates change mid-year?</div>
+      <div class="faq-a">Your contract locks rates through [Plan Year End]. The carrier cannot raise PEPM or change benefit design mid-year except for legally mandated adjustments (e.g., new ACA-required preventive coverage). We monitor and notify within 30 days of any filing change that could affect you.</div>
+    </div>
+  </div>
+  <div class="slide-footer dark">Nexus Benefit Solutions</div>
+</div>
+
+<!-- COMPONENT: nexus-closing -->
+<!-- EDITABLE: Team members, photos, phone numbers, email. Next QBR date. CTA copy. -->
+<!-- SLIDE 15 — Closing -->
+<div class="slide" style="padding: 44px 64px; display: flex; flex-direction: column; justify-content: center; background: var(--df); background-image: radial-gradient(ellipse at bottom right, rgba(184,82,42,0.2) 0%, transparent 40%);">
+  <div style="max-width: 640px;">
+    <div style="font-family: var(--display); font-size: 36px; color: #FFFFFF; line-height: 1.25; margin-bottom: 16px;">Same Time,<br>Next Quarter.</div>
+    <div style="font-size: 15px; color: var(--white-65); line-height: 1.8; margin-bottom: 22px;">This is the rhythm: 30 minutes, every 90 days. We do the work between meetings &mdash; this is just where we sync. Thank you, [Company Name].</div>
+    <div style="display: inline-flex; align-items: center; gap: 10px; padding: 12px 20px; background: var(--rs); border-radius: 6px; margin-bottom: 28px; box-shadow: 0 4px 14px rgba(184,82,42,0.35);">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <div style="font-size: 14px; color: #fff; font-weight: 600; letter-spacing: 0.5px;">Next QBR: [Date]</div>
+    </div>
+    <div style="display: flex; gap: 28px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="https://jbearup1981.github.io/presentation-templates/assets/jason-bearup.jpg" alt="Jason Bearup" style="width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--white-15);">
+        <div><div style="font-size: 13px; color: var(--white-50); font-weight: 600;">Jason Bearup</div><div style="font-size: 10px; color: rgba(255,255,255,0.35);">Lead Advisor</div><div style="font-size: 10px; color: rgba(255,255,255,0.3);">(616) 555-0001</div><div style="font-size: 10px; color: rgba(255,255,255,0.3);">jason@nexusbenefitsolutions.com</div></div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="https://jbearup1981.github.io/presentation-templates/assets/ken-fortier.jpg" alt="Ken Fortier" style="width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--white-15);">
+        <div><div style="font-size: 13px; color: var(--white-50); font-weight: 600;">Ken Fortier</div><div style="font-size: 10px; color: rgba(255,255,255,0.35);">Relationship Manager</div><div style="font-size: 10px; color: rgba(255,255,255,0.3);">(616) 555-0002</div><div style="font-size: 10px; color: rgba(255,255,255,0.3);">ken@nexusbenefitsolutions.com</div></div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="https://jbearup1981.github.io/presentation-templates/assets/grace-morris.jpg" alt="Grace Morris" style="width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--white-15);">
+        <div><div style="font-size: 13px; color: var(--white-50); font-weight: 600;">Grace Morris</div><div style="font-size: 10px; color: rgba(255,255,255,0.35);">Associate Account Manager</div><div style="font-size: 10px; color: rgba(255,255,255,0.3);">(616) 555-0003</div><div style="font-size: 10px; color: rgba(255,255,255,0.3);">grace@nexusbenefitsolutions.com</div></div>
+      </div>
+    </div>
+  </div>
+  <div style="position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); text-align: center;">
+    <div style="display: flex; align-items: center; justify-content: center; gap: 4px; margin-bottom: 3px;">
+      <svg width="28" height="20" style="opacity: 0.2;" version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 867" preserveAspectRatio="xMidYMid meet">
+<g transform="translate(0,867) scale(0.1,-0.1)" fill="#FAFAF8" stroke="none">
+<path d="M5760 8014 c-1080 -77 -2054 -604 -2704 -1464 -381 -503 -621 -1090 -712 -1740 -22 -157 -30 -628 -14 -802 81 -893 474 -1710 1119 -2330 582 -559 1305 -901 2126 -1005 196 -24 654 -24 850 0 821 104 1544 446 2126 1005 645 620 1038 1437 1119 2330 16 174 8 645 -14 802 -119 849 -492 1588 -1097 2174 -580 562 -1320 914 -2129 1011 -129 16 -550 27 -670 19z m455 -174 c493 -33 913 -146 1355 -366 352 -175 636 -380 916 -660 591 -593 948 -1366 1015 -2198 14 -184 7 -543 -15 -716 -137 -1056 -723 -1974 -1623 -2543 -145 -92 -447 -241 -617 -306 -800 -303 -1692 -303 -2492 0 -170 65 -472 214 -617 306 -819 518 -1389 1340 -1577 2273 -44 220 -61 373 -67 616 -6 253 6 447 43 669 167 991 744 1856 1601 2398 144 91 446 241 613 304 472 179 974 255 1465 223z"/>
+<path d="M5735 7599 c-649 -53 -1275 -303 -1790 -715 -134 -107 -383 -355 -486 -484 -381 -477 -607 -992 -699 -1595 -28 -178 -38 -574 -21 -761 132 -1402 1113 -2546 2476 -2888 256 -64 486 -91 785 -91 305 0 530 27 800 95 1172 296 2092 1221 2380 2394 70 289 95 526 87 864 -5 253 -23 414 -68 617 -93 421 -281 846 -522 1185 -227 318 -518 605 -832 819 -615 420 -1370 621 -2110 560z m-230 -767 c6 -4 177 -349 380 -767 203 -418 423 -872 490 -1010 67 -137 238 -491 381 -785 l259 -534 3 1109 c4 1455 -3 1548 -120 1711 -58 81 -183 144 -286 144 l-33 0 3 68 3 67 500 0 500 0 3 -67 3 -67 -43 -11 c-119 -31 -189 -63 -230 -107 -36 -38 -83 -142 -105 -233 -16 -70 -18 -218 -23 -2355 l-5 -2280 -37 -3 -37 -3 -120 239 -120 240 -11 108 c-51 498 -212 891 -492 1199 -66 72 -227 226 -256 244 -8 5 -585 1157 -996 1991 l-71 145 -5 -696 -5 -697 -77 65 -78 65 0 809 0 809 -56 113 c-128 254 -191 321 -329 346 -32 6 -60 11 -62 11 -2 0 -3 32 -3 70 l0 70 533 0 c292 0 537 -4 542 -8z m-1250 -252 c-12 -19 -55 -179 -74 -272 -90 -441 -29 -839 181 -1196 189 -320 523 -631 1041 -967 575 -375 660 -437 842 -620 156 -156 242 -273 335 -458 150 -298 217 -603 225 -1026 2 -112 3 -202 1 -200 -2 2 -23 49 -46 104 -90 215 -185 369 -305 494 -100 104 -174 157 -306 220 -134 64 -244 96 -591 172 -487 106 -708 182 -948 327 -399 241 -648 592 -727 1025 -23 129 -23 389 1 522 20 110 75 290 106 345 16 28 19 30 15 10 -13 -64 -25 -215 -25 -315 0 -365 106 -656 318 -871 114 -116 230 -196 417 -289 207 -102 314 -141 667 -244 358 -104 488 -150 633 -220 222 -109 400 -262 525 -452 33 -50 60 -88 60 -85 0 4 -18 41 -39 84 -65 129 -154 254 -257 362 -154 160 -299 262 -699 490 -375 215 -551 332 -755 503 -523 438 -814 955 -860 1532 -23 293 37 621 161 867 41 81 95 168 105 168 3 0 2 -5 -1 -10z m787 -3891 c8 -279 38 -443 96 -539 25 -40 94 -110 135 -136 44 -29 135 -54 194 -54 l43 0 0 -65 0 -65 -540 0 -540 0 0 65 0 64 38 6 c141 22 191 42 258 107 107 104 154 323 154 724 l0 153 78 -28 77 -29 7 -203z"/>
+</g>
+</svg>
+      <div style="font-size: 16.5px; color: rgba(255,255,255,0.2); line-height: 1;">Nexus Benefit Solutions</div>
+    </div>
+    <div style="font-size: 11px; color: rgba(184,82,42,0.35); letter-spacing: 1px;">nexusbenefitsolutions.com</div>
+  </div>
+</div>
+
+</div><!-- end .deck -->
+
+<!-- FIXED: Navigation and scaling JavaScript — do not modify -->
+<script>
+
+/* Nexus Benefit Solutions — Quarterly Business Review Deck Navigation & Scaling */
+
+let cur = 0;
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+
+function go(n) {
+  if (n < 0 || n >= total) return;
+  slides[cur].classList.remove('active');
+  cur = n;
+  slides[cur].classList.add('active');
+  document.getElementById('counter').textContent = (cur + 1) + ' / ' + total;
+  document.getElementById('prevBtn').disabled = cur === 0;
+  document.getElementById('nextBtn').disabled = cur === total - 1;
+}
+
+function nav(d) { go(cur + d); }
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nav(1); }
+  if (e.key === 'ArrowLeft') nav(-1);
+  if (e.key === 'Home') go(0);
+  if (e.key === 'End') go(total - 1);
+  if (e.key === 'f' || e.key === 'F') toggleFullscreen();
+});
+
+function toggleFullscreen() {
+  if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+  else document.exitFullscreen();
+}
+
+// Touch support
+let tx = 0;
+document.addEventListener('touchstart', function(e) { tx = e.changedTouches[0].screenX; });
+document.addEventListener('touchend', function(e) {
+  var d = e.changedTouches[0].screenX - tx;
+  if (Math.abs(d) > 50) nav(d < 0 ? 1 : -1);
+});
+
+// Scale
+function rescale() {
+  const sw = window.innerWidth / 960;
+  const sh = window.innerHeight / 540;
+  var s = Math.min(sw, sh, 2) * 0.88;
+  document.documentElement.style.setProperty('--scale', s);
+}
+window.addEventListener('resize', rescale);
+rescale();
+
+// Responsive mode
+if (new URLSearchParams(window.location.search).get('mode') === 'responsive') {
+  document.body.classList.add('responsive-mode');
+}
+
+// Button listeners (addEventListener for artifact sandbox compatibility)
+document.getElementById('prevBtn').addEventListener('click', function() { nav(-1); });
+document.getElementById('nextBtn').addEventListener('click', function() { nav(1); });
+var fsBtn = document.getElementById('fullscreenBtn');
+if (fsBtn) fsBtn.addEventListener('click', function() { toggleFullscreen(); });
+
+// Init
+go(0);
+
+</script>
+</body>
+</html>
