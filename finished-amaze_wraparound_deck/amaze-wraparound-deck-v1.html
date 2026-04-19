@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexus Benefit Solutions &mdash; Amaze Wraparound Pitch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+:root {
+  --nw: #FAFAF8;
+  --df: #1F3D2E;
+  --rs: #B8522A;
+  --sg: #7A9282;
+  --ps: #E8EBE4;
+  --fl: #2A5240;
+  --rl: #D4693F;
+  --ch: #2D2D2D;
+  --az-dk: #1A3F6B;
+  --az-md: #2B6CB0;
+  --az-bg: #EDF3FA;
+  --az-teal: #49B7C4;
+  --display: 'DM Serif Display', Georgia, serif;
+  --body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --white-06: rgba(255,255,255,0.06);
+  --white-08: rgba(255,255,255,0.08);
+  --white-10: rgba(255,255,255,0.1);
+  --white-15: rgba(255,255,255,0.15);
+  --white-25: rgba(255,255,255,0.25);
+  --white-45: rgba(255,255,255,0.45);
+  --white-50: rgba(255,255,255,0.5);
+  --white-60: rgba(255,255,255,0.6);
+  --white-65: rgba(255,255,255,0.65);
+  --white-75: rgba(255,255,255,0.75);
+  --white-80: rgba(255,255,255,0.8);
+  --white-85: rgba(255,255,255,0.85);
+  --white-90: rgba(255,255,255,0.9);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; overflow: hidden; background: #1a1a1a; }
+body { font-family: var(--body); color: var(--ch); -webkit-font-smoothing: antialiased; }
+.deck { width: 100%; height: 100%; position: relative; }
+.slide {
+  width: 960px; height: 540px;
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(var(--scale, 1));
+  transform-origin: center center;
+  overflow: hidden; opacity: 0; pointer-events: none;
+  transition: opacity 0.7s cubic-bezier(0.25, 0.1, 0.25, 1), transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+.slide.active { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%) scale(var(--scale, 1)); }
+.controls {
+  position: fixed; bottom: 24px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; align-items: center; gap: 16px; z-index: 100;
+  background: rgba(0,0,0,0.6); backdrop-filter: blur(8px);
+  padding: 8px 20px; border-radius: 40px;
+}
+.controls button {
+  background: none; border: none; color: rgba(255,255,255,0.7);
+  cursor: pointer; font-size: 18px; padding: 4px 8px;
+  transition: color 0.2s; font-family: var(--body);
+}
+.controls button:hover { color: #fff; }
+.controls button:disabled { color: rgba(255,255,255,0.2); cursor: default; }
+.slide-counter {
+  font-size: 12px; color: var(--white-50);
+  font-family: monospace; letter-spacing: 1px;
+  min-width: 60px; text-align: center;
+}
+.fullscreen-btn {
+  position: fixed; top: 16px; right: 16px; z-index: 100;
+  background: rgba(0,0,0,0.5); border: none; color: var(--white-60);
+  cursor: pointer; padding: 8px 12px; border-radius: 6px;
+  font-size: 11px; font-family: var(--body); letter-spacing: 1px;
+  text-transform: uppercase; transition: all 0.2s; backdrop-filter: blur(8px);
+}
+.fullscreen-btn:hover { background: rgba(0,0,0,0.7); color: #fff; }
+.slide-header-tag {
+  font-family: var(--body); font-size: 11px; color: var(--sg);
+  letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px;
+}
+.slide-title { font-family: var(--display); font-size: 30px; color: var(--df); line-height: 1.2; }
+.slide-footer {
+  position: absolute; bottom: 8px; left: 64px;
+  font-size: 8px; color: var(--sg); letter-spacing: 0.5px;
+  font-family: var(--body); opacity: 0.5;
+}
+.slide-footer.dark { color: var(--white-25); }
+.r9 { font-size: 9px; color: var(--white-45); }
+.r10 { font-size: 12px; color: var(--sg); line-height: 1.7; }
+.r12 { font-family: var(--display); font-size: 15px; color: var(--df); }
+.r13 { font-size: 11px; color: #3d4f44; line-height: 1.4; }
+.r15 { flex: 1; text-align: center; position: relative; z-index: 1; }
+.r16 { color: var(--az-teal); font-size: 12px; margin-top: 1px; }
+@media print {
+  html, body { overflow: visible; background: white; height: auto; }
+  .controls, .fullscreen-btn { display: none !important; }
+  .slide {
+    position: relative; transform: none !important;
+    opacity: 1; pointer-events: auto;
+    page-break-after: always; page-break-inside: avoid;
+    margin: 0 auto; top: auto; left: auto;
+    box-shadow: none;
+  }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .slide-footer { position: relative; bottom: auto; left: auto; margin-top: 8px; }
+}
+body.responsive-mode { overflow: auto; background: #f5f5f5; }
+body.responsive-mode .controls,
+body.responsive-mode .fullscreen-btn { display: none; }
+body.responsive-mode .slide {
+  position: relative; opacity: 1; pointer-events: auto;
+  top: auto; left: auto; transform: none !important;
+  width: 100%; max-width: 960px; height: auto; min-height: 540px;
+  margin: 24px auto; border-radius: 8px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+}
+body.responsive-mode .slide-footer {
+  position: relative; bottom: auto; left: auto;
+  padding: 12px 64px; margin-top: 8px;
+}
+
+/* Extracted utility classes */
+.check-item { display: flex; gap: 7px; align-items: flex-start; margin-bottom: 6px; }
+.check-text { font-size: 11px; color: var(--white-80); line-height: 1.5; }
+.section-tag-blue { font-size: 11px; color: var(--az-teal); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+.section-title-white { font-family: var(--display); font-size: 26px; color: white; }
+.section-title-white-sm { font-family: var(--display); font-size: 26px; color: #fff; line-height: 1.3; }
+.stat-badge { padding: 10px; background: var(--az-dk); border-radius: 6px; text-align: center; border: 1px solid rgba(73,183,196,0.3); }
+.feature-card { padding: 14px 16px; background: rgba(255,255,255,0.55); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-radius: 8px; border-left: 3px solid var(--az-teal); box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+.feature-title { font-size: 14px; color: #0d2a4a; font-weight: 700; margin-bottom: 5px; line-height: 1.2; }
+.feature-desc { font-size: 12px; color: #2a4a6a; line-height: 1.5; }
+.service-card { padding: 16px 18px; background: var(--white-08); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; display: flex; flex-direction: column; }
+.service-icon { width: 36px; height: 36px; background: rgba(73,183,196,0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
+.service-title { font-family: var(--display); font-size: 15px; color: #fff; margin-bottom: 5px; line-height: 1.2; }
+.service-desc { font-size: 11px; color: var(--white-75); line-height: 1.55; }
+.pay-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.pay-table th { background: var(--az-dk); color: #fff; padding: 8px 10px; text-align: right; font-weight: 600; font-size: 11px; }
+.pay-table th:first-child { text-align: left; }
+.pay-table td { padding: 6px 10px; border-bottom: 1px solid var(--white-08); text-align: right; color: var(--white-80); font-size: 12px; }
+.pay-table td:first-child { text-align: left; color: var(--white-65); font-size: 11px; }
+</style>
+</head>
+<body>
+<button class="fullscreen-btn" onclick="toggleFullscreen()">&#x26F6; Fullscreen</button>
+<div class="controls">
+  <button id="prevBtn" onclick="nav(-1)">&#9664;</button>
+  <span class="slide-counter" id="counter">1 / 12</span>
+  <button id="nextBtn" onclick="nav(1)">&#9654;</button>
+</div>
+<div class="deck">
+
+<!-- EDITABLE: Company name, date, advisor name -->
+<!-- SLIDE 1 — Title (Forest cover composite) -->
+<div class="slide active" style="padding: 0; position: relative; overflow: hidden;">
+  <!-- Right: Forest panel -->
+  <div style="position: absolute; top: 0; right: 0; bottom: 0; width: 58%; background: linear-gradient(160deg, #3a5a4a 0%, #2a4a3a 50%, #1a3a2a 100%);">
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(31,61,46,0.45);"></div>
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.25; background: repeating-linear-gradient(90deg, transparent, transparent 4px, var(--white-60) 4px, var(--white-60) 5px); mask-image: radial-gradient(ellipse at 85% 85%, transparent 10%, rgba(0,0,0,0.3) 20%, rgba(0,0,0,1) 40%); -webkit-mask-image: radial-gradient(ellipse at 85% 85%, transparent 10%, rgba(0,0,0,0.3) 20%, rgba(0,0,0,1) 40%);"></div>
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at 70% 60%, transparent 20%, rgba(15,25,20,0.45) 100%), linear-gradient(to top, rgba(15,25,20,0.55) 0%, transparent 40%), linear-gradient(to right, rgba(31,61,46,0.5) 0%, transparent 20%);"></div>
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at 65% 35%, rgba(184,82,42,0.1) 0%, transparent 50%);"></div>
+    <!-- Nexus logo watermark -->
+    <div style="position: absolute; bottom: 40px; right: 40px; z-index: 4;">
+      <img src="https://jbearup1981.github.io/presentation-templates/assets/nexus-logo-white.svg" alt="Nexus" style="height: 40px; opacity: 0.25;">
+    </div>
+    <!-- Template identifier -->
+    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; z-index: 4;">
+      <div style="font-family: var(--display); font-size: 48px; color: rgba(255,255,255,0.4); line-height: 1;">Amaze</div>
+      <div style="font-family: var(--display); font-size: 48px; color: rgba(255,255,255,0.4); line-height: 1; margin-top: 4px;">Wraparound</div>
+      <div style="font-size: 14px; color: rgba(184,82,42,0.75); letter-spacing: 4px; text-transform: uppercase; margin-top: 12px; font-weight: 600;">Service Layer</div>
+      <div style="font-size: 10px; color: rgba(255,255,255,0.35); letter-spacing: 2px; text-transform: uppercase; margin-top: 8px;">Add-On to Group Medical</div>
+    </div>
+  </div>
+  <!-- Rust stripe -->
+  <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; filter: drop-shadow(4px 0 8px rgba(0,0,0,0.4));"><div style="width: 100%; height: 100%; background: var(--rs); clip-path: polygon(57% 0, 59.2% 0, 43% 100%, 40.8% 100%);"></div></div>
+  <!-- Green panel -->
+  <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; filter: drop-shadow(4px 0 6px rgba(0,0,0,0.35));"><div style="position: absolute; top: 0; left: 0; width: 58%; height: 100%; background: var(--df); background-image: radial-gradient(ellipse at top left, rgba(184,82,42,0.2) 0%, transparent 35%); clip-path: polygon(0 0, 100% 0, 72% 100%, 0 100%);"></div></div>
+  <!-- Left: text content layer -->
+  <div style="position: relative; width: 58%; height: 100%; padding: 44px 64px; display: flex; flex-direction: column; justify-content: center; z-index: 3;">
+    <div>
+      <div style="width: 48px; height: 2px; background: var(--rs); margin-bottom: 20px;"></div>
+      <div style="font-family: var(--display); font-size: 32px; color: #FFFFFF; line-height: 1.2; margin-bottom: 6px;">Give your plan</div>
+      <div style="font-family: var(--display); font-size: 32px; color: #FFFFFF; line-height: 1.2; margin-bottom: 10px;">the service layer</div>
+      <div style="font-family: var(--display); font-size: 24px; color: var(--rl); line-height: 1.3; margin-bottom: 16px;">your carrier doesn&rsquo;t.</div>
+      <div style="font-size: 13px; color: var(--white-50); line-height: 1.6; max-width: 360px;">A wraparound benefit that layers concierge healthcare, navigation, and bill-fighting on top of your existing group plan &mdash; for [Company Name].</div>
+      <div style="margin-top: 18px; font-size: 12px; color: var(--white-45); letter-spacing: 0.5px;">Prepared [Date] &middot; [Advisor Name]</div>
+    </div>
+    <div style="position: absolute; bottom: 32px; left: 64px; display: flex; align-items: center; gap: 8px;">
+      <img src="https://jbearup1981.github.io/presentation-templates/assets/nexus-logo-white.svg" alt="Nexus" style="height: 22px; opacity: 0.45;">
+      <div><div style="font-size: 11px; color: rgba(255,255,255,0.55); line-height: 1.4;">Nexus Benefit Solutions</div><div style="font-size: 10px; color: rgba(255,255,255,0.4);">Grand Rapids, Michigan</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 2 — Agenda -->
+<div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
+  <div style="margin-bottom: 36px;"><div class="slide-header-tag">00 &mdash; Agenda</div><div class="slide-title">Today&rsquo;s 25 Minutes</div></div>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px 40px;">
+    <div style="display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--ps);">
+      <div style="font-family: var(--display); font-size: 25px; color: var(--rs); min-width: 32px;">01</div>
+      <div><div style="font-size: 16px; color: var(--df); font-weight: 600;">The Service Gap</div><div style="font-size: 13px; color: var(--sg); margin-top: 2px;">What group medical doesn&rsquo;t do for your team</div></div>
+    </div>
+    <div style="display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--ps);">
+      <div style="font-family: var(--display); font-size: 25px; color: var(--rs); min-width: 32px;">02</div>
+      <div><div style="font-size: 16px; color: var(--df); font-weight: 600;">What Amaze Adds</div><div style="font-size: 13px; color: var(--sg); margin-top: 2px;">The service layer your carrier doesn&rsquo;t provide</div></div>
+    </div>
+    <div style="display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--ps);">
+      <div style="font-family: var(--display); font-size: 25px; color: var(--rs); min-width: 32px;">03</div>
+      <div><div style="font-size: 16px; color: var(--df); font-weight: 600;">What It Costs</div><div style="font-size: 13px; color: var(--sg); margin-top: 2px;">~$27/paycheck per employee &mdash; two funding options</div></div>
+    </div>
+    <div style="display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--ps);">
+      <div style="font-family: var(--display); font-size: 25px; color: var(--rs); min-width: 32px;">04</div>
+      <div><div style="font-size: 16px; color: var(--df); font-weight: 600;">How We Roll It Out</div><div style="font-size: 13px; color: var(--sg); margin-top: 2px;">90-day timeline, no plan disruption</div></div>
+    </div>
+  </div>
+  <div style="margin-top: auto; padding: 16px 22px; border-left: 3px solid var(--rs); background: rgba(184,82,42,0.04); border-radius: 0 6px 6px 0;">
+    <div style="font-size: 13px; color: var(--ch); line-height: 1.6;"><strong style="color: var(--df);">No changes to your medical plan.</strong> Amaze sits on top of [Current Carrier] &mdash; or any carrier &mdash; and raises the effective value of the entire benefits package.</div>
+  </div>
+</div>
+
+<!-- SLIDE 3 — The Problem (4-C) on Forest/newsprint background -->
+<div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
+  <div style="margin-bottom: 28px;">
+    <div class="slide-header-tag">01 &mdash; The Service Gap</div>
+    <div style="font-family: var(--display); font-size: 26px; color: var(--df); line-height: 1.3;">A group plan covers the bill.<br>It doesn&rsquo;t cover the experience.</div>
+  </div>
+  <div style="font-size: 13px; color: var(--ch); line-height: 1.7; max-width: 760px; margin-bottom: 26px;">[Current Carrier] is doing what carriers do &mdash; processing claims and managing networks. But your employees are still left to navigate four problems on their own:</div>
+  <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 22px;">
+    <div style="padding: 22px 18px 18px; background: var(--ps); border: 1px solid rgba(31,61,46,0.12); border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); text-align: center; display: flex; flex-direction: column;">
+      <div style="font-family: var(--display); font-size: 22px; color: var(--df); margin-bottom: 8px;">Cost</div>
+      <div style="font-size: 11px; color: #4a5a4f; line-height: 1.6; font-weight: 500; margin-bottom: auto;">Deductibles, copays, and surprise bills keep employees from using the plan they&rsquo;re already paying for.</div>
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--rs)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="margin: 14px auto 0; opacity: 0.7;"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+    </div>
+    <div style="padding: 22px 18px 18px; background: var(--ps); border: 1px solid rgba(31,61,46,0.12); border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); text-align: center; display: flex; flex-direction: column;">
+      <div style="font-family: var(--display); font-size: 22px; color: var(--df); margin-bottom: 8px;">Connection</div>
+      <div style="font-size: 11px; color: #4a5a4f; line-height: 1.6; font-weight: 500; margin-bottom: auto;">Finding a primary care doctor takes weeks. Specialists take months. The carrier doesn&rsquo;t make appointments for you.</div>
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--rs)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="margin: 14px auto 0; opacity: 0.7;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    </div>
+    <div style="padding: 22px 18px 18px; background: var(--ps); border: 1px solid rgba(31,61,46,0.12); border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); text-align: center; display: flex; flex-direction: column;">
+      <div style="font-family: var(--display); font-size: 22px; color: var(--df); margin-bottom: 8px;">Confusion</div>
+      <div style="font-size: 11px; color: #4a5a4f; line-height: 1.6; font-weight: 500; margin-bottom: auto;">EOBs, prior auth, in-network vs. out &mdash; employees can&rsquo;t decode any of it. The carrier&rsquo;s call center reads from a script.</div>
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--rs)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="margin: 14px auto 0; opacity: 0.7;"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    </div>
+    <div style="padding: 22px 18px 18px; background: var(--ps); border: 1px solid rgba(31,61,46,0.12); border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); text-align: center; display: flex; flex-direction: column;">
+      <div style="font-family: var(--display); font-size: 22px; color: var(--df); margin-bottom: 8px;">Convenience</div>
+      <div style="font-size: 11px; color: #4a5a4f; line-height: 1.6; font-weight: 500; margin-bottom: auto;">Taking PTO to sit in a waiting room isn&rsquo;t realistic for employees keeping the business running.</div>
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--rs)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="margin: 14px auto 0; opacity: 0.7;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    </div>
+  </div>
+  <div style="font-family: var(--display); font-size: 16px; line-height: 1.5; padding: 14px 18px; border-left: 3px solid var(--rs); background: rgba(184,82,42,0.04); color: var(--df); max-width: 720px;">Your group plan handles claims. <span style="color: var(--rs);">Amaze handles everything else.</span></div>
+</div>
+
+<!-- SLIDE 4 — Section divider: Forest -> Azure transition -->
+<div class="slide" style="padding: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(160deg, var(--nw) 0%, var(--ps) 18%, #c5d2ca 32%, #7a9a8e 46%, #3d6a7a 60%, var(--az-dk) 80%, #0f2d4d 100%);">
+  <div style="text-align: center; max-width: 720px; padding: 0 64px;">
+    <div style="font-size: 11px; color: var(--white-75); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 18px; text-shadow: 0 1px 4px rgba(0,0,0,0.35);">02 &mdash; The Service Layer</div>
+    <div style="font-family: var(--display); font-size: 38px; color: #fff; line-height: 1.25; text-shadow: 0 2px 16px rgba(0,0,0,0.35); margin-bottom: 18px;">Amaze is the service layer<br>your carrier doesn&rsquo;t provide.</div>
+    <div style="width: 48px; height: 2px; background: var(--az-teal); margin: 0 auto 18px;"></div>
+    <div style="font-size: 14px; color: var(--white-80); line-height: 1.7; max-width: 580px; margin: 0 auto; text-shadow: 0 1px 6px rgba(0,0,0,0.3);">Concierge care. Navigation, not referrals. Bill-fighting advocacy. Built on a non-profit foundation. Layered on top of [Current Carrier] for ~$27 per paycheck.</div>
+  </div>
+</div>
+
+<!-- SLIDE 5 — [AZURE] What Amaze Does (6-service grid) -->
+<div class="slide" style="padding: 44px 64px; background: var(--az-dk); background-image: radial-gradient(ellipse at top left, rgba(43,108,176,0.5) 0%, transparent 45%), radial-gradient(ellipse at bottom right, rgba(75,183,196,0.35) 0%, transparent 50%), radial-gradient(ellipse at center, rgba(59,130,196,0.2) 0%, transparent 60%); display: flex; flex-direction: column;">
+  <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 22px;">
+    <div>
+      <div class="section-tag-blue">02 &mdash; The Service Layer</div>
+      <div class="section-title-white-sm">What Amaze Adds to [Current Carrier]</div>
+    </div>
+    <img src="https://jbearup1981.github.io/presentation-templates/assets/amaze-logo.png" style="height: 38px;" alt="Amaze Health">
+  </div>
+  <div style="font-size: 12px; color: var(--white-65); line-height: 1.6; max-width: 720px; margin-bottom: 18px;">Six services delivered by a single concierge care team &mdash; available 24/7, with no separate copays, no claim forms, and no impact on your existing medical coverage.</div>
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: 1fr 1fr; gap: 14px; flex: 1;">
+    <div class="service-card">
+      <div class="service-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--az-teal)" stroke-width="1.6" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+      <div class="service-title">24/7 Virtual Primary Care</div>
+      <div class="service-desc">Full-time, salaried doctors who diagnose, treat, prescribe, and order labs. Connect in under 30 seconds &mdash; the same care team every time.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--az-teal)" stroke-width="1.6" stroke-linecap="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg></div>
+      <div class="service-title">Specialist Navigation</div>
+      <div class="service-desc">When a referral is needed, the care team books it, coordinates records, and follows up. Navigation, not just a list of in-network names.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--az-teal)" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
+      <div class="service-title">Mental Health Care</div>
+      <div class="service-desc">Screenings, short-term therapy, psychiatry, and peer support &mdash; same platform, no separate EAP login, no waitlist.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--az-teal)" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg></div>
+      <div class="service-title">Prescription Cost-Fighting</div>
+      <div class="service-desc">Pharmacists hunt for the lowest cash price, GoodRx alternative, or manufacturer assistance. Saves the employee real money on every fill.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--az-teal)" stroke-width="1.6" stroke-linecap="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg></div>
+      <div class="service-title">Second-Opinion Orchestration</div>
+      <div class="service-desc">Major diagnosis or surgery recommendation? The care team coordinates a board-certified specialist review &mdash; before [Current Carrier] writes a check.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--az-teal)" stroke-width="1.6" stroke-linecap="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg></div>
+      <div class="service-title">Bill-Dispute Advocacy</div>
+      <div class="service-desc">Surprise bill or coding error? Patient advocates negotiate directly with the provider and the carrier &mdash; on the employee&rsquo;s behalf, at no extra cost.</div>
+    </div>
+  </div>
+  <div style="margin-top: 14px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
+    <div class="stat-badge"><div style="font-family: var(--display); font-size: 22px; color: #fff; line-height: 1;">150+</div><div style="font-size: 8px; color: var(--az-teal); margin-top: 3px;">Conditions Treated</div></div>
+    <div class="stat-badge"><div style="font-family: var(--display); font-size: 22px; color: #fff; line-height: 1;">80+</div><div style="font-size: 8px; color: var(--az-teal); margin-top: 3px;">Specialties Coordinated</div></div>
+    <div class="stat-badge"><div style="font-family: var(--display); font-size: 22px; color: #fff; line-height: 1;">24/7</div><div style="font-size: 8px; color: var(--az-teal); margin-top: 3px;">Whole Family Access</div></div>
+    <div class="stat-badge"><div style="font-family: var(--display); font-size: 22px; color: #fff; line-height: 1;">&lt;30s</div><div style="font-size: 8px; color: var(--az-teal); margin-top: 3px;">Avg. Connect Time</div></div>
+  </div>
+  <div class="slide-footer dark">Nexus Benefit Solutions &mdash; Confidential</div>
+</div>
+
+<!-- SLIDE 6 — [AZURE] The Non-Profit Chassis (full-bleed hero) -->
+<div class="slide" style="padding: 0; display: flex; flex-direction: column; justify-content: center; background: var(--az-dk); background-image: radial-gradient(ellipse at top left, rgba(43,108,176,0.6) 0%, transparent 50%), radial-gradient(ellipse at bottom right, rgba(75,183,196,0.45) 0%, transparent 55%), radial-gradient(ellipse at center, rgba(59,130,196,0.25) 0%, transparent 60%); position: relative; overflow: hidden;">
+  <div style="position: absolute; top: 44px; left: 64px; right: 64px; display: flex; justify-content: space-between; align-items: flex-start;">
+    <div>
+      <div class="section-tag-blue">02 &mdash; The Foundation</div>
+      <div class="section-title-white-sm">Built on a Non-Profit Foundation</div>
+    </div>
+    <img src="https://jbearup1981.github.io/presentation-templates/assets/amaze-logo.png" style="height: 38px;" alt="Amaze Health">
+  </div>
+  <div style="padding: 0 64px; max-width: 100%; margin-top: 30px;">
+    <div style="font-family: var(--display); font-size: 32px; color: #fff; line-height: 1.3; max-width: 760px; margin-bottom: 22px; text-shadow: 0 2px 12px rgba(0,0,0,0.3);">Healthcare for people, not for profit.</div>
+    <div style="font-size: 14px; color: var(--white-80); line-height: 1.75; max-width: 760px; margin-bottom: 28px;">Amaze isn&rsquo;t telemedicine. It&rsquo;s concierge care delivered by a <strong style="color: #fff;">non-profit chassis</strong> &mdash; built so the care team&rsquo;s incentives line up with the patient&rsquo;s, not a quarterly earnings call.</div>
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;">
+      <div style="padding: 18px 16px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; border-left: 3px solid var(--az-teal);">
+        <div style="font-family: var(--display); font-size: 16px; color: #fff; margin-bottom: 6px;">W-2 Providers</div>
+        <div style="font-size: 11px; color: var(--white-75); line-height: 1.55;">Doctors, NPs, and PAs are full-time salaried employees &mdash; not gig contractors paid per visit.</div>
+      </div>
+      <div style="padding: 18px 16px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; border-left: 3px solid var(--az-teal);">
+        <div style="font-family: var(--display); font-size: 16px; color: #fff; margin-bottom: 6px;">No Upsells</div>
+        <div style="font-size: 11px; color: var(--white-75); line-height: 1.55;">No premium tiers, no in-app purchases, no &ldquo;upgrade for faster service.&rdquo; One flat enrollment, full access.</div>
+      </div>
+      <div style="padding: 18px 16px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; border-left: 3px solid var(--az-teal);">
+        <div style="font-family: var(--display); font-size: 16px; color: #fff; margin-bottom: 6px;">No Surprise Charges</div>
+        <div style="font-size: 11px; color: var(--white-75); line-height: 1.55;">No copays, no per-visit fees, no facility charges. The enrollment is the entire bill the employee will ever see.</div>
+      </div>
+      <div style="padding: 18px 16px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; border-left: 3px solid var(--az-teal);">
+        <div style="font-family: var(--display); font-size: 16px; color: #fff; margin-bottom: 6px;">Mission-Driven</div>
+        <div style="font-size: 11px; color: var(--white-75); line-height: 1.55;">Surplus revenue is reinvested in care delivery and patient navigation &mdash; not distributed to shareholders.</div>
+      </div>
+    </div>
+    <div style="margin-top: 26px; padding: 14px 20px; background: rgba(73,183,196,0.1); border: 1px solid rgba(73,183,196,0.25); border-radius: 6px; display: flex; align-items: center; gap: 14px;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--az-teal)" stroke-width="1.8" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      <div style="font-size: 12px; color: var(--white-85); line-height: 1.55;"><strong style="color: var(--az-teal);">Concierge care, not telemedicine.</strong> One care team, one phone number, ongoing relationships &mdash; that&rsquo;s the difference a non-profit chassis makes.</div>
+    </div>
+  </div>
+  <div class="slide-footer dark">Nexus Benefit Solutions &mdash; Confidential</div>
+</div>
+
+<!-- SLIDE 7 — [AZURE] Paycheck Impact (Two funding scenarios side-by-side) -->
+<div class="slide" style="padding: 44px 64px; background: var(--az-dk); background-image: radial-gradient(ellipse at top left, rgba(43,108,176,0.5) 0%, transparent 45%), radial-gradient(ellipse at bottom right, rgba(75,183,196,0.35) 0%, transparent 50%), radial-gradient(ellipse at center, rgba(59,130,196,0.18) 0%, transparent 55%); display: flex; flex-direction: column;">
+  <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 22px;">
+    <div>
+      <div class="section-tag-blue">03 &mdash; What It Costs</div>
+      <div class="section-title-white">+$27.01 per paycheck</div>
+    </div>
+    <div style="font-size: 10px; color: var(--white-60); text-align: right; line-height: 1.5;">Example: full-time employee &middot; bi-weekly payroll<br><strong style="color: #fff;">Family enrollment &mdash; whole household covered</strong></div>
+  </div>
+  <div style="font-size: 12px; color: var(--white-75); line-height: 1.6; max-width: 760px; margin-bottom: 18px;">Amaze can be funded two ways. Both leave the existing [Current Carrier] medical plan untouched. Pick the one that fits your benefits philosophy &mdash; or split the cost.</div>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; flex: 1;">
+
+    <!-- Scenario A: Employer-Paid -->
+    <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 22px; display: flex; flex-direction: column;">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+        <div style="width: 28px; height: 28px; border-radius: 50%; background: rgba(73,183,196,0.2); display: flex; align-items: center; justify-content: center;"><span style="color: var(--az-teal); font-family: var(--display); font-size: 16px;">A</span></div>
+        <div style="font-family: var(--display); font-size: 18px; color: #fff;">Employer-Paid</div>
+      </div>
+      <div style="font-size: 11px; color: var(--white-65); line-height: 1.6; margin-bottom: 14px;">Employer absorbs the full cost. Treated like a wellness investment &mdash; no payroll change, no employee paperwork.</div>
+      <table class="pay-table" style="margin-bottom: 14px;">
+        <thead><tr><th style="background: rgba(26,63,107,0.5);">Cost Element</th><th style="background: rgba(26,63,107,0.5);">Per Pay Period</th></tr></thead>
+        <tbody>
+          <tr><td>Employee Cost</td><td style="color: #6DD8E5; font-weight: 600;">$0.00</td></tr>
+          <tr><td>Employer Investment</td><td style="color: var(--white-85);">$27.01</td></tr>
+          <tr style="background: rgba(255,255,255,0.05);"><td style="color: #fff; font-weight: 600;">Net Paycheck Impact</td><td style="color: #6DD8E5; font-weight: 700; font-size: 14px;">$0.00</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top: auto; padding: 12px 14px; background: rgba(73,183,196,0.1); border: 1px solid rgba(73,183,196,0.25); border-radius: 6px;">
+        <div style="font-size: 10px; color: var(--az-teal); letter-spacing: 1px; text-transform: uppercase; font-weight: 700; margin-bottom: 4px;">Best Fit</div>
+        <div style="font-size: 11px; color: var(--white-85); line-height: 1.55;">Companies that already pay 100% of medical premium &mdash; or want to add a service layer without asking employees for anything.</div>
+      </div>
+    </div>
+
+    <!-- Scenario B: Employee-Paid -->
+    <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 22px; display: flex; flex-direction: column;">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+        <div style="width: 28px; height: 28px; border-radius: 50%; background: rgba(73,183,196,0.2); display: flex; align-items: center; justify-content: center;"><span style="color: var(--az-teal); font-family: var(--display); font-size: 16px;">B</span></div>
+        <div style="font-family: var(--display); font-size: 18px; color: #fff;">Employee-Paid (Voluntary)</div>
+      </div>
+      <div style="font-size: 11px; color: var(--white-65); line-height: 1.6; margin-bottom: 14px;">Employee opts in via Section 125 pre-tax payroll deduction. Cost is offset by the tax savings on pre-tax dollars.</div>
+      <table class="pay-table" style="margin-bottom: 14px;">
+        <thead><tr><th style="background: rgba(26,63,107,0.5);">Paycheck Line Item</th><th style="background: rgba(26,63,107,0.5);">Per Pay Period</th></tr></thead>
+        <tbody>
+          <tr><td>Amaze Pre-Tax Premium</td><td style="color: var(--white-85);">($27.01)</td></tr>
+          <tr><td>Federal &amp; State Tax Reduction</td><td style="color: #6DD8E5;">+$6.48</td></tr>
+          <tr><td>FICA Reduction</td><td style="color: #6DD8E5;">+$2.07</td></tr>
+          <tr style="background: rgba(255,255,255,0.05);"><td style="color: #fff; font-weight: 600;">Net Paycheck Impact</td><td style="color: var(--white-90); font-weight: 700; font-size: 14px;">($18.46)</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top: auto; padding: 12px 14px; background: rgba(73,183,196,0.1); border: 1px solid rgba(73,183,196,0.25); border-radius: 6px;">
+        <div style="font-size: 10px; color: var(--az-teal); letter-spacing: 1px; text-transform: uppercase; font-weight: 700; margin-bottom: 4px;">Best Fit</div>
+        <div style="font-size: 11px; color: var(--white-85); line-height: 1.55;">Companies that want to extend benefit choice to every W-2 employee &mdash; including part-time and those who waive medical.</div>
+      </div>
+    </div>
+
+  </div>
+  <div style="margin-top: 14px; padding: 12px 18px; background: var(--white-06); border: 1px solid var(--white-08); border-radius: 6px;">
+    <div style="font-size: 11px; color: var(--white-75); line-height: 1.55;"><strong style="color: var(--az-teal);">Either way:</strong> the medical plan with [Current Carrier] doesn&rsquo;t change. No new ID cards. No network disruption. No carrier renegotiation. Amaze is a wraparound benefit, not a replacement.</div>
+  </div>
+  <div class="slide-footer dark">Nexus Benefit Solutions &mdash; Confidential</div>
+</div>
+
+<!-- SLIDE 8 — [AZURE] Competitive Edge: Amaze vs. the field -->
+<div class="slide" style="padding: 44px 64px; background: var(--az-dk); background-image: radial-gradient(ellipse at 20% 90%, rgba(43,108,176,0.35) 0%, transparent 45%), radial-gradient(ellipse at 90% 10%, rgba(75,183,196,0.25) 0%, transparent 40%), radial-gradient(ellipse at 50% 50%, rgba(59,130,196,0.12) 0%, transparent 50%); display: flex; flex-direction: column;">
+  <div style="margin-bottom: 18px;">
+    <div class="section-tag-blue">02 &mdash; The Competitive Edge</div>
+    <div style="font-family: var(--display); font-size: 26px; color: #fff; line-height: 1.2;">Amaze covers what point solutions miss</div>
+  </div>
+  <div style="font-size: 12px; color: var(--white-65); line-height: 1.6; max-width: 760px; margin-bottom: 20px;">Most &ldquo;virtual care&rdquo; vendors are point solutions &mdash; they handle one slice. Amaze covers all 16 service categories with one care team, one number, and one enrollment.</div>
+
+  <!-- Hero bar: Amaze 16/16 -->
+  <div style="padding: 14px 20px; background: linear-gradient(135deg, var(--az-dk), var(--az-md)); border-radius: 8px; border: 1px solid rgba(73,183,196,0.3); display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; box-shadow: 0 3px 10px rgba(26,63,107,0.3);">
+    <div style="display: flex; align-items: center; gap: 16px;">
+      <img src="https://jbearup1981.github.io/presentation-templates/assets/amaze-logo.png" style="height: 28px; filter: brightness(0) invert(1) brightness(1.2);" alt="Amaze">
+      <div style="font-size: 13px; color: var(--white-80); font-weight: 500;">Concierge care + navigation + advocacy</div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <div style="font-size: 22px; font-family: var(--display); color: var(--az-teal); line-height: 1;">16 / 16</div>
+      <div style="font-size: 12px; color: #fff; font-weight: 500;">All Services Included</div>
+    </div>
+  </div>
+
+  <!-- Competitor table -->
+  <div style="display: flex; flex-direction: column; gap: 11px; flex: 1;">
+    <div style="display: grid; grid-template-columns: 160px 1fr 70px; gap: 16px; align-items: center; font-size: 10px; color: var(--white-50); letter-spacing: 1px; text-transform: uppercase; padding-bottom: 4px; border-bottom: 1px solid var(--white-10);">
+      <div>Competitor</div>
+      <div>Service Coverage</div>
+      <div style="text-align: right;">Score</div>
+    </div>
+    <div style="display: grid; grid-template-columns: 160px 1fr 70px; gap: 16px; align-items: center;">
+      <div style="display: flex; justify-content: flex-start; align-items: center; height: 24px;"><img src="https://jbearup1981.github.io/presentation-templates/assets/galileo-logo.svg" style="max-width: 130px; max-height: 24px; object-fit: contain; filter: brightness(0) invert(1) brightness(0.85);" alt="Galileo"></div>
+      <div style="height: 16px; background: var(--white-08); border-radius: 3px; overflow: hidden; display: flex;"><div style="width: 62.5%; height: 100%; background: linear-gradient(90deg, rgba(73,183,196,0.4), rgba(73,183,196,0.55));"></div></div>
+      <div style="text-align: right; font-size: 12px; color: var(--white-85);"><strong>5</strong><span style="opacity: 0.4; font-weight: 400;"> / 8</span></div>
+    </div>
+    <div style="display: grid; grid-template-columns: 160px 1fr 70px; gap: 16px; align-items: center;">
+      <div style="display: flex; justify-content: flex-start; align-items: center; height: 24px;"><img src="https://jbearup1981.github.io/presentation-templates/assets/teladoc-logo.png" style="max-width: 130px; max-height: 26px; object-fit: contain; filter: brightness(0) invert(1) brightness(0.85);" alt="Teladoc"></div>
+      <div style="height: 16px; background: var(--white-08); border-radius: 3px; overflow: hidden; display: flex;"><div style="width: 20%; height: 100%; background: linear-gradient(90deg, rgba(73,183,196,0.4), rgba(73,183,196,0.55));"></div></div>
+      <div style="text-align: right; font-size: 12px; color: var(--white-85);"><strong>1</strong><span style="opacity: 0.4; font-weight: 400;"> / 5</span></div>
+    </div>
+    <div style="display: grid; grid-template-columns: 160px 1fr 70px; gap: 16px; align-items: center;">
+      <div style="display: flex; justify-content: flex-start; align-items: center; height: 24px;"><img src="https://jbearup1981.github.io/presentation-templates/assets/mdlive-logo.svg" style="max-width: 110px; max-height: 22px; object-fit: contain; filter: brightness(0) invert(1) brightness(0.85);" alt="MDLive"></div>
+      <div style="height: 16px; background: var(--white-08); border-radius: 3px; overflow: hidden; display: flex;"><div style="width: 20%; height: 100%; background: linear-gradient(90deg, rgba(73,183,196,0.4), rgba(73,183,196,0.55));"></div></div>
+      <div style="text-align: right; font-size: 12px; color: var(--white-85);"><strong>1</strong><span style="opacity: 0.4; font-weight: 400;"> / 5</span></div>
+    </div>
+    <div style="display: grid; grid-template-columns: 160px 1fr 70px; gap: 16px; align-items: center;">
+      <div style="display: flex; justify-content: flex-start; align-items: center; height: 24px;"><img src="https://jbearup1981.github.io/presentation-templates/assets/healthjoy-logo.png" style="max-width: 130px; max-height: 26px; object-fit: contain; filter: brightness(0) invert(1) brightness(0.85);" alt="HealthJoy"></div>
+      <div style="height: 16px; background: var(--white-08); border-radius: 3px; overflow: hidden; display: flex;"><div style="width: 42.85%; height: 100%; background: linear-gradient(90deg, rgba(73,183,196,0.4), rgba(73,183,196,0.55));"></div></div>
+      <div style="text-align: right; font-size: 12px; color: var(--white-85);"><strong>3</strong><span style="opacity: 0.4; font-weight: 400;"> / 7</span></div>
+    </div>
+  </div>
+
+  <div style="margin-top: 18px; padding: 12px 18px; background: rgba(73,183,196,0.08); border: 1px solid rgba(73,183,196,0.2); border-radius: 6px;">
+    <div style="font-size: 11px; color: var(--white-85); line-height: 1.55;"><strong style="color: var(--az-teal);">The point-solution problem:</strong> stack three vendors and the employee gets three apps, three logins, and three care teams that don&rsquo;t talk. Amaze is one team that does all 16.</div>
+  </div>
+  <div class="slide-footer dark">Nexus Benefit Solutions &mdash; Confidential</div>
+</div>
+
+<!-- SLIDE 9 — Section divider: Azure -> Forest transition (back to Forest) -->
+<div class="slide" style="padding: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(170deg, #0f2d4d 0%, var(--az-dk) 18%, #3d6a7a 35%, #6b8a73 55%, #8faa95 72%, var(--ps) 88%, var(--nw) 100%);">
+  <div style="text-align: center; max-width: 720px; padding: 0 64px;">
+    <div style="font-size: 11px; color: var(--df); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 18px; font-weight: 600;">04 &mdash; Implementation</div>
+    <div style="font-family: var(--display); font-size: 38px; color: var(--df); line-height: 1.25; margin-bottom: 18px;">How we roll it out.</div>
+    <div style="width: 48px; height: 2px; background: var(--rs); margin: 0 auto 18px;"></div>
+    <div style="font-size: 14px; color: var(--ch); line-height: 1.7; max-width: 580px; margin: 0 auto;">A 90-day timeline that runs parallel to your existing benefits &mdash; with no impact on the medical plan, the carrier, or open enrollment.</div>
+  </div>
+</div>
+
+<!-- SLIDE 10 — Forest 4-stage rollout timeline -->
+<div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
+  <div style="margin-bottom: 24px;">
+    <div class="slide-header-tag">04 &mdash; Implementation</div>
+    <div class="slide-title">A 90-Day Rollout, in Four Stages</div>
+  </div>
+  <div style="font-size: 14px; color: var(--ch); line-height: 1.7; max-width: 720px; margin-bottom: 42px;">Amaze is a wraparound benefit, so the timeline is fast and the lift on your team is light. We handle the design, the documents, and the employee communication &mdash; you handle the calendar.</div>
+  <div style="display: flex; gap: 0; position: relative; margin-bottom: 16px;">
+    <div style="position: absolute; top: 22px; left: 60px; right: 60px; height: 2px; background: var(--ps);"></div>
+    <div class="r15">
+      <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--rs); margin: 0 auto 14px; display: flex; align-items: center; justify-content: center;"><span style="color: #fff; font-size: 16px; font-weight: 700;">1</span></div>
+      <div style="font-family: var(--display); font-size: 16px; color: var(--df); margin-bottom: 6px;">Days 0&ndash;14</div>
+      <div style="font-size: 11px; color: var(--df); font-weight: 600; margin-bottom: 4px;">Design Session</div>
+      <div style="font-size: 11px; color: var(--sg); line-height: 1.5; padding: 0 10px;">Funding choice, eligibility, payroll deduction setup, communication tone &amp; brand fit</div>
+    </div>
+    <div class="r15">
+      <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--fl); margin: 0 auto 14px; display: flex; align-items: center; justify-content: center;"><span style="color: #fff; font-size: 16px; font-weight: 700;">2</span></div>
+      <div style="font-family: var(--display); font-size: 16px; color: var(--df); margin-bottom: 6px;">Days 15&ndash;30</div>
+      <div style="font-size: 11px; color: var(--df); font-weight: 600; margin-bottom: 4px;">Plan Doc Integration</div>
+      <div style="font-size: 11px; color: var(--sg); line-height: 1.5; padding: 0 10px;">Section 125 amendment, payroll codes, ben-admin integration, ID card distribution</div>
+    </div>
+    <div class="r15">
+      <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--fl); margin: 0 auto 14px; display: flex; align-items: center; justify-content: center;"><span style="color: #fff; font-size: 16px; font-weight: 700;">3</span></div>
+      <div style="font-family: var(--display); font-size: 16px; color: var(--df); margin-bottom: 6px;">Days 31&ndash;60</div>
+      <div style="font-size: 11px; color: var(--df); font-weight: 600; margin-bottom: 4px;">Employee Launch</div>
+      <div style="font-size: 11px; color: var(--sg); line-height: 1.5; padding: 0 10px;">Branded launch campaign, app onboarding, live Q&amp;A sessions, manager talking points</div>
+    </div>
+    <div class="r15">
+      <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--df); margin: 0 auto 14px; display: flex; align-items: center; justify-content: center;"><span style="color: #fff; font-size: 16px; font-weight: 700;">4</span></div>
+      <div style="font-family: var(--display); font-size: 16px; color: var(--df); margin-bottom: 6px;">Day 90+</div>
+      <div style="font-size: 11px; color: var(--df); font-weight: 600; margin-bottom: 4px;">Usage Review</div>
+      <div style="font-size: 11px; color: var(--sg); line-height: 1.5; padding: 0 10px;">Engagement report, top use cases, ROI snapshot, year-2 design recommendations</div>
+    </div>
+  </div>
+  <div style="margin-top: auto; padding: 16px 22px; border-left: 3px solid var(--rs); background: rgba(184,82,42,0.04); border-radius: 0 6px 6px 0;">
+    <div style="font-size: 13px; color: var(--ch); line-height: 1.6;"><strong style="color: var(--df);">No open enrollment dependency.</strong> Amaze can launch in any month &mdash; tied to your fiscal calendar, not your medical plan year.</div>
+  </div>
+</div>
+
+<!-- SLIDE 11 — Forest Pre-Launch Checklist (4 items) -->
+<div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
+  <div style="margin-bottom: 24px;">
+    <div class="slide-header-tag">04 &mdash; What We Need from [Company Name]</div>
+    <div class="slide-title">Four Things to Get Started</div>
+  </div>
+  <div style="font-size: 14px; color: var(--ch); line-height: 1.7; max-width: 720px; margin-bottom: 28px;">If [Company Name] decides to move forward, this is the entire list. We handle every other piece &mdash; carrier coordination, plan documents, employee comms, payroll setup &mdash; with your sign-off at each step.</div>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px; flex: 1;">
+    <div style="padding: 22px 24px; background: var(--ps); border-radius: 8px; border: 1px solid rgba(31,61,46,0.1); display: flex; gap: 16px; align-items: flex-start;">
+      <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--rs); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div>
+        <div style="font-family: var(--display); font-size: 17px; color: var(--df); margin-bottom: 6px;">1. Current plan documents</div>
+        <div style="font-size: 12px; color: var(--ch); line-height: 1.65;">Most recent SBC and Section 125 plan doc from [Current Carrier]. We use these to write the wraparound amendment &mdash; no carrier disruption needed.</div>
+      </div>
+    </div>
+    <div style="padding: 22px 24px; background: var(--ps); border-radius: 8px; border: 1px solid rgba(31,61,46,0.1); display: flex; gap: 16px; align-items: flex-start;">
+      <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--rs); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div>
+        <div style="font-family: var(--display); font-size: 17px; color: var(--df); margin-bottom: 6px;">2. Payroll contact</div>
+        <div style="font-size: 12px; color: var(--ch); line-height: 1.65;">A 30-minute call with whoever runs payroll &mdash; in-house or PEO. We set up the deduction code and test the first payroll run before go-live.</div>
+      </div>
+    </div>
+    <div style="padding: 22px 24px; background: var(--ps); border-radius: 8px; border: 1px solid rgba(31,61,46,0.1); display: flex; gap: 16px; align-items: flex-start;">
+      <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--rs); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div>
+        <div style="font-family: var(--display); font-size: 17px; color: var(--df); margin-bottom: 6px;">3. Employee communication schedule</div>
+        <div style="font-size: 12px; color: var(--ch); line-height: 1.65;">Confirm the channels (email, app, all-hands, posters) and the cadence for the launch campaign. We bring the templates &mdash; you approve before anything goes out.</div>
+      </div>
+    </div>
+    <div style="padding: 22px 24px; background: var(--ps); border-radius: 8px; border: 1px solid rgba(31,61,46,0.1); display: flex; gap: 16px; align-items: flex-start;">
+      <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--rs); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div>
+        <div style="font-family: var(--display); font-size: 17px; color: var(--df); margin-bottom: 6px;">4. Target launch date</div>
+        <div style="font-size: 12px; color: var(--ch); line-height: 1.65;">Pick a date 60&ndash;90 days out. Tied to a payroll cycle, not your medical renewal &mdash; so timing is flexible and entirely on your calendar.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EDITABLE: Contact info — update phone numbers -->
+<!-- SLIDE 12 — Forest Closing -->
+<div class="slide" style="padding: 44px 64px; display: flex; flex-direction: column; justify-content: center; background: var(--df); background-image: radial-gradient(ellipse at bottom right, rgba(184,82,42,0.2) 0%, transparent 40%);">
+  <div style="max-width: 600px;">
+    <div style="font-family: var(--display); font-size: 36px; color: #FFFFFF; line-height: 1.25; margin-bottom: 20px;">Let&rsquo;s Build<br>Something Better</div>
+    <div style="font-size: 15px; color: var(--white-65); line-height: 1.8; margin-bottom: 24px;">Your group plan covers the bill. Amaze covers everything else &mdash; for ~$27 a paycheck and zero disruption to [Current Carrier].</div>
+    <div style="display: inline-flex; align-items: center; gap: 10px; padding: 12px 22px; background: var(--rs); border-radius: 6px; margin-bottom: 30px; box-shadow: 0 3px 12px rgba(184,82,42,0.4);">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+      <div style="font-size: 13px; color: #fff; font-weight: 600; letter-spacing: 0.5px;">Next step: usage projection call &mdash; we&rsquo;ll model exact paycheck math at your wage levels</div>
+    </div>
+    <div style="display: flex; gap: 28px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="https://jbearup1981.github.io/presentation-templates/assets/jason-bearup.jpg" alt="Jason Bearup" style="width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--white-15);">
+        <div><div style="font-size: 13px; color: var(--white-50); font-weight: 600;">Jason Bearup</div><div style="font-size: 10px; color: rgba(255,255,255,0.35);">Lead Advisor</div><div style="font-size: 10px; color: rgba(255,255,255,0.3);">(616) 555-0001</div><div style="font-size: 10px; color: rgba(255,255,255,0.3);">jason@nexusbenefitsolutions.com</div></div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="https://jbearup1981.github.io/presentation-templates/assets/ken-fortier.jpg" alt="Ken Fortier" style="width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--white-15);">
+        <div><div style="font-size: 13px; color: var(--white-50); font-weight: 600;">Ken Fortier</div><div style="font-size: 10px; color: rgba(255,255,255,0.35);">Relationship Manager</div><div style="font-size: 10px; color: rgba(255,255,255,0.3);">(616) 555-0002</div><div style="font-size: 10px; color: rgba(255,255,255,0.3);">ken@nexusbenefitsolutions.com</div></div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="https://jbearup1981.github.io/presentation-templates/assets/grace-morris.jpg" alt="Grace Morris" style="width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--white-15);">
+        <div><div style="font-size: 13px; color: var(--white-50); font-weight: 600;">Grace Morris</div><div style="font-size: 10px; color: rgba(255,255,255,0.35);">Account Manager</div><div style="font-size: 10px; color: rgba(255,255,255,0.3);">(616) 555-0003</div><div style="font-size: 10px; color: rgba(255,255,255,0.3);">grace@nexusbenefitsolutions.com</div></div>
+      </div>
+    </div>
+  </div>
+  <div style="position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); text-align: center;">
+    <div style="display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 3px;">
+      <img src="https://jbearup1981.github.io/presentation-templates/assets/nexus-logo-white.svg" alt="Nexus" style="height: 20px; opacity: 0.2;">
+      <div style="font-size: 16.5px; color: rgba(255,255,255,0.2); line-height: 1;">Nexus Benefit Solutions</div>
+    </div>
+    <div style="font-size: 11px; color: rgba(184,82,42,0.35); letter-spacing: 1px;">nexusbenefitsolutions.com</div>
+  </div>
+</div>
+
+</div><!-- end .deck -->
+
+<!-- FIXED: Navigation and scaling JavaScript — do not modify -->
+<script>
+let cur = 0;
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+function go(n) {
+  if (n < 0 || n >= total) return;
+  slides[cur].classList.remove('active');
+  cur = n;
+  slides[cur].classList.add('active');
+  document.getElementById('counter').textContent = (cur + 1) + ' / ' + total;
+  document.getElementById('prevBtn').disabled = cur === 0;
+  document.getElementById('nextBtn').disabled = cur === total - 1;
+}
+function nav(d) { go(cur + d); }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nav(1); }
+  if (e.key === 'ArrowLeft') nav(-1);
+  if (e.key === 'Home') go(0);
+  if (e.key === 'End') go(total - 1);
+  if (e.key === 'f' || e.key === 'F') toggleFullscreen();
+});
+function toggleFullscreen() {
+  if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+  else document.exitFullscreen();
+}
+// Touch support
+let tx = 0;
+document.addEventListener('touchstart', function(e) { tx = e.changedTouches[0].screenX; });
+document.addEventListener('touchend', function(e) {
+  var d = e.changedTouches[0].screenX - tx;
+  if (Math.abs(d) > 50) nav(d < 0 ? 1 : -1);
+});
+// Scale
+function rescale() {
+  const sw = window.innerWidth / 960;
+  const sh = window.innerHeight / 540;
+  var s = Math.min(sw, sh, 2) * 0.88;
+  document.documentElement.style.setProperty('--scale', s);
+}
+window.addEventListener('resize', rescale);
+rescale();
+// Responsive mode
+if (new URLSearchParams(window.location.search).get('mode') === 'responsive') {
+  document.body.classList.add('responsive-mode');
+}
+// Auto-inject footer on inner slides (skip cover and closing)
+(function() {
+  slides.forEach(function(s, i) {
+    if (i === 0 || i === total - 1) return;
+    if (s.querySelector('.slide-footer')) return;
+    var f = document.createElement('div');
+    f.className = 'slide-footer';
+    var st = s.getAttribute('style') || '';
+    if (st.indexOf('az-dk') > -1 || st.indexOf('--df') > -1 || st.indexOf('#1A3F6B') > -1 || st.indexOf('#1F3D2E') > -1) {
+      f.classList.add('dark');
+    }
+    f.textContent = 'Nexus Benefit Solutions';
+    s.appendChild(f);
+  });
+})();
+// Init
+go(0);
+</script>
+</body>
+</html>
