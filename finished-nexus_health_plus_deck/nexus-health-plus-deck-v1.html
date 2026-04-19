@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexus Benefit Solutions — Nexus Health Plus Pitch Deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+:root {
+  --nw: #FAFAF8;
+  --df: #1F3D2E;
+  --rs: #B8522A;
+  --sg: #7A9282;
+  --ps: #E8EBE4;
+  --fl: #2A5240;
+  --rl: #D4693F;
+  --ch: #2D2D2D;
+  --az-dk: #1A3F6B;
+  --az-md: #2B6CB0;
+  --az-bg: #EDF3FA;
+  --az-teal: #49B7C4;
+  --display: 'DM Serif Display', Georgia, serif;
+  --body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --white-06: rgba(255,255,255,0.06);
+  --white-08: rgba(255,255,255,0.08);
+  --white-10: rgba(255,255,255,0.1);
+  --white-15: rgba(255,255,255,0.15);
+  --white-25: rgba(255,255,255,0.25);
+  --white-45: rgba(255,255,255,0.45);
+  --white-50: rgba(255,255,255,0.5);
+  --white-60: rgba(255,255,255,0.6);
+  --white-65: rgba(255,255,255,0.65);
+  --white-75: rgba(255,255,255,0.75);
+  --white-80: rgba(255,255,255,0.8);
+  --white-85: rgba(255,255,255,0.85);
+  --white-90: rgba(255,255,255,0.9);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; overflow: hidden; background: #1a1a1a; }
+body { font-family: var(--body); color: var(--ch); -webkit-font-smoothing: antialiased; }
+.deck { width: 100%; height: 100%; position: relative; }
+.slide {
+  width: 960px; height: 540px;
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(var(--scale, 1));
+  transform-origin: center center;
+  overflow: hidden; opacity: 0; pointer-events: none;
+  transition: opacity 0.7s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+.slide.active { opacity: 1; pointer-events: auto; }
+.controls {
+  position: fixed; bottom: 24px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; align-items: center; gap: 16px; z-index: 100;
+  background: rgba(0,0,0,0.6); backdrop-filter: blur(8px);
+  padding: 8px 20px; border-radius: 40px;
+}
+.controls button {
+  background: none; border: none; color: rgba(255,255,255,0.7);
+  cursor: pointer; font-size: 18px; padding: 4px 8px;
+  transition: color 0.2s; font-family: var(--body);
+}
+.controls button:hover { color: #fff; }
+.controls button:disabled { color: rgba(255,255,255,0.2); cursor: default; }
+.slide-counter {
+  font-size: 12px; color: var(--white-50);
+  font-family: monospace; letter-spacing: 1px;
+  min-width: 60px; text-align: center;
+}
+.fullscreen-btn {
+  position: fixed; top: 16px; right: 16px; z-index: 100;
+  background: rgba(0,0,0,0.5); border: none; color: var(--white-60);
+  cursor: pointer; padding: 8px 12px; border-radius: 6px;
+  font-size: 11px; font-family: var(--body); letter-spacing: 1px;
+  text-transform: uppercase; transition: all 0.2s; backdrop-filter: blur(8px);
+}
+.fullscreen-btn:hover { background: rgba(0,0,0,0.7); color: #fff; }
+.slide-header-tag {
+  font-family: var(--body); font-size: 11px; color: var(--sg);
+  letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px;
+}
+.slide-title { font-family: var(--display); font-size: 30px; color: var(--df); line-height: 1.2; }
+.top-accent {
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--rs), var(--rs) 25%, transparent 100%);
+}
+.bottom-accent {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--rs), transparent 40%);
+}
+.plan-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.plan-table th { background: var(--df); color: #fff; padding: 8px 12px; text-align: left; font-weight: 600; font-size: 10px; letter-spacing: 0.5px; }
+.plan-table td { padding: 9px 12px; border-bottom: 1px solid var(--ps); color: var(--ch); }
+.plan-table tr:last-child td { background: rgba(184,82,42,0.06); font-weight: 700; color: var(--rs); border-bottom: none; }
+.pay-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.pay-table th { background: var(--az-dk); color: #fff; padding: 8px 10px; text-align: right; font-weight: 600; font-size: 11px; }
+.pay-table th:first-child { text-align: left; }
+.pay-table td { padding: 5px 10px; border-bottom: 1px solid var(--white-08); text-align: right; color: var(--white-80); }
+.pay-table td:first-child { text-align: left; color: var(--white-65); font-size: 11px; }
+.pay-table .highlight-row td { background: rgba(26,63,107,0.08); font-weight: 700; color: var(--az-dk); }
+.pay-table .section-header td { background: var(--white-06); color: var(--white-60); font-weight: 600; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; padding: 5px 10px; border-bottom: none; }
+.slide-footer {
+  position: absolute;
+  bottom: 8px;
+  left: 64px;
+  font-size: 8px;
+  color: var(--sg);
+  letter-spacing: 0.5px;
+  font-family: var(--body);
+  opacity: 0.5;
+}
+.slide-footer.dark { color: var(--white-25); }
+@media print {
+  html, body { overflow: visible; background: white; height: auto; }
+  .controls, .fullscreen-btn { display: none !important; }
+  .slide {
+    position: relative; transform: none !important;
+    opacity: 1; pointer-events: auto;
+    page-break-after: always; page-break-inside: avoid;
+    margin: 0 auto; top: auto; left: auto;
+    box-shadow: none;
+  }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .slide-footer { position: relative; bottom: auto; left: auto; margin-top: 8px; }
+}
+body.responsive-mode { overflow: auto; background: #f5f5f5; }
+body.responsive-mode .controls,
+body.responsive-mode .fullscreen-btn { display: none; }
+body.responsive-mode .slide {
+  position: relative; opacity: 1; pointer-events: auto;
+  top: auto; left: auto; transform: none !important;
+  width: 100%; max-width: 960px; height: auto; min-height: 540px;
+  margin: 24px auto; border-radius: 8px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+}
+body.responsive-mode .slide-footer { position: relative; bottom: auto; left: auto; padding: 12px 64px; margin-top: 8px; }
+
+/* Reusable utility classes */
+.r10 { font-size: 12px; color: var(--sg); line-height: 1.7; }
+.r13 { font-size: 11px; color: #3d4f44; line-height: 1.4; }
+.r14 { font-size: 13px; color: var(--ch); line-height: 1.7; }
+.r16 { color: var(--az-teal); font-size: 12px; margin-top: 1px; }
+.check-item { display: flex; gap: 7px; align-items: flex-start; margin-bottom: 6px; }
+.check-text { font-size: 11px; color: var(--white-80); line-height: 1.5; }
+.section-tag-blue { font-size: 11px; color: var(--az-teal); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+.section-title-white { font-family: var(--display); font-size: 26px; color: white; }
+.section-title-white-sm { font-family: var(--display); font-size: 26px; color: #fff; line-height: 1.3; }
+.feature-card { padding: 14px 16px; background: rgba(255,255,255,0.55); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-radius: 8px; border-left: 3px solid var(--az-teal); box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+.feature-title { font-size: 14px; color: #0d2a4a; font-weight: 700; margin-bottom: 5px; line-height: 1.2; }
+.feature-desc { font-size: 12px; color: #2a4a6a; line-height: 1.5; }
+.partner-card { padding: 22px 20px; background: var(--ps); border-radius: 8px; border-top: 3px solid var(--df); display: flex; flex-direction: column; gap: 10px; }
+.partner-card.rust { border-top-color: var(--rs); }
+.partner-card.azure { border-top-color: var(--az-md); }
+.fit-card { padding: 18px; background: var(--ps); border-radius: 8px; border-left: 3px solid var(--df); }
+.contact-card { display: flex; align-items: flex-start; gap: 10px; }
+</style>
+</head>
+<body>
+<button class="fullscreen-btn" onclick="toggleFullscreen()">&#9974; Fullscreen</button>
+<div class="controls">
+  <button id="prevBtn" onclick="nav(-1)">&#9664;</button>
+  <span class="slide-counter" id="counter">1 / 13</span>
+  <button id="nextBtn" onclick="nav(1)">&#9654;</button>
+</div>
+<div class="deck">
+
+<!-- EDITABLE: Company name, date -->
+<!-- SLIDE 1 — Title -->
+<div class="slide active" style="padding: 0; position: relative; overflow: hidden;">
+  <!-- Right panel: green gradient -->
+  <div style="position: absolute; top: 0; right: 0; bottom: 0; width: 58%; background: linear-gradient(160deg, #3a5a4a 0%, #2a4a3a 50%, #1a3a2a 100%);">
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(31,61,46,0.45);"></div>
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.25; background: repeating-linear-gradient(90deg, transparent, transparent 4px, var(--white-60) 4px, var(--white-60) 5px); mask-image: radial-gradient(ellipse at 85% 85%, transparent 10%, rgba(0,0,0,0.3) 20%, rgba(0,0,0,1) 40%); -webkit-mask-image: radial-gradient(ellipse at 85% 85%, transparent 10%, rgba(0,0,0,0.3) 20%, rgba(0,0,0,1) 40%);"></div>
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at 70% 60%, transparent 20%, rgba(15,25,20,0.45) 100%), linear-gradient(to top, rgba(15,25,20,0.55) 0%, transparent 40%), linear-gradient(to right, rgba(31,61,46,0.5) 0%, transparent 20%);"></div>
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at 65% 35%, rgba(184,82,42,0.1) 0%, transparent 50%);"></div>
+    <div style="position: absolute; bottom: 40px; right: 40px; z-index: 4;">
+      <img src="https://jbearup1981.github.io/presentation-templates/assets/nexus-logo-white.svg" alt="Nexus" style="height: 40px; opacity: 0.25;">
+    </div>
+    <!-- Template identifier -->
+    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; z-index: 4;">
+      <div style="font-family: var(--display); font-size: 48px; color: rgba(255,255,255,0.4); line-height: 1;">Nexus</div>
+      <div style="font-family: var(--display); font-size: 48px; color: rgba(255,255,255,0.4); line-height: 1; margin-top: 4px;">Health Plus</div>
+      <div style="font-size: 14px; color: rgba(184,82,42,0.75); letter-spacing: 4px; text-transform: uppercase; margin-top: 12px; font-weight: 600;">Pitch</div>
+      <div style="font-size: 10px; color: rgba(255,255,255,0.35); letter-spacing: 2px; text-transform: uppercase; margin-top: 8px;">Section 125 &middot; Wellbeing &middot; Amaze</div>
+    </div>
+  </div>
+  <!-- Rust diagonal stripe -->
+  <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; filter: drop-shadow(4px 0 8px rgba(0,0,0,0.4));"><div style="width: 100%; height: 100%; background: var(--rs); clip-path: polygon(57% 0, 59.2% 0, 43% 100%, 40.8% 100%);"></div></div>
+  <!-- Green diagonal panel -->
+  <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; filter: drop-shadow(4px 0 6px rgba(0,0,0,0.35));"><div style="position: absolute; top: 0; left: 0; width: 58%; height: 100%; background: var(--df); background-image: radial-gradient(ellipse at top left, rgba(184,82,42,0.2) 0%, transparent 35%); clip-path: polygon(0 0, 100% 0, 72% 100%, 0 100%);"></div></div>
+  <!-- Left text content -->
+  <div style="position: relative; width: 58%; height: 100%; padding: 44px 64px; display: flex; flex-direction: column; justify-content: center; z-index: 3;">
+    <div>
+      <div style="width: 48px; height: 2px; background: var(--rs); margin-bottom: 20px;"></div>
+      <div style="font-family: var(--display); font-size: 38px; color: #FFFFFF; line-height: 1.15; margin-bottom: 4px;">Nexus Health Plus</div>
+      <div style="font-family: var(--display); font-size: 22px; color: var(--rl); line-height: 1.3; margin-bottom: 16px;">A benefit wrap that gives back</div>
+      <div style="font-size: 14px; color: var(--white-65); line-height: 1.5; margin-bottom: 8px;">Prepared for [Company Name]</div>
+      <div style="font-size: 13px; color: var(--white-45);">[Date] &middot; [Advisor Name]</div>
+    </div>
+    <div style="position: absolute; bottom: 32px; left: 64px; display: flex; align-items: center; gap: 8px;">
+      <img src="https://jbearup1981.github.io/presentation-templates/assets/nexus-logo-white.svg" alt="Nexus" style="height: 30px; opacity: 0.45;">
+      <div><div style="font-size: 11px; color: rgba(255,255,255,0.55); line-height: 1.4;">Nexus Benefit Solutions</div><div style="font-size: 10px; color: rgba(255,255,255,0.4);">Grand Rapids, Michigan</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 2 — Agenda -->
+<div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
+  <div class="top-accent"></div>
+  <div style="margin-bottom: 42px;"><div class="slide-header-tag">00 &mdash; Agenda</div><div class="slide-title">What We'll Cover</div></div>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px 40px;">
+    <div style="display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--ps);"><div style="font-family: var(--display); font-size: 25px; color: var(--rs); min-width: 32px;">01</div><div><div style="font-size: 16px; color: var(--df); font-weight: 600;">What Nexus Health Plus Is</div><div style="font-size: 13px; color: var(--sg); margin-top: 2px;">The four moving parts &mdash; assembled into one wrap</div></div></div>
+    <div style="display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--ps);"><div style="font-family: var(--display); font-size: 25px; color: var(--rs); min-width: 32px;">02</div><div><div style="font-size: 16px; color: var(--df); font-weight: 600;">The Math</div><div style="font-size: 13px; color: var(--sg); margin-top: 2px;">Pretax in, fixed-indemnity out, FICA savings on both sides</div></div></div>
+    <div style="display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--ps);"><div style="font-family: var(--display); font-size: 25px; color: var(--rs); min-width: 32px;">03</div><div><div style="font-size: 16px; color: var(--df); font-weight: 600;">Who Delivers It</div><div style="font-size: 13px; color: var(--sg); margin-top: 2px;">Nexus, Insight Benefits, and Amaze Health</div></div></div>
+    <div style="display: flex; gap: 14px; align-items: flex-start; padding: 14px 0;"><div style="font-family: var(--display); font-size: 25px; color: var(--rs); min-width: 32px;">04</div><div><div style="font-size: 16px; color: var(--df); font-weight: 600;">How We Implement</div><div style="font-size: 13px; color: var(--sg); margin-top: 2px;">Design session to live payroll in four stages</div></div></div>
+  </div>
+  <div style="margin-top: 36px; padding: 14px 20px; border-left: 3px solid var(--rs); background: rgba(184,82,42,0.04); border-radius: 0 6px 6px 0;">
+    <div style="font-size: 12px; color: var(--ch); line-height: 1.6;"><strong style="color: var(--df);">A note before we start.</strong> Nexus Health Plus is a proprietary program built and assembled by Nexus &mdash; no other broker in West Michigan can offer this exact wrap.</div>
+  </div>
+  <div class="bottom-accent"></div>
+</div>
+
+<!-- SLIDE 3 — The Problem -->
+<div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
+  <div class="top-accent"></div>
+  <div style="margin-bottom: 32px;"><div class="slide-header-tag">01 &mdash; The Problem</div><div class="slide-title">Employer health spend keeps rising.<br>Employee take-home keeps shrinking.</div></div>
+  <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; margin-bottom: 28px;">
+    <div style="padding: 24px 22px; background: var(--ps); border-radius: 8px; border-top: 3px solid var(--rs);">
+      <div style="font-family: var(--display); font-size: 44px; color: var(--rs); line-height: 1;">+7%</div>
+      <div style="font-size: 10px; color: var(--sg); letter-spacing: 1px; text-transform: uppercase; margin-top: 10px; font-weight: 600;">2026 Renewal Trend</div>
+      <div style="font-size: 11px; color: var(--ch); line-height: 1.55; margin-top: 8px;">Average employer-sponsored medical premium increase. Family premiums now exceed <strong>$26,000/yr</strong>.</div>
+    </div>
+    <div style="padding: 24px 22px; background: var(--ps); border-radius: 8px; border-top: 3px solid var(--rs);">
+      <div style="font-family: var(--display); font-size: 44px; color: var(--rs); line-height: 1;">53%</div>
+      <div style="font-size: 10px; color: var(--sg); letter-spacing: 1px; text-transform: uppercase; margin-top: 10px; font-weight: 600;">Deductible Burden</div>
+      <div style="font-size: 11px; color: var(--ch); line-height: 1.55; margin-top: 8px;">Of small-firm workers face <strong>$2,000+</strong> deductibles before insurance pays a dollar.</div>
+    </div>
+    <div style="padding: 24px 22px; background: var(--ps); border-radius: 8px; border-top: 3px solid var(--df);">
+      <div style="font-family: var(--display); font-size: 44px; color: var(--df); line-height: 1;">$0</div>
+      <div style="font-size: 10px; color: var(--sg); letter-spacing: 1px; text-transform: uppercase; margin-top: 10px; font-weight: 600;">Net Cost to Employer</div>
+      <div style="font-size: 11px; color: var(--ch); line-height: 1.55; margin-top: 8px;">Nexus Health Plus runs <strong>cost-neutral or better</strong> &mdash; FICA savings cover the program fee.</div>
+    </div>
+  </div>
+  <div style="padding: 18px 24px; background: rgba(31,61,46,0.04); border-left: 3px solid var(--df); border-radius: 0 8px 8px 0;">
+    <div style="font-family: var(--display); font-size: 16px; color: var(--df); margin-bottom: 6px;">The squeeze is real &mdash; on both sides of the table.</div>
+    <div style="font-size: 12px; color: var(--ch); line-height: 1.6;">CFOs are out of room to absorb another double-digit medical trend. Employees can't take another deductible bump. The traditional answers &mdash; raise contributions, cut benefits, hope for a better renewal &mdash; all make the problem worse. Nexus Health Plus is the lever that hasn't been pulled yet.</div>
+  </div>
+  <div class="bottom-accent"></div>
+</div>
+
+<!-- SLIDE 4 — Section Divider: What NHP Is -->
+<div class="slide" style="background: linear-gradient(160deg, var(--nw) 0%, var(--ps) 22%, #c5d2ca 38%, var(--sg) 55%, var(--fl) 78%, var(--df) 100%); padding: 44px 64px; display: flex; flex-direction: column; justify-content: center;">
+  <div style="max-width: 640px;">
+    <div style="width: 48px; height: 2px; background: var(--rs); margin-bottom: 22px;"></div>
+    <div style="font-family: var(--display); font-size: 38px; color: #fff; line-height: 1.2; text-shadow: 0 2px 16px rgba(0,0,0,0.35);">What Nexus Health Plus is</div>
+    <div style="font-size: 15px; color: var(--white-75); line-height: 1.7; margin-top: 16px; max-width: 520px;">A pretax wrap that pairs a fixed-indemnity supplemental policy with 24/7 virtual primary care &mdash; sitting alongside the existing group medical plan, not replacing it.</div>
+  </div>
+</div>
+
+<!-- SLIDE 5 — Anatomy: 4 Components -->
+<div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
+  <div class="top-accent"></div>
+  <div style="margin-bottom: 28px;"><div class="slide-header-tag">01 &mdash; The Anatomy</div><div class="slide-title">Four parts. One wrap. One paycheck line.</div></div>
+  <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; flex: 1; align-content: start;">
+    <div style="padding: 22px 18px; background: var(--ps); border-radius: 10px; border-top: 3px solid var(--rs); display: flex; flex-direction: column;">
+      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 14px;">
+        <div style="width: 30px; height: 30px; border-radius: 50%; background: var(--rs); color: #fff; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 14px;">1</div>
+        <div style="font-size: 9px; color: var(--rs); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700;">Pretax Engine</div>
+      </div>
+      <div style="font-family: var(--display); font-size: 17px; color: var(--df); line-height: 1.25; margin-bottom: 10px;">Section 125 Pretax Contribution</div>
+      <div style="font-size: 11px; color: var(--ch); line-height: 1.6;">Employee elects a pretax payroll deduction inside an ERISA cafeteria plan. The dollar drops out of the FICA &amp; income-tax base for both sides on day one.</div>
+    </div>
+    <div style="padding: 22px 18px; background: var(--ps); border-radius: 10px; border-top: 3px solid var(--df); display: flex; flex-direction: column;">
+      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 14px;">
+        <div style="width: 30px; height: 30px; border-radius: 50%; background: var(--df); color: #fff; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 14px;">2</div>
+        <div style="font-size: 9px; color: var(--df); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700;">Fixed Indemnity</div>
+      </div>
+      <div style="font-family: var(--display); font-size: 17px; color: var(--df); line-height: 1.25; margin-bottom: 10px;">Supplemental Indemnity Policy</div>
+      <div style="font-size: 11px; color: var(--ch); line-height: 1.6;">A fully insured group fixed-indemnity policy filed in Michigan. Pays a scheduled wellbeing benefit back to the employee &mdash; the carrier holds all insurance risk.</div>
+    </div>
+    <div style="padding: 22px 18px; background: var(--ps); border-radius: 10px; border-top: 3px solid var(--az-md); display: flex; flex-direction: column;">
+      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 14px;">
+        <div style="width: 30px; height: 30px; border-radius: 50%; background: var(--az-md); color: #fff; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 14px;">3</div>
+        <div style="font-size: 9px; color: var(--az-md); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700;">Care Backbone</div>
+      </div>
+      <div style="font-family: var(--display); font-size: 17px; color: var(--df); line-height: 1.25; margin-bottom: 10px;">24/7 Virtual Primary Care</div>
+      <div style="font-size: 11px; color: var(--ch); line-height: 1.6;">Amaze Health full-time providers. Diagnose, treat, prescribe, refer. $0 copay for the employee and the whole household. Mental health and chronic-care included.</div>
+    </div>
+    <div style="padding: 22px 18px; background: var(--ps); border-radius: 10px; border-top: 3px solid var(--fl); display: flex; flex-direction: column;">
+      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 14px;">
+        <div style="width: 30px; height: 30px; border-radius: 50%; background: var(--fl); color: #fff; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 14px;">4</div>
+        <div style="font-size: 9px; color: var(--fl); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700;">Engagement</div>
+      </div>
+      <div style="font-family: var(--display); font-size: 17px; color: var(--df); line-height: 1.25; margin-bottom: 10px;">Wellness &amp; Education Credits</div>
+      <div style="font-size: 11px; color: var(--ch); line-height: 1.6;">A brief monthly wellbeing activity unlocks the indemnity benefit. Drives engagement with the Amaze platform and keeps the program clean under §213(d).</div>
+    </div>
+  </div>
+  <div style="margin-top: 22px; padding: 12px 18px; background: rgba(184,82,42,0.05); border-left: 3px solid var(--rs); border-radius: 0 6px 6px 0;">
+    <div style="font-size: 11.5px; color: var(--ch); line-height: 1.6;"><strong style="color: var(--df);">Wraps around &mdash; not replaces &mdash; existing benefits.</strong> The group medical plan, dental, vision, and 401(k) keep doing what they do. NHP plugs into the empty space those plans don't fill.</div>
+  </div>
+  <div class="bottom-accent"></div>
+</div>
+
+<!-- SLIDE 6 — The Math -->
+<div class="slide" style="padding: 44px 64px; background: var(--az-dk); background-image: radial-gradient(ellipse at 30% 20%, rgba(75,183,196,0.3) 0%, transparent 45%), radial-gradient(ellipse at 90% 80%, rgba(43,108,176,0.25) 0%, transparent 40%), radial-gradient(ellipse at 60% 10%, rgba(59,130,196,0.12) 0%, transparent 35%); display: flex; flex-direction: column;">
+  <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px;">
+    <div><div class="section-tag-blue">02 &mdash; The Math</div><div class="section-title-white">Pretax in. Indemnity out. Both sides win.</div></div>
+    <div style="font-size: 10px; color: var(--white-75); text-align: right; line-height: 1.5;">Example: Plan 1500 &middot; Employee earning<br><strong style="color: white;">$25.00/hr ($2,000 bi-weekly)</strong></div>
+  </div>
+  <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 20px;">
+    <div>
+      <table class="pay-table" style="font-size: 12px;">
+        <thead><tr><th style="width: 42%;">Paycheck Line Item</th><th>Without NHP</th><th>With NHP</th><th>Difference</th></tr></thead>
+        <tbody>
+          <tr><td>Gross Income</td><td>$2,000.00</td><td>$2,000.00</td><td>&mdash;</td></tr>
+          <tr><td>NHP Pretax Premium (NHPR)</td><td>$0.00</td><td style="color: var(--az-teal);">($692.31)</td><td>($692.31)</td></tr>
+          <tr style="background: rgba(255,255,255,0.05);"><td style="font-weight: 600; color: white;">Taxable Income</td><td style="font-weight: 600;">$2,000.00</td><td style="font-weight: 600; color: white;">$1,307.69</td><td style="color: #6DD8E5;">&darr; $692.31</td></tr>
+          <tr class="section-header"><td colspan="4">Tax Withholding (Michigan)</td></tr>
+          <tr><td>Federal Income Tax</td><td>($168.42)</td><td>($85.30)</td><td style="color: #6DD8E5;">+$83.12</td></tr>
+          <tr><td>Social Security (FICA)</td><td>($124.00)</td><td>($81.08)</td><td style="color: #6DD8E5;">+$42.92</td></tr>
+          <tr><td>Medicare (FICA)</td><td>($29.00)</td><td>($18.96)</td><td style="color: #6DD8E5;">+$10.04</td></tr>
+          <tr><td>Michigan Income Tax</td><td>($85.00)</td><td>($55.58)</td><td style="color: #6DD8E5;">+$29.42</td></tr>
+          <tr style="background: rgba(255,255,255,0.05);"><td style="font-weight: 600; color: rgba(255,255,255,0.7);">Total Taxes</td><td style="font-weight: 600; color: var(--white-85);">($406.42)</td><td style="font-weight: 600; color: var(--white-85);">($240.92)</td><td style="font-weight:700; color: #6DD8E5;">+$165.50</td></tr>
+          <tr><td>NHP Indemnity Reimbursement (NHCL)</td><td>$0.00</td><td style="color: #6DD8E5; font-weight: 600;">+$553.85</td><td style="color: #6DD8E5;">+$553.85</td></tr>
+          <tr style="background: rgba(73,183,196,0.1);"><td style="color: #fff; font-weight: 700;">NET TAKE-HOME PAY</td><td style="font-weight: 700; font-size: 13px; color: #fff;">$1,593.58</td><td style="font-weight: 700; color: #fff; font-size: 14px;">$1,620.62</td><td style="font-weight: 700; color: #6DD8E5; font-size: 14px;">+$27.04</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="padding: 14px; background: rgba(26,63,107,0.45); border-radius: 8px; border: 1px solid rgba(73,183,196,0.3);">
+        <div style="font-size: 9px; color: var(--az-teal); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700;">Employee Result</div>
+        <div style="display: flex; align-items: baseline; gap: 8px; margin-top: 6px;">
+          <div style="font-family: var(--display); font-size: 30px; color: #6DD8E5; line-height: 1;">+$27</div>
+          <div style="font-size: 10px; color: var(--white-60); line-height: 1;">per paycheck</div>
+        </div>
+        <div style="font-size: 10px; color: var(--white-75); margin-top: 8px; line-height: 1.5;">Plus the full Amaze Health platform &mdash; 24/7/365 virtual primary care for the whole household.</div>
+      </div>
+      <div style="padding: 14px; background: var(--white-08); border-radius: 8px; border-left: 3px solid var(--az-teal);">
+        <div style="font-size: 9px; color: var(--az-teal); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; margin-bottom: 8px;">Employer Result &middot; Per Enrolled Employee</div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 4px;"><span style="font-size: 10px; color: var(--white-60);">FICA &amp; FUTA Savings</span><span style="font-size: 10px; color: #6DD8E5; font-weight: 600;">+$1,377/yr</span></div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;"><span style="font-size: 10px; color: var(--white-60);">Program Fee ($40 PEPM)</span><span style="font-size: 10px; color: var(--rl); font-weight: 600;">&minus;$480/yr</span></div>
+        <div style="height: 1px; background: var(--white-15); margin-bottom: 8px;"></div>
+        <div style="text-align: center;">
+          <div style="font-family: var(--display); font-size: 22px; color: #6DD8E5; line-height: 1;">~$897<span style="font-family: var(--body); font-size: 10px; color: var(--white-50); font-weight: 400;">/yr per EE</span></div>
+        </div>
+      </div>
+      <div style="padding: 10px 14px; background: var(--az-dk); border: 1px solid var(--white-08); border-radius: 6px;">
+        <div style="font-size: 10px; color: var(--white-80); line-height: 1.5;"><strong style="color: #6DD8E5;">NHPR</strong> lowers taxable income before taxes are calculated. <strong style="color: #6DD8E5;">NHCL</strong> is the indemnity benefit added back after taxes.</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer dark">Nexus Benefit Solutions &mdash; Confidential</div>
+</div>
+
+<!-- SLIDE 7 — Who Delivers It -->
+<div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
+  <div class="top-accent"></div>
+  <div style="margin-bottom: 28px;"><div class="slide-header-tag">03 &mdash; The Partners</div><div class="slide-title">Three names on this program.<br>One accountable team.</div></div>
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; flex: 1;">
+    <div class="partner-card">
+      <div style="font-size: 9px; color: var(--df); letter-spacing: 2px; text-transform: uppercase; font-weight: 700;">Advisor of Record</div>
+      <div style="font-family: var(--display); font-size: 22px; color: var(--df); line-height: 1.15;">Nexus Benefit Solutions</div>
+      <div style="font-size: 11px; color: var(--rs); font-weight: 600; letter-spacing: 0.5px;">[Advisor Name] &middot; Grand Rapids, MI</div>
+      <div style="font-size: 11.5px; color: var(--ch); line-height: 1.65;">Program sponsor and your single point of accountability. We design the wrap, model the math for your census, and own the quarterly review where we tune enrollment and look at what's next.</div>
+      <div style="margin-top: auto; padding-top: 8px; font-size: 10px; color: var(--sg); border-top: 1px solid rgba(31,61,46,0.12);">Owns: design &middot; modeling &middot; quarterly review</div>
+    </div>
+    <div class="partner-card rust">
+      <div style="font-size: 9px; color: var(--rs); letter-spacing: 2px; text-transform: uppercase; font-weight: 700;">Section 125 TPA</div>
+      <div style="font-family: var(--display); font-size: 22px; color: var(--df); line-height: 1.15;">Insight Benefits</div>
+      <div style="font-size: 11px; color: var(--rs); font-weight: 600; letter-spacing: 0.5px;">Howard Lancaster &middot; Grand Rapids, MI</div>
+      <div style="font-size: 11.5px; color: var(--ch); line-height: 1.65;">Local, third-generation TPA. Howard's team handles the cafeteria plan document, payroll integration with your existing vendor, premium flow, and claims processing &mdash; everything that has to be right inside the §125 wrap.</div>
+      <div style="margin-top: auto; padding-top: 8px; font-size: 10px; color: var(--sg); border-top: 1px solid rgba(31,61,46,0.12);">Owns: §125 admin &middot; payroll &middot; claims</div>
+    </div>
+    <div class="partner-card azure">
+      <div style="font-size: 9px; color: var(--az-md); letter-spacing: 2px; text-transform: uppercase; font-weight: 700;">Virtual Care Platform</div>
+      <div style="font-family: var(--display); font-size: 22px; color: var(--df); line-height: 1.15;">Amaze Health</div>
+      <div style="font-size: 11px; color: var(--az-md); font-weight: 600; letter-spacing: 0.5px;">Dave Silverstein &middot; Denver, CO</div>
+      <div style="font-size: 11.5px; color: var(--ch); line-height: 1.65;">Full-time clinicians (not gig contractors), 24/7 access for the whole household, mental health, specialist referrals, prescription navigation, and patient advocacy. Average wait under 30 seconds.</div>
+      <div style="margin-top: auto; padding-top: 8px; font-size: 10px; color: var(--sg); border-top: 1px solid rgba(31,61,46,0.12);">Owns: virtual care &middot; navigation &middot; advocacy</div>
+    </div>
+  </div>
+  <div style="margin-top: 22px; padding: 12px 18px; background: rgba(31,61,46,0.04); border-left: 3px solid var(--df); border-radius: 0 6px 6px 0;">
+    <div style="font-size: 11.5px; color: var(--ch); line-height: 1.6;"><strong style="color: var(--df);">No outsourced TPAs in Florida or Virginia.</strong> Your §125 administrator is on Charlevoix Drive. The advisor of record is Nexus. The clinical team answers in under 30 seconds.</div>
+  </div>
+  <div class="bottom-accent"></div>
+</div>
+
+<!-- SLIDE 8 — Section Divider: Who It Fits -->
+<div class="slide" style="background: linear-gradient(160deg, var(--nw) 0%, var(--ps) 22%, #c5d2ca 38%, var(--sg) 55%, var(--fl) 78%, var(--df) 100%); padding: 44px 64px; display: flex; flex-direction: column; justify-content: center;">
+  <div style="max-width: 640px;">
+    <div style="width: 48px; height: 2px; background: var(--rs); margin-bottom: 22px;"></div>
+    <div style="font-family: var(--display); font-size: 38px; color: #fff; line-height: 1.2; text-shadow: 0 2px 16px rgba(0,0,0,0.35);">Who it fits</div>
+    <div style="font-size: 15px; color: var(--white-75); line-height: 1.7; margin-top: 16px; max-width: 520px;">NHP is a real product, not a magic trick. It works beautifully for some employers and poorly for others. Here's the honest read.</div>
+  </div>
+</div>
+
+<!-- SLIDE 9 — Who It Works For -->
+<div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
+  <div class="top-accent"></div>
+  <div style="margin-bottom: 24px;"><div class="slide-header-tag">04 &mdash; The Fit</div><div class="slide-title">Where Nexus Health Plus belongs</div></div>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; flex: 1;">
+    <div class="fit-card">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+        <div style="width: 28px; height: 28px; border-radius: 50%; background: var(--df); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 14px;">&#10003;</div>
+        <div style="font-family: var(--display); font-size: 17px; color: var(--df);">25+ W-2 Employees</div>
+      </div>
+      <div style="font-size: 11.5px; color: var(--ch); line-height: 1.6;">The math compounds with headcount. At 25 enrolled lives, the program is meaningful; at 100+, it's transformative. Mix of hourly and salaried is fine.</div>
+    </div>
+    <div class="fit-card">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+        <div style="width: 28px; height: 28px; border-radius: 50%; background: var(--df); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 14px;">&#10003;</div>
+        <div style="font-family: var(--display); font-size: 17px; color: var(--df);">Stable Workforce</div>
+      </div>
+      <div style="font-size: 11.5px; color: var(--ch); line-height: 1.6;">Annualized turnover under 35%. NHP rewards employees who stay enrolled across pay periods &mdash; the value compounds, not the burnout.</div>
+    </div>
+    <div class="fit-card">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+        <div style="width: 28px; height: 28px; border-radius: 50%; background: var(--df); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 14px;">&#10003;</div>
+        <div style="font-family: var(--display); font-size: 17px; color: var(--df);">Existing Group Medical Plan</div>
+      </div>
+      <div style="font-size: 11.5px; color: var(--ch); line-height: 1.6;">NHP is supplemental, not a replacement. It assumes the underlying group medical (or ICHRA) is already in place. We coexist with BCBS, Priority Health, and every major MI carrier.</div>
+    </div>
+    <div class="fit-card">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+        <div style="width: 28px; height: 28px; border-radius: 50%; background: var(--df); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 14px;">&#10003;</div>
+        <div style="font-family: var(--display); font-size: 17px; color: var(--df);">Boost Take-Home Without a Wage Hike</div>
+      </div>
+      <div style="font-size: 11.5px; color: var(--ch); line-height: 1.6;">CFOs that need a retention tool but don't have room for a 3% comp adjustment. NHP delivers ~$700/yr more take-home per enrolled employee at zero net employer cost.</div>
+    </div>
+  </div>
+  <div class="bottom-accent"></div>
+</div>
+
+<!-- SLIDE 10 — Who It Doesn't Fit -->
+<div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
+  <div class="top-accent"></div>
+  <div style="margin-bottom: 24px;"><div class="slide-header-tag">04 &mdash; The Honest Read</div><div class="slide-title">Where it doesn't belong</div></div>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+    <div style="padding: 18px 20px; background: var(--ps); border-radius: 8px; border-left: 3px solid var(--rs);">
+      <div style="display: flex; gap: 10px; align-items: flex-start;">
+        <div style="color: var(--rs); font-size: 18px; line-height: 1; margin-top: 2px;">&times;</div>
+        <div>
+          <div style="font-family: var(--display); font-size: 16px; color: var(--df); margin-bottom: 4px;">Independent Contractor Workforce</div>
+          <div style="font-size: 11.5px; color: var(--ch); line-height: 1.6;">NHP runs through W-2 payroll. 1099 contractors aren't on the cafeteria plan and can't access the §125 deduction. If your headcount is mostly contractors, this isn't the lever.</div>
+        </div>
+      </div>
+    </div>
+    <div style="padding: 18px 20px; background: var(--ps); border-radius: 8px; border-left: 3px solid var(--rs);">
+      <div style="display: flex; gap: 10px; align-items: flex-start;">
+        <div style="color: var(--rs); font-size: 18px; line-height: 1; margin-top: 2px;">&times;</div>
+        <div>
+          <div style="font-family: var(--display); font-size: 16px; color: var(--df); margin-bottom: 4px;">High-Turnover Operations</div>
+          <div style="font-size: 11.5px; color: var(--ch); line-height: 1.6;">Annualized turnover above ~50%. Re-enrolling and re-disclosing every 90 days creates more admin friction than the FICA savings can offset.</div>
+        </div>
+      </div>
+    </div>
+    <div style="padding: 18px 20px; background: var(--ps); border-radius: 8px; border-left: 3px solid var(--rs);">
+      <div style="display: flex; gap: 10px; align-items: flex-start;">
+        <div style="color: var(--rs); font-size: 18px; line-height: 1; margin-top: 2px;">&times;</div>
+        <div>
+          <div style="font-family: var(--display); font-size: 16px; color: var(--df); margin-bottom: 4px;">Already HSA-Heavy Strategy</div>
+          <div style="font-size: 11.5px; color: var(--ch); line-height: 1.6;">If your population is fully maxing HSA contributions paired with an HDHP, the pretax buckets are already crowded. We can model a partial overlay, but the lift is smaller.</div>
+        </div>
+      </div>
+    </div>
+    <div style="padding: 18px 20px; background: var(--ps); border-radius: 8px; border-left: 3px solid var(--rs);">
+      <div style="display: flex; gap: 10px; align-items: flex-start;">
+        <div style="color: var(--rs); font-size: 18px; line-height: 1; margin-top: 2px;">&times;</div>
+        <div>
+          <div style="font-family: var(--display); font-size: 16px; color: var(--df); margin-bottom: 4px;">Maxed Pretax Elections</div>
+          <div style="font-size: 11.5px; color: var(--ch); line-height: 1.6;">Employees already capped on 401(k) + FSA + dependent care don't have payroll headroom for a meaningful NHP election. We screen for this in the design session before anyone signs anything.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top: 24px; padding: 14px 20px; border-left: 3px solid var(--df); background: rgba(31,61,46,0.04); border-radius: 0 6px 6px 0;">
+    <div style="font-size: 12px; color: var(--ch); line-height: 1.6;"><strong style="color: var(--df);">If NHP isn't a fit, we'll tell you in the first meeting.</strong> Saying no to a bad-fit deployment is part of how we keep the program clean for the employers it serves well.</div>
+  </div>
+  <div class="bottom-accent"></div>
+</div>
+
+<!-- SLIDE 11 — Compliance & Guardrails -->
+<div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
+  <div class="top-accent"></div>
+  <div style="margin-bottom: 28px;"><div class="slide-header-tag">04 &mdash; Compliance</div><div class="slide-title">Built on settled law. Wrapped in real disclosure.</div></div>
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; flex: 1; align-content: start;">
+    <div style="padding: 22px 20px; background: var(--ps); border-radius: 8px; border-top: 3px solid var(--df);">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+        <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--df); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 16px;">&#10003;</div>
+        <div style="font-size: 9px; color: var(--df); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700;">Plan Architecture</div>
+      </div>
+      <div style="font-family: var(--display); font-size: 17px; color: var(--df); line-height: 1.25; margin-bottom: 10px;">ERISA-Compliant Wrap</div>
+      <div style="font-size: 11.5px; color: var(--ch); line-height: 1.6;">Cafeteria plan document, summary plan description, wrap document, and required Form 5500 filings. Insight Benefits maintains the entire compliance file &mdash; you get the binder, not the homework.</div>
+    </div>
+    <div style="padding: 22px 20px; background: var(--ps); border-radius: 8px; border-top: 3px solid var(--rs);">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+        <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--rs); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 16px;">&#10003;</div>
+        <div style="font-size: 9px; color: var(--rs); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700;">Tax Treatment</div>
+      </div>
+      <div style="font-family: var(--display); font-size: 17px; color: var(--df); line-height: 1.25; margin-bottom: 10px;">Section 125 PLR-Backed Structure</div>
+      <div style="font-size: 11.5px; color: var(--ch); line-height: 1.6;">Pretax payroll deduction inside a §125 cafeteria plan. Indemnity benefits paid as income (not wages). Backed by Rev. Rul. 69-154 and the §213(d) excess-benefit rule &mdash; settled law for decades.</div>
+    </div>
+    <div style="padding: 22px 20px; background: var(--ps); border-radius: 8px; border-top: 3px solid var(--fl);">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+        <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--fl); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 16px;">&#10003;</div>
+        <div style="font-size: 9px; color: var(--fl); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700;">Coexistence</div>
+      </div>
+      <div style="font-family: var(--display); font-size: 17px; color: var(--df); line-height: 1.25; margin-bottom: 10px;">Supplemental, Not a Replacement</div>
+      <div style="font-size: 11.5px; color: var(--ch); line-height: 1.6;">NHP is a separate fixed-indemnity policy with no coordination of benefits against the group medical plan. Excepted-benefit conditions under 45 CFR &sect;148.220 satisfied. Group medical and ACA reporting are unaffected.</div>
+    </div>
+  </div>
+  <div style="margin-top: 22px; padding: 12px 18px; background: rgba(184,82,42,0.05); border-left: 3px solid var(--rs); border-radius: 0 6px 6px 0;">
+    <div style="font-size: 11.5px; color: var(--ch); line-height: 1.6;"><strong style="color: var(--df);">Voluntary enrollment, transparent disclosure.</strong> Every employee receives a written summary of how the indemnity benefit is taxed and the long-run Social Security impact of pretax wage reduction. Nobody is forced in. If it doesn't pencil for an employee, they don't enroll.</div>
+  </div>
+  <div class="bottom-accent"></div>
+</div>
+
+<!-- SLIDE 12 — How We Implement -->
+<div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
+  <div class="top-accent"></div>
+  <div style="margin-bottom: 32px;"><div class="slide-header-tag">04 &mdash; How We Implement</div><div class="slide-title">Design to live payroll in four stages.</div></div>
+  <div style="position: relative; flex: 1; display: flex; flex-direction: column; justify-content: center;">
+    <!-- connector line -->
+    <div style="position: absolute; top: 22px; left: 5%; right: 5%; height: 2px; background: var(--ps); z-index: 0;"></div>
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; position: relative; z-index: 1;">
+      <div style="text-align: center;">
+        <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--rs); color: #fff; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 22px; margin: 0 auto 16px;">1</div>
+        <div style="font-family: var(--display); font-size: 16px; color: var(--df); line-height: 1.25; margin-bottom: 6px;">Design Session</div>
+        <div style="font-size: 9px; color: var(--rs); letter-spacing: 1px; text-transform: uppercase; font-weight: 700; margin-bottom: 8px;">Week 1 &middot; CFO + HR</div>
+        <div style="font-size: 11px; color: var(--ch); line-height: 1.55;">90 minutes. Census in, modeled paycheck math out. We screen for fit and confirm the FICA savings number for [Company Name] specifically.</div>
+      </div>
+      <div style="text-align: center;">
+        <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--fl); color: #fff; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 22px; margin: 0 auto 16px;">2</div>
+        <div style="font-family: var(--display); font-size: 16px; color: var(--df); line-height: 1.25; margin-bottom: 6px;">Education &amp; Open Enrollment</div>
+        <div style="font-size: 9px; color: var(--fl); letter-spacing: 1px; text-transform: uppercase; font-weight: 700; margin-bottom: 8px;">Weeks 2&ndash;4 &middot; Live + Recorded</div>
+        <div style="font-size: 11px; color: var(--ch); line-height: 1.55;">All-hands employee meeting, on-demand video, 1:1 office hours. Every employee sees their personalized paycheck packet before they elect.</div>
+      </div>
+      <div style="text-align: center;">
+        <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--fl); color: #fff; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 22px; margin: 0 auto 16px;">3</div>
+        <div style="font-family: var(--display); font-size: 16px; color: var(--df); line-height: 1.25; margin-bottom: 6px;">Payroll Integration &amp; Filing</div>
+        <div style="font-size: 9px; color: var(--fl); letter-spacing: 1px; text-transform: uppercase; font-weight: 700; margin-bottom: 8px;">Weeks 5&ndash;6 &middot; Insight Benefits</div>
+        <div style="font-size: 11px; color: var(--ch); line-height: 1.55;">Section 125 documents executed, deduction codes built in your payroll system, first ride-along payroll run with Insight on the line.</div>
+      </div>
+      <div style="text-align: center;">
+        <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--df); color: #fff; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 22px; margin: 0 auto 16px;">4</div>
+        <div style="font-family: var(--display); font-size: 16px; color: var(--df); line-height: 1.25; margin-bottom: 6px;">Quarterly Review</div>
+        <div style="font-size: 9px; color: var(--df); letter-spacing: 1px; text-transform: uppercase; font-weight: 700; margin-bottom: 8px;">Q1 &amp; Q3 &middot; Ongoing</div>
+        <div style="font-size: 11px; color: var(--ch); line-height: 1.55;">Nexus reviews enrollment, Amaze utilization, employer FICA savings, new-hire onboarding, and the rolling Open Items list with HR.</div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top: 18px; padding: 12px 18px; background: rgba(31,61,46,0.04); border-left: 3px solid var(--df); border-radius: 0 6px 6px 0;">
+    <div style="font-size: 11.5px; color: var(--ch); line-height: 1.6;"><strong style="color: var(--df);">Six weeks from design session to first NHP paycheck.</strong> Wendi and Insight pre-build payroll during the sales motion, so there's no implementation gap once the documents are signed.</div>
+  </div>
+  <div class="bottom-accent"></div>
+</div>
+
+<!-- SLIDE 13 — Closing -->
+<div class="slide" style="padding: 44px 64px; display: flex; flex-direction: column; justify-content: center; background: var(--df); background-image: radial-gradient(ellipse at bottom right, rgba(184,82,42,0.2) 0%, transparent 40%);">
+  <div style="max-width: 720px;">
+    <div style="font-family: var(--display); font-size: 36px; color: #FFFFFF; line-height: 1.2; margin-bottom: 20px;">A program no other<br>broker can deliver.</div>
+    <div style="font-size: 14px; color: var(--white-65); line-height: 1.7; margin-bottom: 32px; max-width: 580px;">Nexus Health Plus is built and assembled by Nexus &mdash; the §125 wrap, the Michigan-filed indemnity policy, the Amaze platform, and the local TPA team are all under one roof. The next step is 30 minutes of modeling against your actual census.</div>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-bottom: 32px;">
+      <div class="contact-card">
+        <img src="https://jbearup1981.github.io/presentation-templates/assets/jason-bearup.jpg" alt="Jason" style="width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--white-15);">
+        <div>
+          <div style="font-size: 13px; color: var(--white-50); font-weight: 600;">Jason</div>
+          <div style="font-size: 10px; color: rgba(255,255,255,0.4);">Program Lead &middot; Nexus</div>
+          <div style="font-size: 10px; color: rgba(255,255,255,0.3); margin-top: 4px;">(616) 308-6663</div>
+          <div style="font-size: 10px; color: rgba(255,255,255,0.3);">jason@nexusbenefitsolutions.com</div>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div style="width: 42px; height: 42px; border-radius: 50%; background: rgba(184,82,42,0.25); border: 1.5px solid var(--white-15); display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 16px; color: var(--rl); flex-shrink: 0;">H</div>
+        <div>
+          <div style="font-size: 13px; color: var(--white-50); font-weight: 600;">Howard</div>
+          <div style="font-size: 10px; color: rgba(255,255,255,0.4);">Section 125 TPA &middot; Insight Benefits</div>
+          <div style="font-size: 10px; color: rgba(255,255,255,0.3); margin-top: 4px;">(616) 588-5382</div>
+          <div style="font-size: 10px; color: rgba(255,255,255,0.3);">howardl@insightba.net</div>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div style="width: 42px; height: 42px; border-radius: 50%; background: rgba(73,183,196,0.18); border: 1.5px solid var(--white-15); display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 16px; color: var(--az-teal); flex-shrink: 0;">D</div>
+        <div>
+          <div style="font-size: 13px; color: var(--white-50); font-weight: 600;">Dave</div>
+          <div style="font-size: 10px; color: rgba(255,255,255,0.4);">Virtual Care &middot; Amaze Health</div>
+          <div style="font-size: 10px; color: rgba(255,255,255,0.3); margin-top: 4px;">(720) 577-5251</div>
+          <div style="font-size: 10px; color: rgba(255,255,255,0.3);">dave@amazehealth.com</div>
+        </div>
+      </div>
+    </div>
+    <div style="display: inline-block; padding: 14px 28px; background: var(--rs); border-radius: 6px; box-shadow: 0 6px 20px rgba(184,82,42,0.35);">
+      <div style="font-family: var(--display); font-size: 16px; color: #fff; line-height: 1;">Next step: a 30-minute modeling call</div>
+      <div style="font-size: 10.5px; color: rgba(255,255,255,0.85); letter-spacing: 1px; text-transform: uppercase; margin-top: 6px; font-weight: 600;">Send your census &middot; we'll show the math on your people</div>
+    </div>
+  </div>
+  <!-- Center watermark lockup -->
+  <div style="position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); text-align: center;">
+    <div style="display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 3px;">
+      <img src="https://jbearup1981.github.io/presentation-templates/assets/nexus-logo-white.svg" alt="Nexus" style="height: 20px; opacity: 0.2;">
+      <div style="font-size: 16.5px; color: rgba(255,255,255,0.2); line-height: 1;">Nexus Benefit Solutions</div>
+    </div>
+    <div style="font-size: 11px; color: rgba(184,82,42,0.35); letter-spacing: 1px;">nexusbenefitsolutions.com</div>
+  </div>
+</div>
+
+</div>
+
+<!-- FIXED: Navigation and scaling JavaScript — do not modify -->
+<script>
+let current = 0;
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+const counter = document.getElementById('counter');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+function show(n) {
+  slides[current].classList.remove('active');
+  current = Math.max(0, Math.min(n, total - 1));
+  slides[current].classList.add('active');
+  counter.textContent = (current + 1) + ' / ' + total;
+  prevBtn.disabled = current === 0;
+  nextBtn.disabled = current === total - 1;
+}
+function nav(d) { show(current + d); }
+function rescale() {
+  const sw = window.innerWidth / 960;
+  const sh = window.innerHeight / 540;
+  const s = Math.min(sw, sh, 2) * 0.88;
+  document.documentElement.style.setProperty('--scale', s);
+}
+function toggleFullscreen() {
+  if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+  else document.exitFullscreen();
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); nav(1); }
+  if (e.key === 'ArrowLeft' || e.key === 'Backspace' || e.key === 'PageUp') { e.preventDefault(); nav(-1); }
+  if (e.key === 'Home') { e.preventDefault(); show(0); }
+  if (e.key === 'End') { e.preventDefault(); show(total - 1); }
+  if (e.key === 'f' || e.key === 'F') toggleFullscreen();
+});
+let touchX = 0;
+document.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; });
+document.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - touchX;
+  if (Math.abs(dx) > 50) nav(dx < 0 ? 1 : -1);
+});
+window.addEventListener('resize', rescale);
+rescale();
+if (new URLSearchParams(window.location.search).get('mode') === 'responsive') {
+  document.body.classList.add('responsive-mode');
+}
+show(0);
+
+// Inject consistent footers (skip first and last)
+slides.forEach(function(s, i) {
+  if (i === 0 || i === total - 1) return;
+  if (s.querySelector('.slide-footer')) return;
+  var f = document.createElement('div');
+  f.className = 'slide-footer';
+  var a = s.getAttribute('style') || '';
+  if (a.indexOf('az-dk') > -1 || a.indexOf('--df') > -1) f.classList.add('dark');
+  f.textContent = 'Nexus Benefit Solutions';
+  s.appendChild(f);
+});
+</script>
+</body>
+</html>
