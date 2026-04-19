@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexus Benefit Solutions — Voluntary Benefits Overview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+:root {
+  --nw: #FAFAF8;
+  --df: #1F3D2E;
+  --rs: #B8522A;
+  --sg: #7A9282;
+  --ps: #E8EBE4;
+  --fl: #2A5240;
+  --rl: #D4693F;
+  --ch: #2D2D2D;
+  --az-dk: #1A3F6B;
+  --az-md: #2B6CB0;
+  --az-bg: #EDF3FA;
+  --az-teal: #49B7C4;
+  --display: 'DM Serif Display', Georgia, serif;
+  --body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --white-06: rgba(255,255,255,0.06);
+  --white-08: rgba(255,255,255,0.08);
+  --white-10: rgba(255,255,255,0.1);
+  --white-15: rgba(255,255,255,0.15);
+  --white-25: rgba(255,255,255,0.25);
+  --white-45: rgba(255,255,255,0.45);
+  --white-50: rgba(255,255,255,0.5);
+  --white-60: rgba(255,255,255,0.6);
+  --white-65: rgba(255,255,255,0.65);
+  --white-75: rgba(255,255,255,0.75);
+  --white-80: rgba(255,255,255,0.8);
+  --white-85: rgba(255,255,255,0.85);
+  --white-90: rgba(255,255,255,0.9);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; overflow: hidden; background: #1a1a1a; }
+body { font-family: var(--body); color: var(--ch); -webkit-font-smoothing: antialiased; }
+.deck { width: 100%; height: 100%; position: relative; }
+.slide {
+  width: 960px; height: 540px;
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(var(--scale, 1));
+  transform-origin: center center;
+  overflow: hidden; opacity: 0; pointer-events: none;
+  transition: opacity 0.7s cubic-bezier(0.25, 0.1, 0.25, 1), transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+.slide.active { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%) scale(var(--scale, 1)); }
+.controls {
+  position: fixed; bottom: 24px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; align-items: center; gap: 16px; z-index: 100;
+  background: rgba(0,0,0,0.6); backdrop-filter: blur(8px);
+  padding: 8px 20px; border-radius: 40px;
+}
+.controls button {
+  background: none; border: none; color: rgba(255,255,255,0.7);
+  cursor: pointer; font-size: 18px; padding: 4px 8px;
+  transition: color 0.2s; font-family: var(--body);
+}
+.controls button:hover { color: #fff; }
+.controls button:disabled { color: rgba(255,255,255,0.2); cursor: default; }
+.slide-counter {
+  font-size: 12px; color: var(--white-50);
+  font-family: monospace; letter-spacing: 1px;
+  min-width: 60px; text-align: center;
+}
+.fullscreen-btn {
+  position: fixed; top: 16px; right: 16px; z-index: 100;
+  background: rgba(0,0,0,0.5); border: none; color: var(--white-60);
+  cursor: pointer; padding: 8px 12px; border-radius: 6px;
+  font-size: 11px; font-family: var(--body); letter-spacing: 1px;
+  text-transform: uppercase; transition: all 0.2s; backdrop-filter: blur(8px);
+}
+.fullscreen-btn:hover { background: rgba(0,0,0,0.7); color: #fff; }
+.slide-header-tag {
+  font-family: var(--body); font-size: 11px; color: var(--sg);
+  letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px;
+}
+.slide-title { font-family: var(--display); font-size: 30px; color: var(--df); line-height: 1.2; }
+.slide-footer {
+  position: absolute; bottom: 8px; left: 64px;
+  font-size: 8px; color: var(--sg); letter-spacing: 0.5px;
+  font-family: var(--body); opacity: 0.5;
+}
+.slide-footer.dark { color: var(--white-25); }
+.section-tag-blue { font-size: 11px; color: var(--az-teal); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+.section-title-white { font-family: var(--display); font-size: 26px; color: white; }
+.section-title-white-sm { font-family: var(--display); font-size: 26px; color: #fff; line-height: 1.3; }
+.stat-badge { padding: 10px; background: var(--az-dk); border-radius: 6px; text-align: center; border: 1px solid rgba(73,183,196,0.3); }
+.r10 { font-size: 12px; color: var(--sg); line-height: 1.7; }
+.r12 { font-family: var(--display); font-size: 15px; color: var(--df); }
+.r13 { font-size: 11px; color: #3d4f44; line-height: 1.4; }
+.r15 { flex: 1; text-align: center; position: relative; z-index: 1; }
+@media print {
+  html, body { overflow: visible; background: white; height: auto; }
+  .controls, .fullscreen-btn { display: none !important; }
+  .slide {
+    position: relative; transform: none !important;
+    opacity: 1; pointer-events: auto;
+    page-break-after: always; page-break-inside: avoid;
+    margin: 0 auto; top: auto; left: auto;
+    box-shadow: none;
+  }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .slide-footer { position: relative; bottom: auto; left: auto; margin-top: 8px; }
+}
+body.responsive-mode { overflow: auto; background: #f5f5f5; }
+body.responsive-mode .controls,
+body.responsive-mode .fullscreen-btn { display: none; }
+body.responsive-mode .slide {
+  position: relative; opacity: 1; pointer-events: auto;
+  top: auto; left: auto; transform: none !important;
+  width: 100%; max-width: 960px; height: auto; min-height: 540px;
+  margin: 24px auto; border-radius: 8px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+}
+body.responsive-mode .slide-footer {
+  position: relative; bottom: auto; left: auto;
+  padding: 12px 64px; margin-top: 8px;
+}
+</style>
+</head>
+<body>
+<button class="fullscreen-btn" onclick="toggleFullscreen()">&#x26F6; Fullscreen</button>
+<div class="controls">
+  <button id="prevBtn" onclick="nav(-1)">&#9664;</button>
+  <span class="slide-counter" id="counter">1 / 13</span>
+  <button id="nextBtn" onclick="nav(1)">&#9654;</button>
+</div>
+<div class="deck">
+
+<!-- EDITABLE: Company name, date, advisor name -->
+<!-- SLIDE 1 — Title -->
+<div class="slide active" style="padding: 0; position: relative; overflow: hidden;">
+  <!-- Right: image area -->
+  <div style="position: absolute; top: 0; right: 0; bottom: 0; width: 58%; background: linear-gradient(160deg, #3a5a4a 0%, #2a4a3a 50%, #1a3a2a 100%); overflow: hidden;">
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(160deg, rgba(31,61,46,0.35) 0%, rgba(26,63,107,0.25) 50%, rgba(15,45,77,0.4) 100%); z-index: 1;"></div>
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px); z-index: 2;"></div>
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at 30% 30%, var(--white-15) 0%, transparent 50%), radial-gradient(ellipse at 80% 80%, rgba(0,0,0,0.2) 0%, transparent 50%); z-index: 3;"></div>
+    <!-- Nexus logo watermark -->
+    <div style="position: absolute; bottom: 40px; right: 40px; z-index: 4;">
+      <img src="../assets/nexus-logo-white.svg" alt="Nexus" style="height: 40px; opacity: 0.25;">
+    </div>
+    <!-- Template identifier -->
+    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; z-index: 4;">
+      <div style="font-family: var(--display); font-size: 48px; color: rgba(255,255,255,0.3); line-height: 1;">Voluntary</div>
+      <div style="font-family: var(--display); font-size: 48px; color: rgba(255,255,255,0.3); line-height: 1; margin-top: 4px;">Benefits</div>
+      <div style="font-size: 14px; color: rgba(184,82,42,0.6); letter-spacing: 4px; text-transform: uppercase; margin-top: 12px; font-weight: 600;">Overview</div>
+      <div style="font-size: 10px; color: rgba(255,255,255,0.25); letter-spacing: 2px; text-transform: uppercase; margin-top: 8px;">Closing the Coverage Gap</div>
+    </div>
+  </div>
+  <!-- Rust stripe with shadow -->
+  <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; filter: drop-shadow(4px 0 8px rgba(0,0,0,0.4));"><div style="width: 100%; height: 100%; background: var(--rs); clip-path: polygon(57% 0, 59.2% 0, 43% 100%, 40.8% 100%);"></div></div>
+  <!-- Green panel with shadow -->
+  <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 11; filter: drop-shadow(4px 0 6px rgba(0,0,0,0.35));"><div style="position: absolute; top: 0; left: 0; width: 58%; height: 100%; background: var(--df); background-image: radial-gradient(ellipse at top left, rgba(184,82,42,0.2) 0%, transparent 35%); clip-path: polygon(0 0, 100% 0, 72% 100%, 0 100%);"></div></div>
+  <!-- Left: text content -->
+  <div style="position: relative; width: 58%; height: 100%; padding: 44px 64px; display: flex; flex-direction: column; justify-content: center; z-index: 12;">
+    <div>
+      <div style="width: 48px; height: 2px; background: var(--rs); margin-bottom: 20px;"></div>
+      <div style="font-family: var(--display); font-size: 30px; color: #FFFFFF; line-height: 1.2; margin-bottom: 4px;">Voluntary Benefits:</div>
+      <div style="font-family: var(--display); font-size: 22px; color: #FFFFFF; line-height: 1.3; margin-bottom: 6px;">the gap your medical<br>plan doesn't close</div>
+      <div style="font-family: var(--display); font-size: 20px; color: var(--rl); line-height: 1.3; margin-bottom: 14px;">for [Company Name]</div>
+      <div style="font-size: 13px; color: var(--white-45);">Prepared [Date] &middot; [Advisor Name]</div>
+    </div>
+  <div style="position: absolute; bottom: 32px; left: 64px; display: flex; align-items: center; gap: 8px;">
+    <img src="../assets/nexus-logo-white.svg" alt="Nexus" style="height: 30px; opacity: 0.45;">
+    <div><div style="font-size: 11px; color: rgba(255,255,255,0.55); line-height: 1.4;">Nexus Benefit Solutions</div><div style="font-size: 10px; color: rgba(255,255,255,0.4);">Grand Rapids, Michigan</div></div>
+  </div>
+  </div>
+</div>
+
+<!-- SLIDE 2 — Agenda -->
+<div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
+  <div style="margin-bottom: 40px;">
+    <div class="slide-header-tag">00 &mdash; Agenda</div>
+    <div class="slide-title">Today's 20 Minutes</div>
+    <div style="font-size: 13px; color: var(--sg); margin-top: 10px;">Five product categories that sit on top of your medical, dental &amp; vision &mdash; and what each one actually does.</div>
+  </div>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; grid-auto-flow: column; grid-template-rows: repeat(3, auto); gap: 12px 40px; flex: 1; align-content: center;">
+    <div style="display: flex; gap: 14px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid var(--ps);"><div style="font-family: var(--display); font-size: 24px; color: var(--rs); min-width: 32px;">01</div><div><div style="font-size: 15px; color: var(--df); font-weight: 600;">Life &amp; AD&amp;D</div><div style="font-size: 12px; color: var(--sg); margin-top: 2px;">Replaces income when an employee passes away</div></div></div>
+    <div style="display: flex; gap: 14px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid var(--ps);"><div style="font-family: var(--display); font-size: 24px; color: var(--rs); min-width: 32px;">02</div><div><div style="font-size: 15px; color: var(--df); font-weight: 600;">Short &amp; Long-Term Disability</div><div style="font-size: 12px; color: var(--sg); margin-top: 2px;">Replaces income when they can't work</div></div></div>
+    <div style="display: flex; gap: 14px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid var(--ps);"><div style="font-family: var(--display); font-size: 24px; color: var(--rs); min-width: 32px;">03</div><div><div style="font-size: 15px; color: var(--df); font-weight: 600;">Accident Insurance</div><div style="font-size: 12px; color: var(--sg); margin-top: 2px;">Pays cash for covered accidents &mdash; sprains, fractures, ER visits</div></div></div>
+    <div style="display: flex; gap: 14px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid var(--ps);"><div style="font-family: var(--display); font-size: 24px; color: var(--rs); min-width: 32px;">04</div><div><div style="font-size: 15px; color: var(--df); font-weight: 600;">Critical Illness</div><div style="font-size: 12px; color: var(--sg); margin-top: 2px;">Lump-sum check on diagnosis of cancer, heart attack, stroke</div></div></div>
+    <div style="display: flex; gap: 14px; align-items: flex-start; padding: 12px 0;"><div style="font-family: var(--display); font-size: 24px; color: var(--rs); min-width: 32px;">05</div><div><div style="font-size: 15px; color: var(--df); font-weight: 600;">Hospital Indemnity</div><div style="font-size: 12px; color: var(--sg); margin-top: 2px;">Daily cash payout when they're admitted to the hospital</div></div></div>
+    <div style="display: flex; gap: 14px; align-items: flex-start; padding: 12px 0;"><div style="font-family: var(--display); font-size: 24px; color: var(--rs); min-width: 32px;">&mdash;</div><div><div style="font-size: 15px; color: var(--df); font-weight: 600;">How Nexus Implements</div><div style="font-size: 12px; color: var(--sg); margin-top: 2px;">Needs survey, carrier match, enrollment campaign, year-one review</div></div></div>
+  </div>
+  <div class="slide-footer">Nexus Benefit Solutions</div>
+</div>
+
+<!-- SLIDE 3 — Why Voluntary Now (Stat Hero) -->
+<div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column; justify-content: center; position: relative;">
+  <div style="position: absolute; top: 0; right: 0; width: 40%; height: 100%; background: radial-gradient(ellipse at top right, rgba(184,82,42,0.08) 0%, transparent 60%);"></div>
+  <div style="position: relative;">
+    <div class="slide-header-tag">01 &mdash; Why Voluntary, Why Now</div>
+    <div style="font-family: var(--display); font-size: 94px; color: var(--rs); line-height: 1; margin: 18px 0 8px;">60%</div>
+    <div style="width: 72px; height: 3px; background: var(--df); margin-bottom: 20px;"></div>
+    <div style="font-family: var(--display); font-size: 28px; color: var(--df); line-height: 1.3; max-width: 720px; margin-bottom: 22px;">of personal bankruptcies in the U.S. are tied to medical events &mdash; and most of those families had active health insurance.</div>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; max-width: 820px;">
+      <div style="padding: 14px 18px; background: var(--ps); border-radius: 8px; border-left: 3px solid var(--rs);">
+        <div style="font-family: var(--display); font-size: 22px; color: var(--df); line-height: 1.1; margin-bottom: 4px;">$6,575</div>
+        <div style="font-size: 11px; color: var(--ch); line-height: 1.5;">Average single-coverage deductible on a fully-insured small-group plan.</div>
+      </div>
+      <div style="padding: 14px 18px; background: var(--ps); border-radius: 8px; border-left: 3px solid var(--rs);">
+        <div style="font-family: var(--display); font-size: 22px; color: var(--df); line-height: 1.1; margin-bottom: 4px;">57%</div>
+        <div style="font-size: 11px; color: var(--ch); line-height: 1.5;">of Americans can't cover a $1,000 out-of-pocket emergency from savings.</div>
+      </div>
+      <div style="padding: 14px 18px; background: var(--ps); border-radius: 8px; border-left: 3px solid var(--rs);">
+        <div style="font-family: var(--display); font-size: 22px; color: var(--df); line-height: 1.1; margin-bottom: 4px;">1 in 4</div>
+        <div style="font-size: 11px; color: var(--ch); line-height: 1.5;">working adults will experience a disability lasting 90+ days before retirement.</div>
+      </div>
+    </div>
+    <div style="margin-top: 22px; font-size: 10px; color: var(--sg); font-style: italic; max-width: 720px;">Sources: KFF Employer Health Benefits Survey, Federal Reserve Economic Well-Being Report, Social Security Administration disability statistics.</div>
+  </div>
+  <div class="slide-footer">Nexus Benefit Solutions</div>
+</div>
+
+<!-- SLIDE 4 — Section Divider: What voluntary actually is -->
+<div class="slide" style="padding: 44px 64px; display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(160deg, var(--nw) 0%, var(--ps) 25%, #b8c2ba 45%, #5a7766 62%, #2a4a3a 82%, var(--df) 100%);">
+  <div style="text-align: center; max-width: 640px;">
+    <div style="font-size: 13px; color: var(--df); letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 16px;">Part One</div>
+    <div style="font-family: var(--display); font-size: 42px; color: #fff; line-height: 1.2; margin-bottom: 16px; text-shadow: 0 2px 16px rgba(0,0,0,0.35);">What voluntary<br>actually is.</div>
+    <div style="width: 48px; height: 2px; background: var(--rl); margin: 0 auto 16px;"></div>
+    <div style="font-size: 15px; color: var(--white-85); line-height: 1.7; text-shadow: 0 1px 6px rgba(0,0,0,0.2);">Five products that sit on top of your medical plan &mdash; paying cash directly to the employee when real life hits.</div>
+  </div>
+</div>
+
+<!-- SLIDE 5 — The Stack Explained (5-card grid) -->
+<div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
+  <div style="margin-bottom: 14px;">
+    <div class="slide-header-tag">02 &mdash; The Voluntary Stack</div>
+    <div class="slide-title">Five Products, One Purpose: Cash When It Matters</div>
+  </div>
+  <div style="font-size: 13px; color: var(--sg); margin-bottom: 18px; max-width: 760px;">Every one of these pays a benefit <em>directly to the employee</em>. It doesn't go to the hospital or the doctor &mdash; it's theirs to use however they need it.</div>
+  <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; flex: 1;">
+    <div style="padding: 14px 13px; background: var(--ps); border-radius: 8px; border-top: 3px solid var(--rs); display: flex; flex-direction: column;">
+      <div style="margin-bottom: 8px;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--rs)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div style="font-family: var(--display); font-size: 15px; color: var(--df); line-height: 1.2; margin-bottom: 6px;">Life &amp; AD&amp;D</div>
+      <div style="font-size: 10.5px; color: var(--ch); line-height: 1.5; margin-bottom: auto;">Replaces income for the family when an employee dies. AD&amp;D doubles the payout for accidental death or dismemberment.</div>
+      <div style="margin-top: 10px; padding: 6px 8px; background: rgba(31,61,46,0.06); border-radius: 4px; font-size: 9.5px; color: var(--df); line-height: 1.4;">Typical benefit: 1&ndash;2&times; salary or flat $25K&ndash;$50K</div>
+    </div>
+    <div style="padding: 14px 13px; background: var(--ps); border-radius: 8px; border-top: 3px solid var(--rs); display: flex; flex-direction: column;">
+      <div style="margin-bottom: 8px;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--rs)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div style="font-family: var(--display); font-size: 15px; color: var(--df); line-height: 1.2; margin-bottom: 6px;">STD &amp; LTD</div>
+      <div style="font-size: 10.5px; color: var(--ch); line-height: 1.5; margin-bottom: auto;">Replaces a chunk of the paycheck when an employee can't work &mdash; pregnancy, surgery recovery, extended illness, an accident.</div>
+      <div style="margin-top: 10px; padding: 6px 8px; background: rgba(31,61,46,0.06); border-radius: 4px; font-size: 9.5px; color: var(--df); line-height: 1.4;">Typical benefit: 60% of salary, STD 26 weeks, LTD to age 65</div>
+    </div>
+    <div style="padding: 14px 13px; background: var(--ps); border-radius: 8px; border-top: 3px solid var(--rs); display: flex; flex-direction: column;">
+      <div style="margin-bottom: 8px;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--rs)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      </div>
+      <div style="font-family: var(--display); font-size: 15px; color: var(--df); line-height: 1.2; margin-bottom: 6px;">Accident</div>
+      <div style="font-size: 10.5px; color: var(--ch); line-height: 1.5; margin-bottom: auto;">Pays a fixed cash amount for a covered accident &mdash; ER visit, fracture, stitches, concussion, torn ACL, surgery.</div>
+      <div style="margin-top: 10px; padding: 6px 8px; background: rgba(31,61,46,0.06); border-radius: 4px; font-size: 9.5px; color: var(--df); line-height: 1.4;">Example: broken leg &rarr; ~$1,200&ndash;$2,500 cash</div>
+    </div>
+    <div style="padding: 14px 13px; background: var(--ps); border-radius: 8px; border-top: 3px solid var(--rs); display: flex; flex-direction: column;">
+      <div style="margin-bottom: 8px;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--rs)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </div>
+      <div style="font-family: var(--display); font-size: 15px; color: var(--df); line-height: 1.2; margin-bottom: 6px;">Critical Illness</div>
+      <div style="font-size: 10.5px; color: var(--ch); line-height: 1.5; margin-bottom: auto;">Pays a lump-sum check the day a covered illness is diagnosed &mdash; cancer, heart attack, stroke, organ failure.</div>
+      <div style="margin-top: 10px; padding: 6px 8px; background: rgba(31,61,46,0.06); border-radius: 4px; font-size: 9.5px; color: var(--df); line-height: 1.4;">Typical benefit: $10K, $20K, or $30K at diagnosis</div>
+    </div>
+    <div style="padding: 14px 13px; background: var(--ps); border-radius: 8px; border-top: 3px solid var(--rs); display: flex; flex-direction: column;">
+      <div style="margin-bottom: 8px;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--rs)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </div>
+      <div style="font-family: var(--display); font-size: 15px; color: var(--df); line-height: 1.2; margin-bottom: 6px;">Hospital Indemnity</div>
+      <div style="font-size: 10.5px; color: var(--ch); line-height: 1.5; margin-bottom: auto;">Pays a flat amount when someone is admitted, plus a daily amount for every day they stay. <em>Indemnity</em> = cash paid on an event, not a reimbursement.</div>
+      <div style="margin-top: 10px; padding: 6px 8px; background: rgba(31,61,46,0.06); border-radius: 4px; font-size: 9.5px; color: var(--df); line-height: 1.4;">Example: $1,000 admission + $200/day</div>
+    </div>
+  </div>
+  <div style="margin-top: 14px; padding: 10px 16px; border-left: 3px solid var(--rs); background: rgba(184,82,42,0.04); border-radius: 0 6px 6px 0;">
+    <div style="font-size: 12px; color: var(--ch); line-height: 1.5;"><strong style="color: var(--df);">Why five, not one?</strong> Each product covers a different kind of event. Most employees end up picking two or three based on what fits their family.</div>
+  </div>
+  <div class="slide-footer">Nexus Benefit Solutions</div>
+</div>
+
+<!-- SLIDE 6 — Real Scenarios -->
+<div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
+  <div style="margin-bottom: 20px;">
+    <div class="slide-header-tag">03 &mdash; How it pays out</div>
+    <div class="slide-title">Three Everyday Scenarios</div>
+    <div style="font-size: 13px; color: var(--sg); margin-top: 10px;">Real dollar amounts. These are the moments voluntary benefits actually earn their keep.</div>
+  </div>
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; flex: 1;">
+    <!-- Scenario 1 — Torn ACL -->
+    <div style="background: #fff; border: 1px solid var(--ps); border-radius: 10px; padding: 20px 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); display: flex; flex-direction: column;">
+      <div style="font-size: 9px; color: var(--rs); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; margin-bottom: 8px;">Scenario 1</div>
+      <div style="font-family: var(--display); font-size: 18px; color: var(--df); line-height: 1.2; margin-bottom: 14px;">Torn ACL at Saturday softball</div>
+      <div style="border-top: 1px solid var(--ps); padding-top: 12px; display: flex; flex-direction: column; gap: 8px; flex: 1;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 11px;"><span style="color: var(--sg);">ER visit (accident benefit)</span><span style="color: var(--df); font-weight: 600;">$250</span></div>
+        <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 11px;"><span style="color: var(--sg);">Torn ligament</span><span style="color: var(--df); font-weight: 600;">$800</span></div>
+        <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 11px;"><span style="color: var(--sg);">Outpatient surgery</span><span style="color: var(--df); font-weight: 600;">$600</span></div>
+        <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 11px;"><span style="color: var(--sg);">PT follow-up benefit</span><span style="color: var(--df); font-weight: 600;">$150</span></div>
+      </div>
+      <div style="margin-top: 14px; padding: 10px 12px; background: rgba(31,61,46,0.05); border-radius: 6px;">
+        <div style="font-size: 9px; color: var(--sg); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 3px;">Accident benefit pays</div>
+        <div style="font-family: var(--display); font-size: 24px; color: var(--df); line-height: 1;">~$1,800</div>
+        <div style="font-size: 10px; color: var(--ch); margin-top: 4px; line-height: 1.4;">Enough to wipe out the medical deductible with room to spare.</div>
+      </div>
+    </div>
+    <!-- Scenario 2 — Breast cancer -->
+    <div style="background: #fff; border: 1px solid var(--ps); border-radius: 10px; padding: 20px 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); display: flex; flex-direction: column;">
+      <div style="font-size: 9px; color: var(--rs); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; margin-bottom: 8px;">Scenario 2</div>
+      <div style="font-family: var(--display); font-size: 18px; color: var(--df); line-height: 1.2; margin-bottom: 14px;">Stage-2 breast cancer diagnosis</div>
+      <div style="border-top: 1px solid var(--ps); padding-top: 12px; display: flex; flex-direction: column; gap: 8px; flex: 1;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 11px;"><span style="color: var(--sg);">Cancer diagnosis (CI, $20K benefit)</span><span style="color: var(--df); font-weight: 600;">$20,000</span></div>
+        <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 11px;"><span style="color: var(--sg);">Admission &amp; 3-day inpatient</span><span style="color: var(--df); font-weight: 600;">$1,600</span></div>
+        <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 11px;"><span style="color: var(--sg);">STD, 12 weeks @ 60%</span><span style="color: var(--df); font-weight: 600;">$7,200</span></div>
+        <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 11px;"><span style="color: var(--sg);">Cancer screening bonus</span><span style="color: var(--df); font-weight: 600;">$100</span></div>
+      </div>
+      <div style="margin-top: 14px; padding: 10px 12px; background: rgba(184,82,42,0.07); border-radius: 6px;">
+        <div style="font-size: 9px; color: var(--rs); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 3px;">Voluntary stack pays</div>
+        <div style="font-family: var(--display); font-size: 24px; color: var(--rs); line-height: 1;">~$28,900</div>
+        <div style="font-size: 10px; color: var(--ch); margin-top: 4px; line-height: 1.4;">Covers the out-of-pocket max, copays, and the household bills during treatment.</div>
+      </div>
+    </div>
+    <!-- Scenario 3 — Childbirth -->
+    <div style="background: #fff; border: 1px solid var(--ps); border-radius: 10px; padding: 20px 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); display: flex; flex-direction: column;">
+      <div style="font-size: 9px; color: var(--rs); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; margin-bottom: 8px;">Scenario 3</div>
+      <div style="font-family: var(--display); font-size: 18px; color: var(--df); line-height: 1.2; margin-bottom: 14px;">Routine childbirth, 3-day stay</div>
+      <div style="border-top: 1px solid var(--ps); padding-top: 12px; display: flex; flex-direction: column; gap: 8px; flex: 1;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 11px;"><span style="color: var(--sg);">Hospital admission</span><span style="color: var(--df); font-weight: 600;">$1,000</span></div>
+        <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 11px;"><span style="color: var(--sg);">Daily confinement (3 &times; $200)</span><span style="color: var(--df); font-weight: 600;">$600</span></div>
+        <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 11px;"><span style="color: var(--sg);">STD, 6 weeks maternity leave</span><span style="color: var(--df); font-weight: 600;">$3,600</span></div>
+        <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 11px;"><span style="color: var(--sg);">Wellness screening (Beam)</span><span style="color: var(--df); font-weight: 600;">$50</span></div>
+      </div>
+      <div style="margin-top: 14px; padding: 10px 12px; background: rgba(31,61,46,0.05); border-radius: 6px;">
+        <div style="font-size: 9px; color: var(--sg); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 3px;">Hospital indemnity + STD pays</div>
+        <div style="font-family: var(--display); font-size: 24px; color: var(--df); line-height: 1;">~$5,250</div>
+        <div style="font-size: 10px; color: var(--ch); margin-top: 4px; line-height: 1.4;">Covers the medical deductible and keeps a paycheck coming during maternity leave.</div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top: 12px; font-size: 10px; color: var(--sg); font-style: italic;">Dollar figures reflect typical carrier benefit schedules. Actual payouts depend on policy selections and the specific covered event.</div>
+  <div class="slide-footer">Nexus Benefit Solutions</div>
+</div>
+
+<!-- SLIDE 7 — Employee-Paid vs Employer-Contributed (Azure financial section) -->
+<div class="slide" style="padding: 44px 64px; background: var(--az-bg); display: flex; flex-direction: column;">
+  <div style="margin-bottom: 18px;">
+    <div style="font-size: 11px; color: var(--az-md); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px;">04 &mdash; The Paycheck Question</div>
+    <div style="font-family: var(--display); font-size: 28px; color: var(--az-dk); line-height: 1.2;">Employee-Paid vs. Employer-Contributed</div>
+    <div style="font-size: 13px; color: #4a6b8a; margin-top: 10px; max-width: 760px;">A $5&ndash;$10/paycheck employer contribution &mdash; less than a team lunch &mdash; more than doubles participation and changes how the benefit lands.</div>
+  </div>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; flex: 1;">
+    <!-- Left: 100% Employee-Paid -->
+    <div style="background: #fff; border: 1px solid rgba(26,63,107,0.15); border-radius: 10px; padding: 22px; display: flex; flex-direction: column; box-shadow: 0 2px 8px rgba(26,63,107,0.06);">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;">
+        <div style="font-family: var(--display); font-size: 20px; color: var(--az-dk);">100% Employee-Paid</div>
+        <div style="padding: 4px 10px; background: rgba(26,63,107,0.08); border-radius: 4px; font-size: 10px; color: var(--az-md); letter-spacing: 1px; text-transform: uppercase; font-weight: 600;">No Cost to Employer</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--ps);"><span style="color: var(--sg);">Avg. participation rate</span><span style="font-family: var(--display); font-size: 22px; color: var(--az-dk);">38%</span></div>
+        <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--ps);"><span style="color: var(--sg);">Employer monthly cost / ee</span><span style="font-family: var(--display); font-size: 18px; color: var(--az-dk);">$0</span></div>
+        <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--ps);"><span style="color: var(--sg);">Perceived value</span><span style="font-size: 12px; color: #8a7a5a; font-weight: 600;">Low &mdash; another deduction</span></div>
+        <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 12px;"><span style="color: var(--sg);">Retention lift</span><span style="font-size: 12px; color: #8a7a5a; font-weight: 600;">Minimal</span></div>
+      </div>
+      <div style="margin-top: auto; padding: 12px 14px; background: var(--az-bg); border-radius: 6px; font-size: 11px; color: #4a6b8a; line-height: 1.5;">The classic voluntary setup. Zero cost to the company, but participation stays low because employees view it as another paycheck deduction to opt into.</div>
+    </div>
+    <!-- Right: $5-$10 Employer Contribution -->
+    <div style="background: #fff; border: 2px solid var(--az-teal); border-radius: 10px; padding: 22px; display: flex; flex-direction: column; box-shadow: 0 4px 16px rgba(73,183,196,0.18); position: relative;">
+      <div style="position: absolute; top: -11px; right: 20px; background: var(--az-teal); color: #fff; font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; padding: 4px 12px; border-radius: 4px;">Recommended</div>
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;">
+        <div style="font-family: var(--display); font-size: 20px; color: var(--az-dk);">$5&ndash;$10 / Paycheck Employer</div>
+        <div style="padding: 4px 10px; background: rgba(73,183,196,0.15); border-radius: 4px; font-size: 10px; color: var(--az-teal); letter-spacing: 1px; text-transform: uppercase; font-weight: 700;">Bigger lift</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--ps);"><span style="color: var(--sg);">Avg. participation rate</span><span style="font-family: var(--display); font-size: 22px; color: var(--az-teal);">72%</span></div>
+        <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--ps);"><span style="color: var(--sg);">Employer monthly cost / ee</span><span style="font-family: var(--display); font-size: 18px; color: var(--az-dk);">$10&ndash;$20</span></div>
+        <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--ps);"><span style="color: var(--sg);">Perceived value</span><span style="font-size: 12px; color: var(--df); font-weight: 600;">High &mdash; a real benefit</span></div>
+        <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 12px;"><span style="color: var(--sg);">Retention lift</span><span style="font-size: 12px; color: var(--df); font-weight: 600;">Meaningful</span></div>
+      </div>
+      <div style="margin-top: auto; padding: 12px 14px; background: rgba(73,183,196,0.08); border-radius: 6px; font-size: 11px; color: #1a4f6b; line-height: 1.5;">Splitting the cost signals the benefit matters. Employees actually enroll, use it when they need it, and remember it at review time.</div>
+    </div>
+  </div>
+  <div style="margin-top: 18px; padding: 12px 16px; background: #fff; border-left: 3px solid var(--az-dk); border-radius: 0 6px 6px 0; font-size: 12px; color: #2a4a6a; line-height: 1.5;"><strong style="color: var(--az-dk);">The math, roughly:</strong> 50 employees &times; $10/paycheck &times; 26 paychecks = <strong style="color: var(--az-dk);">~$13,000/year</strong> &mdash; in exchange for a benefit package that lands as a genuine perk instead of a form in the enrollment packet.</div>
+  <div class="slide-footer">Nexus Benefit Solutions</div>
+</div>
+
+<!-- SLIDE 8 — Section Divider: Who we work with -->
+<div class="slide" style="padding: 44px 64px; display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(160deg, var(--nw) 0%, var(--ps) 25%, #b8c2ba 45%, #5a7766 62%, #2a4a3a 82%, var(--df) 100%);">
+  <div style="text-align: center; max-width: 640px;">
+    <div style="font-size: 13px; color: var(--df); letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 16px;">Part Two</div>
+    <div style="font-family: var(--display); font-size: 42px; color: #fff; line-height: 1.2; margin-bottom: 16px; text-shadow: 0 2px 16px rgba(0,0,0,0.35);">Who we work with.</div>
+    <div style="width: 48px; height: 2px; background: var(--rl); margin: 0 auto 16px;"></div>
+    <div style="font-size: 15px; color: var(--white-85); line-height: 1.7; text-shadow: 0 1px 6px rgba(0,0,0,0.2);">We're appointed with every voluntary carrier that matters. The right fit depends on your group, your industry, and your existing benefits.</div>
+  </div>
+</div>
+
+<!-- SLIDE 9 — Carrier Partners -->
+<div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
+  <div style="margin-bottom: 20px;">
+    <div class="slide-header-tag">05 &mdash; Carrier Partners</div>
+    <div class="slide-title">Nexus Voluntary Carrier Partners</div>
+    <div style="font-size: 13px; color: var(--sg); margin-top: 10px;">Five carriers, five strengths. We match the carrier to the group &mdash; not the other way around.</div>
+  </div>
+  <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; flex: 1;">
+    <!-- Beam -->
+    <div style="padding: 16px 14px; background: #fff; border: 1px solid var(--ps); border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); display: flex; flex-direction: column; align-items: center; text-align: center;">
+      <div style="height: 56px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px;">
+        <img src="../assets/beam-logo.png" alt="Beam" style="max-height: 44px; max-width: 110px; object-fit: contain;">
+      </div>
+      <div style="font-size: 10px; color: var(--rs); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; margin-bottom: 8px;">Dental + Vision</div>
+      <div style="font-size: 11px; color: var(--ch); line-height: 1.5; margin-bottom: auto;">Dental &amp; vision with a wellness-scoring app &mdash; employees earn stronger benefits by brushing, logging visits, and staying engaged.</div>
+      <div style="margin-top: 12px; padding: 6px 8px; background: var(--ps); border-radius: 4px; font-size: 9.5px; color: var(--df); font-weight: 600; width: 100%;">Best for: modern tech-forward groups</div>
+    </div>
+    <!-- Unum -->
+    <div style="padding: 16px 14px; background: #fff; border: 1px solid var(--ps); border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); display: flex; flex-direction: column; align-items: center; text-align: center;">
+      <div style="height: 56px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px;">
+        <div style="font-family: var(--display); font-size: 30px; color: #418FDE; letter-spacing: -1px; line-height: 1;">Unum</div>
+      </div>
+      <div style="font-size: 10px; color: var(--rs); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; margin-bottom: 8px;">Disability + Life</div>
+      <div style="font-size: 11px; color: var(--ch); line-height: 1.5; margin-bottom: auto;">The market standard for STD/LTD and group life. Strong claim service, absence management built in, and a leave-coordination team that actually picks up the phone.</div>
+      <div style="margin-top: 12px; padding: 6px 8px; background: var(--ps); border-radius: 4px; font-size: 9.5px; color: var(--df); font-weight: 600; width: 100%;">Best for: full income-replacement stack</div>
+    </div>
+    <!-- Aflac -->
+    <div style="padding: 16px 14px; background: #fff; border: 1px solid var(--ps); border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); display: flex; flex-direction: column; align-items: center; text-align: center;">
+      <div style="height: 56px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px;">
+        <div style="font-family: var(--display); font-size: 32px; color: #FF6A13; letter-spacing: -0.5px; line-height: 1;">Aflac</div>
+      </div>
+      <div style="font-size: 10px; color: var(--rs); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; margin-bottom: 8px;">Accident, CI, Hospital</div>
+      <div style="font-size: 11px; color: var(--ch); line-height: 1.5; margin-bottom: auto;">The name employees recognize. Strong benefit schedules on accident, critical illness, and hospital indemnity. Fast claims &mdash; direct-deposit payouts often inside a week.</div>
+      <div style="margin-top: 12px; padding: 6px 8px; background: var(--ps); border-radius: 4px; font-size: 9.5px; color: var(--df); font-weight: 600; width: 100%;">Best for: blue-collar, hourly workforce</div>
+    </div>
+    <!-- Principal -->
+    <div style="padding: 16px 14px; background: #fff; border: 1px solid var(--ps); border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); display: flex; flex-direction: column; align-items: center; text-align: center;">
+      <div style="height: 56px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px;">
+        <div style="font-family: var(--display); font-size: 26px; color: #0091DA; letter-spacing: -0.5px; line-height: 1;">Principal</div>
+      </div>
+      <div style="font-size: 10px; color: var(--rs); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; margin-bottom: 8px;">Life + Disability</div>
+      <div style="font-size: 11px; color: var(--ch); line-height: 1.5; margin-bottom: auto;">Well-priced bundled life + disability stacks. Strong for groups that want a single carrier across their income-protection lineup. Clean admin and a solid portal.</div>
+      <div style="margin-top: 12px; padding: 6px 8px; background: var(--ps); border-radius: 4px; font-size: 9.5px; color: var(--df); font-weight: 600; width: 100%;">Best for: stable, tenured workforce</div>
+    </div>
+    <!-- MetLife -->
+    <div style="padding: 16px 14px; background: #fff; border: 1px solid var(--ps); border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); display: flex; flex-direction: column; align-items: center; text-align: center;">
+      <div style="height: 56px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px;">
+        <div style="font-family: var(--display); font-size: 26px; color: #0061A0; letter-spacing: -0.5px; line-height: 1;">MetLife</div>
+      </div>
+      <div style="font-size: 10px; color: var(--rs); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; margin-bottom: 8px;">Life + Dental</div>
+      <div style="font-size: 11px; color: var(--ch); line-height: 1.5; margin-bottom: auto;">Deep group-life experience with portability and conversion at separation. Strong dental network for groups that want national coverage for a spread-out workforce.</div>
+      <div style="margin-top: 12px; padding: 6px 8px; background: var(--ps); border-radius: 4px; font-size: 9.5px; color: var(--df); font-weight: 600; width: 100%;">Best for: multi-state, larger groups</div>
+    </div>
+  </div>
+  <div class="slide-footer">Nexus Benefit Solutions</div>
+</div>
+
+<!-- SLIDE 10 — The Enrollment Lift (Stat Row, Azure financial) -->
+<div class="slide" style="padding: 44px 64px; background: var(--az-dk); background-image: radial-gradient(ellipse at top left, rgba(43,108,176,0.5) 0%, transparent 45%), radial-gradient(ellipse at bottom right, rgba(75,183,196,0.35) 0%, transparent 50%), radial-gradient(ellipse at center, rgba(59,130,196,0.2) 0%, transparent 60%); display: flex; flex-direction: column;">
+  <div style="margin-bottom: 24px;">
+    <div class="section-tag-blue">06 &mdash; Participation Reality</div>
+    <div class="section-title-white-sm">Enrollment Depends on How You Run It</div>
+  </div>
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; flex: 1; align-items: center;">
+    <div class="stat-badge" style="padding: 24px 18px;">
+      <div style="font-size: 10px; color: var(--az-teal); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; margin-bottom: 10px;">Employer-Paid</div>
+      <div style="font-family: var(--display); font-size: 66px; color: #fff; line-height: 1; margin-bottom: 10px;">85%</div>
+      <div style="font-size: 11px; color: var(--white-75); line-height: 1.55;">When the employer pays the premium, almost everyone enrolls. Basic life and base disability at this level are standard.</div>
+    </div>
+    <div class="stat-badge" style="padding: 24px 18px;">
+      <div style="font-size: 10px; color: var(--az-teal); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; margin-bottom: 10px;">Voluntary / Passive Enrollment</div>
+      <div style="font-family: var(--display); font-size: 66px; color: #fff; line-height: 1; margin-bottom: 10px;">38%</div>
+      <div style="font-size: 11px; color: var(--white-75); line-height: 1.55;">Employee-paid, passive open enrollment. Most employees skip past the voluntary section &mdash; they don't read the booklet.</div>
+    </div>
+    <div class="stat-badge" style="padding: 24px 18px; border: 1px solid rgba(73,183,196,0.6); background: rgba(26,63,107,0.7);">
+      <div style="font-size: 10px; color: #6DD8E5; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; margin-bottom: 10px;">Voluntary + Active Campaign</div>
+      <div style="font-family: var(--display); font-size: 66px; color: #6DD8E5; line-height: 1; margin-bottom: 10px;">62%</div>
+      <div style="font-size: 11px; color: var(--white-85); line-height: 1.55;">One-on-one enrollment meetings, real examples, and a campaign across the quarter. Nearly double the passive rate.</div>
+    </div>
+  </div>
+  <div style="margin-top: 24px; padding: 16px 20px; background: var(--white-06); border-left: 3px solid var(--az-teal); border-radius: 0 6px 6px 0;">
+    <div style="font-size: 13px; color: var(--white-85); line-height: 1.6;"><strong style="color: #6DD8E5;">The takeaway:</strong> a voluntary benefit only works if people sign up. Passive enrollment is where these products quietly die. We run the campaign that actually gets used.</div>
+  </div>
+  <div style="margin-top: 10px; font-size: 9px; color: var(--white-45); font-style: italic;">Source: Aflac Workforces Report, Eastbridge Consulting Group voluntary participation studies.</div>
+  <div class="slide-footer dark">Nexus Benefit Solutions</div>
+</div>
+
+<!-- SLIDE 11 — Section Divider: How we implement -->
+<div class="slide" style="padding: 44px 64px; display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(160deg, var(--nw) 0%, var(--ps) 25%, #b8c2ba 45%, #5a7766 62%, #2a4a3a 82%, var(--df) 100%);">
+  <div style="text-align: center; max-width: 640px;">
+    <div style="font-size: 13px; color: var(--df); letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 16px;">Part Three</div>
+    <div style="font-family: var(--display); font-size: 42px; color: #fff; line-height: 1.2; margin-bottom: 16px; text-shadow: 0 2px 16px rgba(0,0,0,0.35);">How we implement.</div>
+    <div style="width: 48px; height: 2px; background: var(--rl); margin: 0 auto 16px;"></div>
+    <div style="font-size: 15px; color: var(--white-85); line-height: 1.7; text-shadow: 0 1px 6px rgba(0,0,0,0.2);">Four stages. Start to finish, from needs survey to a first-year utilization review.</div>
+  </div>
+</div>
+
+<!-- SLIDE 12 — 4-Stage Implementation Timeline -->
+<div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
+  <div style="margin-bottom: 14px;">
+    <div class="slide-header-tag">07 &mdash; Implementation</div>
+    <div class="slide-title">Needs Survey to Year-One Review</div>
+  </div>
+  <div style="font-size: 14px; color: var(--ch); line-height: 1.7; max-width: 780px; margin-top: 10px; margin-bottom: 30px;">We don't bolt on voluntary at the last minute. Every step is built around what your people would actually use &mdash; and then we come back and check whether they did.</div>
+  <div style="display: flex; gap: 0; position: relative; margin-top: auto; margin-bottom: auto;">
+    <div style="position: absolute; top: 22px; left: 60px; right: 60px; height: 2px; background: var(--ps);"></div>
+    <div class="r15"><div style="width: 44px; height: 44px; border-radius: 50%; background: var(--rs); margin: 0 auto 14px; display: flex; align-items: center; justify-content: center;"><span style="color: #fff; font-size: 16px; font-weight: 700;">1</span></div><div style="font-family: var(--display); font-size: 16px; color: var(--df); margin-bottom: 6px;">Needs Survey</div><div style="font-size: 12px; color: var(--sg); line-height: 1.5; padding: 0 8px;">Quick pulse survey of the workforce &mdash; what keeps them up at night, what they'd actually buy.</div></div>
+    <div class="r15"><div style="width: 44px; height: 44px; border-radius: 50%; background: var(--fl); margin: 0 auto 14px; display: flex; align-items: center; justify-content: center;"><span style="color: #fff; font-size: 16px; font-weight: 700;">2</span></div><div style="font-family: var(--display); font-size: 16px; color: var(--df); margin-bottom: 6px;">Product &amp; Carrier Match</div><div style="font-size: 12px; color: var(--sg); line-height: 1.5; padding: 0 8px;">Pair the right products with the right carrier. No shelf-stuffing &mdash; only what fits the group.</div></div>
+    <div class="r15"><div style="width: 44px; height: 44px; border-radius: 50%; background: var(--fl); margin: 0 auto 14px; display: flex; align-items: center; justify-content: center;"><span style="color: #fff; font-size: 16px; font-weight: 700;">3</span></div><div style="font-family: var(--display); font-size: 16px; color: var(--df); margin-bottom: 6px;">Active Enrollment</div><div style="font-size: 12px; color: var(--sg); line-height: 1.5; padding: 0 8px;">On-site or virtual 1:1 meetings, printed benefit guide, example paycheck math. Real questions, real answers.</div></div>
+    <div class="r15"><div style="width: 44px; height: 44px; border-radius: 50%; background: var(--df); margin: 0 auto 14px; display: flex; align-items: center; justify-content: center;"><span style="color: #fff; font-size: 16px; font-weight: 700;">4</span></div><div style="font-family: var(--display); font-size: 16px; color: var(--df); margin-bottom: 6px;">Year-One Utilization Review</div><div style="font-size: 12px; color: var(--sg); line-height: 1.5; padding: 0 8px;">12 months in: who enrolled, who filed a claim, what paid out. Data-driven renewal decisions.</div></div>
+  </div>
+  <div style="margin-top: auto; padding: 16px 22px; border-left: 3px solid var(--rs); background: rgba(184,82,42,0.04); border-radius: 0 6px 6px 0;">
+    <div style="font-size: 13px; color: var(--ch); line-height: 1.6;"><strong style="color: var(--df);">What we don't do:</strong> stack on five voluntary products because they're available. Voluntary margins are modest &mdash; we only recommend what closes a real gap for your people.</div>
+  </div>
+  <div class="slide-footer">Nexus Benefit Solutions</div>
+</div>
+
+<!-- SLIDE 13 — Close -->
+<div class="slide" style="padding: 44px 64px; display: flex; flex-direction: column; justify-content: center; background: var(--df); background-image: radial-gradient(ellipse at bottom right, rgba(184,82,42,0.2) 0%, transparent 40%);">
+  <div style="max-width: 620px;">
+    <div style="font-family: var(--display); font-size: 36px; color: #FFFFFF; line-height: 1.25; margin-bottom: 18px;">Close the Gap<br>Your Medical Plan Can't.</div>
+    <div style="font-size: 15px; color: var(--white-65); line-height: 1.7; margin-bottom: 28px;">We'd like to start with a 30-minute needs survey for [Company Name] &mdash; no quote, no pressure. Just a conversation about where voluntary could actually matter for your team.</div>
+    <div style="display: flex; gap: 28px; margin-bottom: 24px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="../assets/jason-bearup.jpg" alt="Jason Bearup" style="width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--white-15);">
+        <div><div style="font-size: 13px; color: var(--white-50); font-weight: 600;">Jason Bearup</div><div style="font-size: 10px; color: rgba(255,255,255,0.35);">Lead Advisor</div><div style="font-size: 10px; color: rgba(255,255,255,0.3);">(616) 828-6061</div><div style="font-size: 10px; color: rgba(255,255,255,0.3);">jason@nexusbenefitsolutions.com</div></div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="../assets/ken-fortier.jpg" alt="Ken Fortier" style="width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--white-15);">
+        <div><div style="font-size: 13px; color: var(--white-50); font-weight: 600;">Ken Fortier</div><div style="font-size: 10px; color: rgba(255,255,255,0.35);">Advisor</div><div style="font-size: 10px; color: rgba(255,255,255,0.3);">(616) 555-0002</div><div style="font-size: 10px; color: rgba(255,255,255,0.3);">ken@nexusbenefitsolutions.com</div></div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="../assets/grace-morris.jpg" alt="Grace Morris" style="width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--white-15);">
+        <div><div style="font-size: 13px; color: var(--white-50); font-weight: 600;">Grace Morris</div><div style="font-size: 10px; color: rgba(255,255,255,0.35);">Account Manager</div><div style="font-size: 10px; color: rgba(255,255,255,0.3);">(616) 555-0003</div><div style="font-size: 10px; color: rgba(255,255,255,0.3);">grace@nexusbenefitsolutions.com</div></div>
+      </div>
+    </div>
+    <div style="display: inline-block; padding: 14px 28px; background: var(--rs); border-radius: 6px; font-size: 14px; color: #fff; font-weight: 600; letter-spacing: 0.5px; box-shadow: 0 4px 12px rgba(184,82,42,0.35);">Next step: 30-minute needs survey &rarr;</div>
+  </div>
+  <div style="position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); text-align: center;">
+    <div style="display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 3px;">
+      <img src="../assets/nexus-logo-white.svg" alt="Nexus" style="height: 20px; opacity: 0.2;">
+      <div style="font-size: 16.5px; color: rgba(255,255,255,0.2); line-height: 1;">Nexus Benefit Solutions</div>
+    </div>
+    <div style="font-size: 11px; color: rgba(184,82,42,0.35); letter-spacing: 1px;">nexusbenefitsolutions.com</div>
+  </div>
+</div>
+
+</div><!-- end .deck -->
+
+<!-- FIXED: Navigation and scaling JavaScript — do not modify -->
+<script>
+let cur = 0;
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+function go(n) {
+  if (n < 0 || n >= total) return;
+  slides[cur].classList.remove('active');
+  cur = n;
+  slides[cur].classList.add('active');
+  document.getElementById('counter').textContent = (cur + 1) + ' / ' + total;
+  document.getElementById('prevBtn').disabled = cur === 0;
+  document.getElementById('nextBtn').disabled = cur === total - 1;
+}
+function nav(d) { go(cur + d); }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nav(1); }
+  if (e.key === 'ArrowLeft') nav(-1);
+  if (e.key === 'Home') go(0);
+  if (e.key === 'End') go(total - 1);
+  if (e.key === 'f' || e.key === 'F') toggleFullscreen();
+});
+function toggleFullscreen() {
+  if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+  else document.exitFullscreen();
+}
+// Touch support
+let tx = 0;
+document.addEventListener('touchstart', function(e) { tx = e.changedTouches[0].screenX; });
+document.addEventListener('touchend', function(e) {
+  var d = e.changedTouches[0].screenX - tx;
+  if (Math.abs(d) > 50) nav(d < 0 ? 1 : -1);
+});
+// Scale
+function rescale() {
+  const sw = window.innerWidth / 960;
+  const sh = window.innerHeight / 540;
+  var s = Math.min(sw, sh, 2) * 0.88;
+  document.documentElement.style.setProperty('--scale', s);
+}
+window.addEventListener('resize', rescale);
+rescale();
+// Responsive mode
+if (new URLSearchParams(window.location.search).get('mode') === 'responsive') {
+  document.body.classList.add('responsive-mode');
+}
+// Auto-inject slide footer on content slides (skip cover + last)
+document.addEventListener('DOMContentLoaded', function() {
+  const allSlides = document.querySelectorAll('.slide');
+  allSlides.forEach(function(slide, i) {
+    if (i === 0 || i === allSlides.length - 1) return;
+    if (slide.querySelector('.slide-footer')) return;
+    const footer = document.createElement('div');
+    footer.className = 'slide-footer';
+    if (slide.getAttribute('style') && (slide.getAttribute('style').includes('az-dk') || slide.getAttribute('style').includes('--df'))) {
+      footer.className = 'slide-footer dark';
+    }
+    footer.textContent = 'Nexus Benefit Solutions';
+    slide.appendChild(footer);
+  });
+});
+// Init
+go(0);
+</script>
+</body>
+</html>
