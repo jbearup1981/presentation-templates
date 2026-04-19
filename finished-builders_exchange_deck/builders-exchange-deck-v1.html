@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexus Benefit Solutions — Builders Exchange Partnership Pitch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+:root {
+  --nw: #FAFAF8;
+  --df: #1F3D2E;
+  --rs: #B8522A;
+  --sg: #7A9282;
+  --ps: #E8EBE4;
+  --fl: #2A5240;
+  --rl: #D4693F;
+  --ch: #2D2D2D;
+  --az-dk: #1A3F6B;
+  --az-md: #2B6CB0;
+  --az-bg: #EDF3FA;
+  --az-teal: #49B7C4;
+  --display: 'DM Serif Display', Georgia, serif;
+  --body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --white-06: rgba(255,255,255,0.06);
+  --white-08: rgba(255,255,255,0.08);
+  --white-10: rgba(255,255,255,0.1);
+  --white-15: rgba(255,255,255,0.15);
+  --white-25: rgba(255,255,255,0.25);
+  --white-45: rgba(255,255,255,0.45);
+  --white-50: rgba(255,255,255,0.5);
+  --white-60: rgba(255,255,255,0.6);
+  --white-65: rgba(255,255,255,0.65);
+  --white-75: rgba(255,255,255,0.75);
+  --white-80: rgba(255,255,255,0.8);
+  --white-85: rgba(255,255,255,0.85);
+  --white-90: rgba(255,255,255,0.9);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; overflow: hidden; background: #1a1a1a; }
+body { font-family: var(--body); color: var(--ch); -webkit-font-smoothing: antialiased; }
+.deck { width: 100%; height: 100%; position: relative; }
+.slide {
+  width: 960px; height: 540px;
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(var(--scale, 1));
+  transform-origin: center center;
+  overflow: hidden; opacity: 0; pointer-events: none;
+  transition: opacity 0.7s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+.slide.active { opacity: 1; pointer-events: auto; }
+.controls {
+  position: fixed; bottom: 24px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; align-items: center; gap: 16px; z-index: 100;
+  background: rgba(0,0,0,0.6); backdrop-filter: blur(8px);
+  padding: 8px 20px; border-radius: 40px;
+}
+.controls button {
+  background: none; border: none; color: rgba(255,255,255,0.7);
+  cursor: pointer; font-size: 18px; padding: 4px 8px;
+  transition: color 0.2s; font-family: var(--body);
+}
+.controls button:hover { color: #fff; }
+.controls button:disabled { color: rgba(255,255,255,0.2); cursor: default; }
+.slide-counter {
+  font-size: 12px; color: var(--white-50);
+  font-family: monospace; letter-spacing: 1px;
+  min-width: 60px; text-align: center;
+}
+.fullscreen-btn {
+  position: fixed; top: 16px; right: 16px; z-index: 100;
+  background: rgba(0,0,0,0.5); border: none; color: var(--white-60);
+  cursor: pointer; padding: 8px 12px; border-radius: 6px;
+  font-size: 11px; font-family: var(--body); letter-spacing: 1px;
+  text-transform: uppercase; transition: all 0.2s; backdrop-filter: blur(8px);
+}
+.fullscreen-btn:hover { background: rgba(0,0,0,0.7); color: #fff; }
+.slide-header-tag {
+  font-family: var(--body); font-size: 11px; color: var(--sg);
+  letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px;
+}
+.slide-title { font-family: var(--display); font-size: 30px; color: var(--df); line-height: 1.2; }
+.section-tag-blue { font-size: 11px; color: var(--az-teal); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+.section-title-white { font-family: var(--display); font-size: 26px; color: white; }
+.section-title-white-sm { font-family: var(--display); font-size: 26px; color: #fff; line-height: 1.3; }
+.top-accent {
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--rs), var(--rs) 25%, transparent 100%);
+}
+.bottom-accent {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--rs), transparent 40%);
+}
+.feature-card {
+  padding: 16px 18px; background: var(--ps); border-radius: 8px;
+  border: 1px solid rgba(31,61,46,0.1); border-left: 3px solid var(--rs);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+.r10 { font-size: 12px; color: var(--sg); line-height: 1.6; }
+.r12 { font-family: var(--display); font-size: 17px; color: var(--df); }
+.r14 { font-size: 13px; color: var(--ch); line-height: 1.7; }
+.r15 { flex: 1; text-align: center; position: relative; z-index: 1; }
+.slide-footer {
+  position: absolute;
+  bottom: 8px;
+  left: 64px;
+  font-size: 8px;
+  color: var(--sg);
+  letter-spacing: 0.5px;
+  font-family: var(--body);
+  opacity: 0.5;
+}
+.slide-footer.dark { color: var(--white-25); }
+@media print {
+  html, body { overflow: visible; background: white; height: auto; }
+  .controls, .fullscreen-btn { display: none !important; }
+  .slide {
+    position: relative; transform: none !important;
+    opacity: 1; pointer-events: auto;
+    page-break-after: always; page-break-inside: avoid;
+    margin: 0 auto; top: auto; left: auto;
+    box-shadow: none;
+  }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .slide-footer { position: relative; bottom: auto; left: auto; margin-top: 8px; }
+}
+body.responsive-mode { overflow: auto; background: #f5f5f5; }
+body.responsive-mode .controls,
+body.responsive-mode .fullscreen-btn { display: none; }
+body.responsive-mode .slide {
+  position: relative; opacity: 1; pointer-events: auto;
+  top: auto; left: auto; transform: none !important;
+  width: 100%; max-width: 960px; height: auto; min-height: 540px;
+  margin: 24px auto; border-radius: 8px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+}
+body.responsive-mode .slide-footer {
+  position: relative; bottom: auto; left: auto;
+  padding: 12px 64px; margin-top: 8px;
+}
+</style>
+</head>
+<body>
+<button class="fullscreen-btn" onclick="toggleFullscreen()">&#9974; Fullscreen</button>
+<div class="controls">
+  <button id="prevBtn" onclick="nav(-1)">&#9664;</button>
+  <span class="slide-counter" id="counter">1 / 11</span>
+  <button id="nextBtn" onclick="nav(1)">&#9654;</button>
+</div>
+<div class="deck">
+
+<!-- EDITABLE: Member company name, date, advisor name -->
+<!-- SLIDE 1 — Cover (co-branded BX + Nexus) -->
+<div class="slide active" style="padding: 0; position: relative; overflow: hidden;">
+  <!-- Right: green-tinted panel w/ template identifier -->
+  <div style="position: absolute; top: 0; right: 0; bottom: 0; width: 58%; background: linear-gradient(160deg, #3a5a4a 0%, #2a4a3a 50%, #1a3a2a 100%);">
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(31,61,46,0.45);"></div>
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.25; background: repeating-linear-gradient(90deg, transparent, transparent 4px, var(--white-60) 4px, var(--white-60) 5px); mask-image: radial-gradient(ellipse at 85% 85%, transparent 10%, rgba(0,0,0,0.3) 20%, rgba(0,0,0,1) 40%); -webkit-mask-image: radial-gradient(ellipse at 85% 85%, transparent 10%, rgba(0,0,0,0.3) 20%, rgba(0,0,0,1) 40%);"></div>
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at 70% 60%, transparent 20%, rgba(15,25,20,0.45) 100%), linear-gradient(to top, rgba(15,25,20,0.55) 0%, transparent 40%), linear-gradient(to right, rgba(31,61,46,0.5) 0%, transparent 20%);"></div>
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at 65% 35%, rgba(184,82,42,0.1) 0%, transparent 50%);"></div>
+    <!-- Nexus logo watermark -->
+    <div style="position: absolute; bottom: 40px; right: 40px; z-index: 4;">
+      <img src="https://jbearup1981.github.io/presentation-templates/assets/nexus-logo-white.svg" alt="Nexus" style="height: 40px; opacity: 0.25;">
+    </div>
+    <!-- Template identifier -->
+    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; z-index: 4;">
+      <div style="font-family: var(--display); font-size: 48px; color: rgba(255,255,255,0.4); line-height: 1;">Builders</div>
+      <div style="font-family: var(--display); font-size: 48px; color: rgba(255,255,255,0.4); line-height: 1; margin-top: 4px;">Exchange</div>
+      <div style="font-size: 14px; color: rgba(184,82,42,0.75); letter-spacing: 4px; text-transform: uppercase; margin-top: 12px; font-weight: 600;">Partnership</div>
+      <div style="font-size: 10px; color: rgba(255,255,255,0.35); letter-spacing: 2px; text-transform: uppercase; margin-top: 8px;">Member referral pitch</div>
+    </div>
+  </div>
+  <!-- Rust stripe -->
+  <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; filter: drop-shadow(4px 0 8px rgba(0,0,0,0.4));"><div style="width: 100%; height: 100%; background: var(--rs); clip-path: polygon(57% 0, 59.2% 0, 43% 100%, 40.8% 100%);"></div></div>
+  <!-- Green panel -->
+  <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; filter: drop-shadow(4px 0 6px rgba(0,0,0,0.35));"><div style="position: absolute; top: 0; left: 0; width: 58%; height: 100%; background: var(--df); background-image: radial-gradient(ellipse at top left, rgba(184,82,42,0.2) 0%, transparent 35%); clip-path: polygon(0 0, 100% 0, 72% 100%, 0 100%);"></div></div>
+  <!-- Left: text content layer -->
+  <div style="position: relative; width: 58%; height: 100%; padding: 44px 64px; display: flex; flex-direction: column; justify-content: center; z-index: 3;">
+    <div>
+      <div style="width: 48px; height: 2px; background: var(--rs); margin-bottom: 20px;"></div>
+      <div style="font-family: var(--display); font-size: 36px; color: #FFFFFF; line-height: 1.2; margin-bottom: 6px;">A Builders Exchange</div>
+      <div style="font-family: var(--display); font-size: 36px; color: #FFFFFF; line-height: 1.2; margin-bottom: 8px;">Benefits Partnership</div>
+      <div style="font-family: var(--display); font-size: 24px; color: var(--rl); line-height: 1.3; margin-bottom: 12px;">for [Member Company Name]</div>
+      <div style="font-size: 13px; color: var(--white-45);">Prepared [Date]</div>
+    </div>
+  <!-- Co-branded lockup: Nexus logo + BX logo placeholder -->
+  <div style="position: absolute; bottom: 32px; left: 64px; display: flex; align-items: center; gap: 14px;">
+    <div style="display: flex; align-items: center; gap: 3px;">
+      <svg width="42" height="30" style="opacity: 0.45;" version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 867" preserveAspectRatio="xMidYMid meet">
+<g transform="translate(0,867) scale(0.1,-0.1)" fill="#FAFAF8" stroke="none">
+<path d="M5760 8014 c-1080 -77 -2054 -604 -2704 -1464 -381 -503 -621 -1090 -712 -1740 -22 -157 -30 -628 -14 -802 81 -893 474 -1710 1119 -2330 582 -559 1305 -901 2126 -1005 196 -24 654 -24 850 0 821 104 1544 446 2126 1005 645 620 1038 1437 1119 2330 16 174 8 645 -14 802 -119 849 -492 1588 -1097 2174 -580 562 -1320 914 -2129 1011 -129 16 -550 27 -670 19z m455 -174 c493 -33 913 -146 1355 -366 352 -175 636 -380 916 -660 591 -593 948 -1366 1015 -2198 14 -184 7 -543 -15 -716 -137 -1056 -723 -1974 -1623 -2543 -145 -92 -447 -241 -617 -306 -800 -303 -1692 -303 -2492 0 -170 65 -472 214 -617 306 -819 518 -1389 1340 -1577 2273 -44 220 -61 373 -67 616 -6 253 6 447 43 669 167 991 744 1856 1601 2398 144 91 446 241 613 304 472 179 974 255 1465 223z"/>
+<path d="M5735 7599 c-649 -53 -1275 -303 -1790 -715 -134 -107 -383 -355 -486 -484 -381 -477 -607 -992 -699 -1595 -28 -178 -38 -574 -21 -761 132 -1402 1113 -2546 2476 -2888 256 -64 486 -91 785 -91 305 0 530 27 800 95 1172 296 2092 1221 2380 2394 70 289 95 526 87 864 -5 253 -23 414 -68 617 -93 421 -281 846 -522 1185 -227 318 -518 605 -832 819 -615 420 -1370 621 -2110 560z"/>
+</g>
+</svg>
+      <div><div style="font-size: 11px; color: rgba(255,255,255,0.55); line-height: 1.4;">Nexus Benefit Solutions</div><div style="font-size: 10px; color: rgba(255,255,255,0.4);">Grand Rapids, Michigan</div></div>
+    </div>
+    <!-- BX logo placeholder w/ onerror fallback to styled box -->
+    <div style="width: 1px; height: 28px; background: rgba(255,255,255,0.15);"></div>
+    <div style="display: flex; align-items: center; gap: 6px;">
+      <img src="https://jbearup1981.github.io/presentation-templates/logos/builders-exchange.png" alt="Builders Exchange" style="height: 28px; opacity: 0.7; filter: brightness(0) invert(1);" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div style="display: none; align-items: center; justify-content: center; height: 28px; padding: 4px 10px; border: 1px solid rgba(255,255,255,0.3); border-radius: 3px; font-size: 9px; color: rgba(255,255,255,0.55); letter-spacing: 1px; text-transform: uppercase; font-weight: 700;">BX Logo</div>
+      <div><div style="font-size: 10px; color: rgba(255,255,255,0.5); line-height: 1.4;">Endorsed Partner</div><div style="font-size: 9px; color: rgba(255,255,255,0.35);">Builders Exchange</div></div>
+    </div>
+  </div>
+  </div>
+</div>
+
+<!-- SLIDE 2 — Why you're hearing from us -->
+<div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
+  <div class="top-accent"></div>
+  <div style="margin-bottom: 28px;"><div class="slide-header-tag">01 &mdash; The Introduction</div><div class="slide-title">Why you're hearing from us</div></div>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 36px; flex: 1;">
+    <div style="display: flex; flex-direction: column; gap: 16px;">
+      <div>
+        <div style="font-size: 13px; color: var(--rs); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; margin-bottom: 10px;">Builders Exchange Endorsed Us</div>
+        <div style="font-size: 14px; color: var(--ch); line-height: 1.7;">BX put us in front of you for one reason: their members were asking for a benefits broker who actually understands construction. Most don't. We do.</div>
+      </div>
+      <div>
+        <div style="font-size: 13px; color: var(--rs); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; margin-bottom: 10px;">[Advisor Name] Lives in Your World</div>
+        <div style="font-size: 14px; color: var(--ch); line-height: 1.7;">I've spent my career working with contractors, trades, and manufacturers across West Michigan. I know what a job-site injury report looks like. I know what bilingual enrollment means when half your crew is Spanish-speaking. I know what a level-funded plan does for a stable trade employer at renewal time.</div>
+      </div>
+    </div>
+    <div style="display: flex; flex-direction: column; justify-content: center;">
+      <div style="padding: 22px 24px; background: rgba(31,61,46,0.04); border-radius: 8px; border: 1px solid var(--ps); border-left: 3px solid var(--df);">
+        <div style="font-family: var(--display); font-size: 18px; color: var(--df); margin-bottom: 12px;">We've Already Done the Work</div>
+        <div style="font-size: 13px; color: var(--ch); line-height: 1.7; margin-bottom: 14px;">Two of your fellow BX members have been with us through a full benefit cycle. They wrote the playbook we're bringing to you.</div>
+        <div style="display: flex; gap: 10px;">
+          <div style="flex: 1; padding: 10px 12px; background: #fff; border: 1px solid var(--ps); border-radius: 6px; text-align: center;">
+            <div style="font-family: var(--display); font-size: 13px; color: var(--df); line-height: 1.3;">[Pilot Client 1]</div>
+            <div style="font-size: 9px; color: var(--sg); letter-spacing: 1px; text-transform: uppercase; margin-top: 4px;">BX Member</div>
+          </div>
+          <div style="flex: 1; padding: 10px 12px; background: #fff; border: 1px solid var(--ps); border-radius: 6px; text-align: center;">
+            <div style="font-family: var(--display); font-size: 13px; color: var(--df); line-height: 1.3;">[Pilot Client 2]</div>
+            <div style="font-size: 9px; color: var(--sg); letter-spacing: 1px; text-transform: uppercase; margin-top: 4px;">BX Member</div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top: 16px; padding: 12px 16px; border-left: 3px solid var(--rs); background: rgba(184,82,42,0.04); border-radius: 0 6px 6px 0;">
+        <div style="font-size: 12px; color: var(--ch); line-height: 1.6;"><strong style="color: var(--df);">No cold pitch here.</strong> 30 minutes, you walk us through what's working and what isn't, we tell you straight up whether we can help.</div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-accent"></div>
+</div>
+
+<!-- SLIDE 3 — How we're different from your current broker -->
+<div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
+  <div class="top-accent"></div>
+  <div style="margin-bottom: 18px;"><div class="slide-header-tag">02 &mdash; The Difference</div><div class="slide-title">How we're different from your current broker</div></div>
+  <div style="font-size: 13px; color: var(--sg); margin-bottom: 22px; max-width: 760px;">Most brokers show up at renewal, swap a carrier, and disappear. That's not a service model — that's a sales model. Here's how we operate.</div>
+  <div style="display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); gap: 16px; flex: 1;">
+    <div class="feature-card">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--rs)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6"/><path d="M23 11h-6"/></svg>
+        <div class="r12">A Named 3-Person Service Pod</div>
+      </div>
+      <div class="r10">Lead advisor, account manager, processor &mdash; you know their names and cell numbers. No 1-800 line. No ticket queue. No "let me transfer you." When someone calls in, they hit a person who already knows your group.</div>
+    </div>
+    <div class="feature-card">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--rs)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        <div class="r12">Direct Carrier Relationships</div>
+      </div>
+      <div class="r10">We talk to underwriters, account execs, and claims teams directly &mdash; not call centers. When something needs to move, we know who to call and they pick up. Your renewal isn't sitting in a queue with 400 other accounts.</div>
+    </div>
+    <div class="feature-card">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--rs)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        <div class="r12">Quarterly Claims Reviews</div>
+      </div>
+      <div class="r10">Every three months we sit down with your claims data and tell you what's coming. Trends, large claimants, utilization patterns &mdash; the stuff that drives next year's renewal. No surprises 60 days out.</div>
+    </div>
+    <div class="feature-card">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--rs)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+        <div class="r12">Compliance Auditing &mdash; Included</div>
+      </div>
+      <div class="r10">5500s, ACA reporting, Section 125 plan documents, Wrap SPDs, COBRA notices, DOL audit prep. Most brokers charge extra. We don't &mdash; it's table stakes. If a DOL letter shows up, you forward it to us.</div>
+    </div>
+  </div>
+  <div class="bottom-accent"></div>
+</div>
+
+<!-- SLIDE 4 — Section divider — What we do for BX members specifically -->
+<div class="slide" style="padding: 44px 64px; background: linear-gradient(160deg, var(--nw) 0%, var(--ps) 30%, #c5d2ca 55%, #95a89c 75%, #5a7a6c 95%, var(--df) 100%); display: flex; flex-direction: column; justify-content: center;">
+  <div style="max-width: 720px;">
+    <div style="width: 48px; height: 2px; background: var(--rs); margin-bottom: 24px;"></div>
+    <div style="font-family: var(--display); font-size: 38px; color: var(--df); line-height: 1.2; margin-bottom: 12px; text-shadow: 0 2px 16px rgba(255,255,255,0.4);">What we do for BX members</div>
+    <div style="font-family: var(--display); font-size: 38px; color: #FFFFFF; line-height: 1.2; text-shadow: 0 2px 16px rgba(0,0,0,0.35);">specifically</div>
+    <div style="font-size: 14px; color: var(--white-80); line-height: 1.7; margin-top: 24px; max-width: 560px; text-shadow: 0 1px 4px rgba(0,0,0,0.35);">A standard broker pitch is one-size-fits-all. This isn't that. The next slide is what's actually different about working with us if you're a contractor, a trade shop, or a manufacturer in the BX network.</div>
+  </div>
+</div>
+
+<!-- SLIDE 5 — The BX-specific advantages -->
+<div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
+  <div class="top-accent"></div>
+  <div style="margin-bottom: 18px;"><div class="slide-header-tag">03 &mdash; Built for the Trades</div><div class="slide-title">Three things you only get here</div></div>
+  <div style="font-size: 13px; color: var(--sg); margin-bottom: 26px; max-width: 760px;">These aren't generic capabilities. These are what we built specifically because the BX membership told us they needed it.</div>
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; flex: 1;">
+    <div style="padding: 22px; background: var(--ps); border-radius: 8px; border: 1px solid rgba(31,61,46,0.1); display: flex; flex-direction: column;">
+      <div style="width: 44px; height: 44px; border-radius: 8px; background: var(--rs); display: flex; align-items: center; justify-content: center; margin-bottom: 14px;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><path d="M9 9h.01"/><path d="M9 13h.01"/><path d="M9 17h.01"/></svg>
+      </div>
+      <div class="r12" style="margin-bottom: 8px;">Trade-Specific Plan Design</div>
+      <div class="r10">Health plans built for construction and manufacturing workforces &mdash; the kind where the front office and the field crew need different things. We design plans that work for both, not one watered-down option that fits nobody.</div>
+    </div>
+    <div style="padding: 22px; background: var(--ps); border-radius: 8px; border: 1px solid rgba(31,61,46,0.1); display: flex; flex-direction: column;">
+      <div style="width: 44px; height: 44px; border-radius: 8px; background: var(--rs); display: flex; align-items: center; justify-content: center; margin-bottom: 14px;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><line x1="9" y1="10" x2="15" y2="10"/></svg>
+      </div>
+      <div class="r12" style="margin-bottom: 8px;">Bilingual Enrollment Support</div>
+      <div class="r10">When a chunk of your crew speaks Spanish, your enrollment meeting better not be in English-only. We bring Spanish-speaking enrollers on-site for groups that need it &mdash; no upcharge, no extra forms, no awkward translation by a foreman who didn't sign up for it.</div>
+    </div>
+    <div style="padding: 22px; background: var(--ps); border-radius: 8px; border: 1px solid rgba(31,61,46,0.1); display: flex; flex-direction: column;">
+      <div style="width: 44px; height: 44px; border-radius: 8px; background: var(--rs); display: flex; align-items: center; justify-content: center; margin-bottom: 14px;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      </div>
+      <div class="r12" style="margin-bottom: 8px;">Negotiated Level-Funded Rates</div>
+      <div class="r10">Through our Sana and TrustMark relationships, we have level-funded program access tuned for stable trade employers &mdash; the groups with low turnover and predictable claims. If you've never been quoted on level-funded, you're probably overpaying for fully insured.</div>
+    </div>
+  </div>
+  <div class="bottom-accent"></div>
+</div>
+
+<!-- EDITABLE: Pilot client testimonials — drop in real names + quotes when ready -->
+<!-- SLIDE 6 — Proof — Pilot client testimonial cards -->
+<div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
+  <div class="top-accent"></div>
+  <div style="margin-bottom: 22px;"><div class="slide-header-tag">04 &mdash; Proof</div><div class="slide-title">What your fellow BX members say</div></div>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 22px; flex: 1;">
+    <div style="padding: 26px; background: var(--ps); border-radius: 10px; border: 1px solid rgba(31,61,46,0.1); display: flex; flex-direction: column; position: relative;">
+      <div style="font-family: var(--display); font-size: 60px; color: var(--rs); line-height: 0.5; margin-bottom: 18px; opacity: 0.45;">&ldquo;</div>
+      <div style="font-size: 14px; color: var(--ch); line-height: 1.7; flex: 1; font-style: italic;">[Pilot Client 1 quote &mdash; e.g., "We brought Nexus in mid-renewal and they restructured everything in 6 weeks. Our trend went from +14% to -12% year-over-year and we kept 100% of our crew on the plan."]</div>
+      <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(31,61,46,0.15);">
+        <div style="font-family: var(--display); font-size: 16px; color: var(--df); margin-bottom: 4px;">[Pilot Client 1 Name]</div>
+        <div style="font-size: 11px; color: var(--rs); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; margin-bottom: 12px;">[HR Director / CFO Title]</div>
+        <div style="display: flex; gap: 14px;">
+          <div style="flex: 1; padding: 8px 10px; background: #fff; border-radius: 6px; text-align: center; border: 1px solid var(--ps);">
+            <div style="font-family: var(--display); font-size: 22px; color: var(--df); line-height: 1;">-12%</div>
+            <div style="font-size: 9px; color: var(--sg); letter-spacing: 1px; text-transform: uppercase; margin-top: 4px;">YoY Premium Trend</div>
+          </div>
+          <div style="flex: 1; padding: 8px 10px; background: #fff; border-radius: 6px; text-align: center; border: 1px solid var(--ps);">
+            <div style="font-family: var(--display); font-size: 22px; color: var(--df); line-height: 1;">100%</div>
+            <div style="font-size: 9px; color: var(--sg); letter-spacing: 1px; text-transform: uppercase; margin-top: 4px;">EE Participation</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="padding: 26px; background: var(--ps); border-radius: 10px; border: 1px solid rgba(31,61,46,0.1); display: flex; flex-direction: column; position: relative;">
+      <div style="font-family: var(--display); font-size: 60px; color: var(--rs); line-height: 0.5; margin-bottom: 18px; opacity: 0.45;">&ldquo;</div>
+      <div style="font-size: 14px; color: var(--ch); line-height: 1.7; flex: 1; font-style: italic;">[Pilot Client 2 quote &mdash; e.g., "Our last broker called us once a year. Nexus does quarterly claims reviews. We caught two large claimant trends early and adjusted before renewal &mdash; that alone paid for the broker fee three times over."]</div>
+      <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(31,61,46,0.15);">
+        <div style="font-family: var(--display); font-size: 16px; color: var(--df); margin-bottom: 4px;">[Pilot Client 2 Name]</div>
+        <div style="font-size: 11px; color: var(--rs); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; margin-bottom: 12px;">[HR Director / CFO Title]</div>
+        <div style="display: flex; gap: 14px;">
+          <div style="flex: 1; padding: 8px 10px; background: #fff; border-radius: 6px; text-align: center; border: 1px solid var(--ps);">
+            <div style="font-family: var(--display); font-size: 22px; color: var(--df); line-height: 1;">4 yrs</div>
+            <div style="font-size: 9px; color: var(--sg); letter-spacing: 1px; text-transform: uppercase; margin-top: 4px;">Client Tenure</div>
+          </div>
+          <div style="flex: 1; padding: 8px 10px; background: #fff; border-radius: 6px; text-align: center; border: 1px solid var(--ps);">
+            <div style="font-family: var(--display); font-size: 22px; color: var(--df); line-height: 1;">$0</div>
+            <div style="font-size: 9px; color: var(--sg); letter-spacing: 1px; text-transform: uppercase; margin-top: 4px;">Compliance Fees</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-accent"></div>
+</div>
+
+<!-- SLIDE 7 — Section divider — First 90 days -->
+<div class="slide" style="padding: 44px 64px; background: linear-gradient(160deg, var(--nw) 0%, var(--ps) 30%, #c5d2ca 55%, #95a89c 75%, #5a7a6c 95%, var(--df) 100%); display: flex; flex-direction: column; justify-content: center;">
+  <div style="max-width: 720px;">
+    <div style="width: 48px; height: 2px; background: var(--rs); margin-bottom: 24px;"></div>
+    <div style="font-family: var(--display); font-size: 38px; color: var(--df); line-height: 1.2; margin-bottom: 12px; text-shadow: 0 2px 16px rgba(255,255,255,0.4);">What you'd see from us</div>
+    <div style="font-family: var(--display); font-size: 38px; color: #FFFFFF; line-height: 1.2; text-shadow: 0 2px 16px rgba(0,0,0,0.35);">in the first 90 days</div>
+    <div style="font-size: 14px; color: var(--white-80); line-height: 1.7; margin-top: 24px; max-width: 560px; text-shadow: 0 1px 4px rgba(0,0,0,0.35);">No mystery, no scope creep. Four clean stages. If we're not delivering value by stage three, you walk &mdash; no contracts, no exit fees.</div>
+  </div>
+</div>
+
+<!-- SLIDE 8 — 4-stage timeline -->
+<div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
+  <div class="top-accent"></div>
+  <div style="margin-bottom: 16px;"><div class="slide-header-tag">05 &mdash; The First 90 Days</div><div class="slide-title">From discovery to live coverage</div></div>
+  <div style="font-size: 14px; color: var(--ch); line-height: 1.8; max-width: 720px; margin-bottom: 44px;">Here's exactly what happens between the day you say "let's talk" and the day your team is enrolled on the new plan. No surprises.</div>
+  <div style="display: flex; gap: 0; position: relative;">
+    <div style="position: absolute; top: 22px; left: 60px; right: 60px; height: 2px; background: var(--ps);"></div>
+    <div class="r15"><div style="width: 44px; height: 44px; border-radius: 50%; background: var(--rs); margin: 0 auto 14px; display: flex; align-items: center; justify-content: center;"><span style="color: #fff; font-size: 16px; font-weight: 700;">1</span></div><div style="font-family: var(--display); font-size: 16px; color: var(--df); margin-bottom: 6px;">Days 1&ndash;14</div><div style="font-size: 12px; color: var(--sg); line-height: 1.5; padding: 0 8px;">Discovery call with HR &amp; CFO. We listen. You talk.</div></div>
+    <div class="r15"><div style="width: 44px; height: 44px; border-radius: 50%; background: var(--fl); margin: 0 auto 14px; display: flex; align-items: center; justify-content: center;"><span style="color: #fff; font-size: 16px; font-weight: 700;">2</span></div><div style="font-family: var(--display); font-size: 16px; color: var(--df); margin-bottom: 6px;">Days 15&ndash;45</div><div style="font-size: 12px; color: var(--sg); line-height: 1.5; padding: 0 8px;">Benchmarking, RFP to 4&ndash;6 carriers, quote analysis</div></div>
+    <div class="r15"><div style="width: 44px; height: 44px; border-radius: 50%; background: var(--fl); margin: 0 auto 14px; display: flex; align-items: center; justify-content: center;"><span style="color: #fff; font-size: 16px; font-weight: 700;">3</span></div><div style="font-family: var(--display); font-size: 16px; color: var(--df); margin-bottom: 6px;">Days 46&ndash;60</div><div style="font-size: 12px; color: var(--sg); line-height: 1.5; padding: 0 8px;">Proposal meeting &mdash; recommendations &amp; trade-offs</div></div>
+    <div class="r15"><div style="width: 44px; height: 44px; border-radius: 50%; background: var(--df); margin: 0 auto 14px; display: flex; align-items: center; justify-content: center;"><span style="color: #fff; font-size: 16px; font-weight: 700;">4</span></div><div style="font-family: var(--display); font-size: 16px; color: var(--df); margin-bottom: 6px;">Days 61&ndash;90</div><div style="font-size: 12px; color: var(--sg); line-height: 1.5; padding: 0 8px;">Implementation, enrollment, live coverage</div></div>
+  </div>
+  <div style="margin-top: 50px; padding: 16px 22px; border-left: 3px solid var(--rs); background: rgba(184,82,42,0.04); border-radius: 0 6px 6px 0;">
+    <div style="font-size: 13px; color: var(--ch); line-height: 1.6;"><strong style="color: var(--df);">No long-term lock-in.</strong> Broker of Record letters are revocable any time, no penalty. If we're not earning the relationship, we don't keep it.</div>
+  </div>
+  <div class="bottom-accent"></div>
+</div>
+
+<!-- SLIDE 9 — What we're NOT — honest disqualifiers -->
+<div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
+  <div class="top-accent"></div>
+  <div style="margin-bottom: 18px;"><div class="slide-header-tag">06 &mdash; Honest Disclosure</div><div class="slide-title">What we're not</div></div>
+  <div style="font-size: 14px; color: var(--ch); line-height: 1.7; max-width: 760px; margin-bottom: 28px;">We'd rather tell you up front who we're not built for than waste a meeting. If any of these are deal-breakers for you, we should both know now.</div>
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; flex: 1;">
+    <div style="padding: 22px; background: rgba(184,82,42,0.04); border-radius: 8px; border: 1px solid var(--ps); border-left: 3px solid var(--rs); display: flex; flex-direction: column;">
+      <div style="font-family: var(--display); font-size: 17px; color: var(--df); margin-bottom: 10px;">We're not national</div>
+      <div class="r10">We're a West Michigan firm. We work in your zip code, we drive to your office, we know your local carriers and TPAs personally. If you have offices in 12 states and need a national broker network, we're the wrong firm. Be honest about that.</div>
+    </div>
+    <div style="padding: 22px; background: rgba(184,82,42,0.04); border-radius: 8px; border: 1px solid var(--ps); border-left: 3px solid var(--rs); display: flex; flex-direction: column;">
+      <div style="font-family: var(--display); font-size: 17px; color: var(--df); margin-bottom: 10px;">We're not for 500+ lives</div>
+      <div class="r10">Our sweet spot is 25&ndash;250 lives. Once you cross 500, you need a different funding strategy, a different compliance model, and frankly a different broker. We'll tell you when you've outgrown us &mdash; and we'll help with the handoff.</div>
+    </div>
+    <div style="padding: 22px; background: rgba(184,82,42,0.04); border-radius: 8px; border: 1px solid var(--ps); border-left: 3px solid var(--rs); display: flex; flex-direction: column;">
+      <div style="font-family: var(--display); font-size: 17px; color: var(--df); margin-bottom: 10px;">We're not your HR outsource</div>
+      <div class="r10">We're a benefits broker. We can hand you a great PEO, payroll, or HRIS partner &mdash; but we're not trying to be one. We do benefits, compliance, and claims strategy. We do those things very well. We don't try to do everything.</div>
+    </div>
+  </div>
+  <div class="bottom-accent"></div>
+</div>
+
+<!-- SLIDE 10 — Checklist — what to bring to the first meeting -->
+<div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
+  <div class="top-accent"></div>
+  <div style="margin-bottom: 18px;"><div class="slide-header-tag">07 &mdash; The Discovery Meeting</div><div class="slide-title">Bring four things</div></div>
+  <div style="font-size: 14px; color: var(--ch); line-height: 1.7; max-width: 760px; margin-bottom: 26px;">If you say yes to a 30-minute discovery call, here's what to have on hand. None of it is hard to find. We've made the meeting useful for you whether or not we end up working together.</div>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px; flex: 1;">
+    <div style="padding: 20px 24px; background: var(--ps); border-radius: 8px; border-left: 3px solid var(--df); display: flex; gap: 16px; align-items: center;">
+      <div style="width: 40px; height: 40px; border-radius: 8px; background: var(--df); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+        <span style="font-family: var(--display); font-size: 20px; color: #fff;">1</span>
+      </div>
+      <div>
+        <div style="font-family: var(--display); font-size: 17px; color: var(--df); margin-bottom: 4px;">Your Last Carrier Invoice</div>
+        <div class="r10" style="font-size: 11px;">Most recent monthly billing statement from your medical carrier. Tells us tier counts, current rates, and admin fees.</div>
+      </div>
+    </div>
+    <div style="padding: 20px 24px; background: var(--ps); border-radius: 8px; border-left: 3px solid var(--df); display: flex; gap: 16px; align-items: center;">
+      <div style="width: 40px; height: 40px; border-radius: 8px; background: var(--df); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+        <span style="font-family: var(--display); font-size: 20px; color: #fff;">2</span>
+      </div>
+      <div>
+        <div style="font-family: var(--display); font-size: 17px; color: var(--df); margin-bottom: 4px;">Current Census</div>
+        <div class="r10" style="font-size: 11px;">Headcount with DOB, zip, gender, coverage tier. A simple Excel export from payroll works fine.</div>
+      </div>
+    </div>
+    <div style="padding: 20px 24px; background: var(--ps); border-radius: 8px; border-left: 3px solid var(--df); display: flex; gap: 16px; align-items: center;">
+      <div style="width: 40px; height: 40px; border-radius: 8px; background: var(--df); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+        <span style="font-family: var(--display); font-size: 20px; color: #fff;">3</span>
+      </div>
+      <div>
+        <div style="font-family: var(--display); font-size: 17px; color: var(--df); margin-bottom: 4px;">Claims Report (if you have it)</div>
+        <div class="r10" style="font-size: 11px;">Last 12&ndash;24 months of claims data from the carrier. If your group is over 50, ask for it &mdash; you're entitled. Skip if fully insured under 50.</div>
+      </div>
+    </div>
+    <div style="padding: 20px 24px; background: rgba(184,82,42,0.06); border-radius: 8px; border-left: 3px solid var(--rs); display: flex; gap: 16px; align-items: center;">
+      <div style="width: 40px; height: 40px; border-radius: 8px; background: var(--rs); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+        <span style="font-family: var(--display); font-size: 20px; color: #fff;">4</span>
+      </div>
+      <div>
+        <div style="font-family: var(--display); font-size: 17px; color: var(--df); margin-bottom: 4px;">Your Top 3 Gripes</div>
+        <div class="r10" style="font-size: 11px;">What's driving you crazy about your current setup? Cost, service, communication, claims, comp&shy;li&shy;ance? Tell us straight. We work backward from there.</div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-accent"></div>
+</div>
+
+<!-- EDITABLE: Contact info -->
+<!-- SLIDE 11 — Closing -->
+<div class="slide" style="padding: 44px 64px; display: flex; flex-direction: column; justify-content: center; background: var(--df); background-image: radial-gradient(ellipse at bottom right, rgba(184,82,42,0.2) 0%, transparent 40%);">
+  <div style="max-width: 720px;">
+    <div style="font-family: var(--display); font-size: 36px; color: #FFFFFF; line-height: 1.25; margin-bottom: 16px;">Next step:<br>30 minutes, on us</div>
+    <div style="font-size: 15px; color: var(--white-65); line-height: 1.7; margin-bottom: 28px;">Discovery call. No deck, no sales pitch, no pressure. You walk us through what's working and what isn't. We tell you straight up whether we can help. Worst case, you leave with a second opinion that costs you nothing.</div>
+    <div style="display: flex; gap: 28px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="https://jbearup1981.github.io/presentation-templates/assets/ken-fortier.jpg" alt="Ken Fortier" style="width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--white-15);" onerror="this.style.background='var(--fl)'; this.removeAttribute('src');">
+        <div>
+          <div style="font-size: 13px; color: var(--white-50); font-weight: 600;">Ken Fortier</div>
+          <div style="font-size: 10px; color: rgba(255,255,255,0.35);">Lead Advisor &mdash; Your Primary Contact</div>
+          <div style="font-size: 10px; color: rgba(255,255,255,0.3);">(616) 555-0002</div>
+          <div style="font-size: 10px; color: rgba(255,255,255,0.3);">ken@nexusbenefitsolutions.com</div>
+        </div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="https://jbearup1981.github.io/presentation-templates/assets/jason-bearup.jpg" alt="Jason Bearup" style="width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--white-15);" onerror="this.style.background='var(--fl)'; this.removeAttribute('src');">
+        <div>
+          <div style="font-size: 13px; color: var(--white-50); font-weight: 600;">Jason Bearup</div>
+          <div style="font-size: 10px; color: rgba(255,255,255,0.35);">Principal &mdash; Backup &amp; Strategy</div>
+          <div style="font-size: 10px; color: rgba(255,255,255,0.3);">(616) 555-0001</div>
+          <div style="font-size: 10px; color: rgba(255,255,255,0.3);">jason@nexusbenefitsolutions.com</div>
+        </div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <div style="width: 42px; height: 42px; border-radius: 50%; background: var(--fl); border: 1.5px solid var(--white-15); display: flex; align-items: center; justify-content: center;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+        </div>
+        <div>
+          <div style="font-size: 13px; color: var(--white-50); font-weight: 600;">Service Lead</div>
+          <div style="font-size: 10px; color: rgba(255,255,255,0.35);">Assigned at onboarding</div>
+          <div style="font-size: 10px; color: rgba(255,255,255,0.3);">From the Nexus team</div>
+          <div style="font-size: 10px; color: rgba(255,255,255,0.3);">based on group size &amp; needs</div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top: 32px; padding: 14px 22px; background: var(--rs); border-radius: 8px; display: inline-flex; align-items: center; gap: 12px; box-shadow: 0 4px 14px rgba(184,82,42,0.35);">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      <div style="font-size: 14px; color: #fff; font-weight: 600; letter-spacing: 0.3px;">Schedule the discovery call &mdash; 30 minutes, no pitch deck</div>
+    </div>
+  </div>
+  <div style="position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); text-align: center;">
+    <div style="display: flex; align-items: center; justify-content: center; gap: 4px; margin-bottom: 3px;">
+      <svg width="28" height="20" style="opacity: 0.2;" version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 867" preserveAspectRatio="xMidYMid meet">
+<g transform="translate(0,867) scale(0.1,-0.1)" fill="#FAFAF8" stroke="none">
+<path d="M5760 8014 c-1080 -77 -2054 -604 -2704 -1464 -381 -503 -621 -1090 -712 -1740 -22 -157 -30 -628 -14 -802 81 -893 474 -1710 1119 -2330 582 -559 1305 -901 2126 -1005 196 -24 654 -24 850 0 821 104 1544 446 2126 1005 645 620 1038 1437 1119 2330 16 174 8 645 -14 802 -119 849 -492 1588 -1097 2174 -580 562 -1320 914 -2129 1011 -129 16 -550 27 -670 19z m455 -174 c493 -33 913 -146 1355 -366 352 -175 636 -380 916 -660 591 -593 948 -1366 1015 -2198 14 -184 7 -543 -15 -716 -137 -1056 -723 -1974 -1623 -2543 -145 -92 -447 -241 -617 -306 -800 -303 -1692 -303 -2492 0 -170 65 -472 214 -617 306 -819 518 -1389 1340 -1577 2273 -44 220 -61 373 -67 616 -6 253 6 447 43 669 167 991 744 1856 1601 2398 144 91 446 241 613 304 472 179 974 255 1465 223z"/>
+</g>
+</svg>
+      <div style="font-size: 16.5px; color: rgba(255,255,255,0.2); line-height: 1;">Nexus Benefit Solutions</div>
+    </div>
+    <div style="font-size: 11px; color: rgba(184,82,42,0.35); letter-spacing: 1px;">nexusbenefitsolutions.com</div>
+  </div>
+</div>
+
+</div>
+
+<!-- FIXED: Navigation and scaling JavaScript — do not modify -->
+<script>
+let current = 0;
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+const counter = document.getElementById('counter');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+function show(n) {
+  slides[current].classList.remove('active');
+  current = Math.max(0, Math.min(n, total - 1));
+  slides[current].classList.add('active');
+  counter.textContent = (current + 1) + ' / ' + total;
+  prevBtn.disabled = current === 0;
+  nextBtn.disabled = current === total - 1;
+}
+function nav(d) { show(current + d); }
+function rescale() {
+  const sw = window.innerWidth / 960;
+  const sh = window.innerHeight / 540;
+  const s = Math.min(sw, sh, 2) * 0.88;
+  document.documentElement.style.setProperty('--scale', s);
+}
+function toggleFullscreen() {
+  if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+  else document.exitFullscreen();
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); nav(1); }
+  if (e.key === 'ArrowLeft' || e.key === 'Backspace' || e.key === 'PageUp') { e.preventDefault(); nav(-1); }
+  if (e.key === 'Home') { e.preventDefault(); show(0); }
+  if (e.key === 'End') { e.preventDefault(); show(total - 1); }
+  if (e.key === 'f' || e.key === 'F') toggleFullscreen();
+});
+let touchX = 0;
+document.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; });
+document.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - touchX;
+  if (Math.abs(dx) > 50) nav(dx < 0 ? 1 : -1);
+});
+window.addEventListener('resize', rescale);
+rescale();
+if (new URLSearchParams(window.location.search).get('mode') === 'responsive') {
+  document.body.classList.add('responsive-mode');
+}
+show(0);
+
+// Inject consistent footers
+slides.forEach(function(s, i) {
+  if (i === 0 || i === total - 1) return;
+  var f = document.createElement('div');
+  f.className = 'slide-footer';
+  var a = s.getAttribute('style') || '';
+  if (a.indexOf('az-dk') > -1 || a.indexOf('--df') > -1) f.classList.add('dark');
+  f.textContent = 'Nexus Benefit Solutions \u00B7 in partnership with Builders Exchange';
+  s.appendChild(f);
+});
+</script>
+</body>
+</html>
