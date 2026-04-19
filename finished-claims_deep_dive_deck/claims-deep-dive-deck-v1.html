@@ -1,0 +1,1026 @@
+<!-- DECK BUILD LOG
+Client: [Company Name]
+Advisor: [Advisor Name]
+Date: [Date]
+Recipe: Claims Deep-Dive (Mid-Market Self-Funded / Level-Funded)
+Slides: 14
+Source: Authored from claims-analysis + stop-loss-renewal + network-analysis components, mid-market-renewal-deck-v1 chrome
+Use Case: Annual claims review OR 90-day pre-renewal data-and-strategy session for 50-500 life self-funded / level-funded clients
+Distinct From: Quarterly Review (QBR is broad service); this is focused data + negotiation posture
+
+CUSTOMIZATION DECISIONS:
+- Forest cover + closing, Azure-dominant data section (4 through 13)
+- All numbers are illustrative placeholders sized for a ~250-life self-funded client; advisor swaps with client actuals before presenting
+- Anonymized claimants labeled A / B / C — real PHI never enters the deck
+
+PENDING / PLACEHOLDERS:
+- [Company Name] — needs client name
+- [Plan Year] — e.g., "2025-26" or "Jan-Dec 2025"
+- [Date] — meeting date
+- [Advisor Name] — Jason / Ken / Cam / Tom / Mike / Courtney
+- All $ amounts, percentages, claimant data, monthly run-rate bars
+
+NEW ASSETS:
+- None — uses shared GitHub Pages assets
+
+CUSTOM SLIDES:
+- Slide 4: Top-line stats (4 stat cards) — variant of stop-loss header pattern
+- Slide 5: Monthly run-rate (12-bar CSS chart) — extension of claims-analysis bar chart
+- Slide 7: Cost breakdown (CSS donut + verdict line) — new
+- Slide 8: Top utilization (bench-table) — adapted from claims-analysis trending table
+- Slide 10: Anonymized claimants table — adapted from claims-analysis large claimants block
+- Slide 11: Stop-loss posture (pay-table) — adapted from stop-loss-renewal
+- Slide 13: 4 negotiation levers (feature-card grid) — Azure → Forest gradient bridge
+
+COMPONENT MODS:
+- None — net-new deck composed from existing component vocabulary
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[Company Name] — Claims Deep-Dive — Nexus Benefit Solutions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+
+/* Nexus Benefit Solutions — Presentation Design System */
+
+:root {
+  --nw: #FAFAF8;
+  --df: #1F3D2E;
+  --rs: #B8522A;
+  --sg: #7A9282;
+  --ps: #E8EBE4;
+  --fl: #2A5240;
+  --rl: #D4693F;
+  --ch: #2D2D2D;
+  --az-dk: #1A3F6B;
+  --az-md: #2B6CB0;
+  --az-bg: #EDF3FA;
+  --az-teal: #49B7C4;
+  --display: 'DM Serif Display', Georgia, serif;
+  --body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --white-06: rgba(255,255,255,0.06);
+  --white-08: rgba(255,255,255,0.08);
+  --white-10: rgba(255,255,255,0.1);
+  --white-15: rgba(255,255,255,0.15);
+  --white-25: rgba(255,255,255,0.25);
+  --white-45: rgba(255,255,255,0.45);
+  --white-50: rgba(255,255,255,0.5);
+  --white-60: rgba(255,255,255,0.6);
+  --white-65: rgba(255,255,255,0.65);
+  --white-75: rgba(255,255,255,0.75);
+  --white-80: rgba(255,255,255,0.8);
+  --white-85: rgba(255,255,255,0.85);
+  --white-90: rgba(255,255,255,0.9);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; overflow: hidden; background: #1a1a1a; }
+body { font-family: var(--body); color: var(--ch); -webkit-font-smoothing: antialiased; }
+
+.deck { width: 100%; height: 100%; position: relative; }
+.slide {
+  width: 960px; height: 540px;
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(var(--scale, 1));
+  transform-origin: center center;
+  overflow: hidden; opacity: 0; pointer-events: none;
+  transition: opacity 0.7s cubic-bezier(0.25, 0.1, 0.25, 1), transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+.slide.active { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%) scale(var(--scale, 1)); }
+
+/* Controls */
+.controls {
+  position: fixed; bottom: 24px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; align-items: center; gap: 16px; z-index: 100;
+  background: rgba(0,0,0,0.6); backdrop-filter: blur(8px);
+  padding: 8px 20px; border-radius: 40px;
+}
+.controls button {
+  background: none; border: none; color: rgba(255,255,255,0.7);
+  cursor: pointer; font-size: 18px; padding: 4px 8px;
+  transition: color 0.2s; font-family: var(--body);
+}
+.controls button:hover { color: #fff; }
+.controls button:disabled { color: rgba(255,255,255,0.2); cursor: default; }
+.slide-counter {
+  font-size: 12px; color: var(--white-50);
+  font-family: monospace; letter-spacing: 1px;
+  min-width: 60px; text-align: center;
+}
+.fullscreen-btn {
+  position: fixed; top: 16px; right: 16px; z-index: 100;
+  background: rgba(0,0,0,0.5); border: none; color: var(--white-60);
+  cursor: pointer; padding: 8px 12px; border-radius: 6px;
+  font-size: 11px; font-family: var(--body); letter-spacing: 1px;
+  text-transform: uppercase; transition: all 0.2s; backdrop-filter: blur(8px);
+}
+.fullscreen-btn:hover { background: rgba(0,0,0,0.7); color: #fff; }
+
+/* Slide typography */
+.slide-header-tag {
+  font-family: var(--body); font-size: 11px; color: var(--sg);
+  letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px;
+}
+.slide-title { font-family: var(--display); font-size: 30px; color: var(--df); line-height: 1.2; }
+.slide-footer {
+  position: absolute; bottom: 8px; left: 64px;
+  font-size: 8px; color: var(--sg); letter-spacing: 0.5px;
+  font-family: var(--body); opacity: 0.5;
+}
+.slide-footer.dark { color: var(--white-25); }
+
+/* Plan / pay / bench tables */
+.plan-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.plan-table th { background: var(--df); color: #fff; padding: 8px 12px; text-align: left; font-weight: 600; font-size: 10px; letter-spacing: 0.5px; }
+.plan-table td { padding: 9px 12px; border-bottom: 1px solid var(--ps); color: var(--ch); }
+.plan-table td:not(:first-child) { text-align: left; font-weight: 500; }
+.plan-table tr:last-child td { background: rgba(184,82,42,0.06); font-weight: 700; color: var(--rs); border-bottom: none; }
+
+.pay-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.pay-table th { background: var(--az-dk); color: #fff; padding: 8px 10px; text-align: right; font-weight: 600; font-size: 11px; }
+.pay-table th:first-child { text-align: left; }
+.pay-table td { padding: 6px 10px; border-bottom: 1px solid rgba(26,63,107,0.08); text-align: right; color: var(--ch); }
+.pay-table td:first-child { text-align: left; color: var(--az-dk); font-size: 11px; font-weight: 500; }
+.pay-table .highlight-row td { background: rgba(26,63,107,0.08); font-weight: 700; color: var(--az-dk); }
+.pay-table .section-header td { background: var(--az-bg); font-weight: 600; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--az-md); padding: 5px 10px; border-bottom: none; }
+
+.bench-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+.bench-table th { background: var(--df); color: #fff; padding: 7px 12px; text-align: left; font-weight: 600; font-size: 10px; letter-spacing: 0.5px; }
+.bench-table th:nth-child(2), .bench-table th:nth-child(3) { text-align: center; }
+.bench-table td { padding: 7px 12px; border-bottom: 1px solid var(--ps); color: var(--ch); font-size: 11px; }
+.bench-table td:nth-child(2) { text-align: center; font-weight: 500; }
+.bench-table td:nth-child(3) { text-align: center; }
+.bench-table .gap-neg { color: var(--rs); font-weight: 600; }
+.bench-table .gap-ok { color: var(--df); font-weight: 600; }
+
+/* Utility shorthand classes */
+.r9 { font-size: 9px; color: var(--white-45); }
+.r11 { font-weight: 600; color: var(--df); padding: 7px 8px; }
+.r13 { font-size: 11px; color: #3d4f44; line-height: 1.4; }
+.r16 { color: var(--az-teal); font-size: 12px; margin-top: 1px; }
+
+/* Component utility classes */
+.check-item { display: flex; gap: 7px; align-items: flex-start; margin-bottom: 6px; }
+.check-text { font-size: 11px; color: var(--white-80); line-height: 1.5; }
+.section-tag-blue { font-size: 11px; color: var(--az-teal); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+.section-title-white { font-family: var(--display); font-size: 26px; color: white; }
+.section-title-white-sm { font-family: var(--display); font-size: 26px; color: #fff; line-height: 1.3; }
+.feature-card { padding: 14px 16px; background: rgba(255,255,255,0.55); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-radius: 8px; border-left: 3px solid var(--az-teal); box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+.feature-title { font-size: 14px; color: #0d2a4a; font-weight: 700; margin-bottom: 5px; line-height: 1.2; }
+.feature-desc { font-size: 12px; color: #2a4a6a; line-height: 1.5; }
+
+/* Print support */
+@media print {
+  html, body { overflow: visible; background: white; height: auto; }
+  .controls, .fullscreen-btn { display: none !important; }
+  .slide {
+    position: relative; transform: none !important;
+    opacity: 1; pointer-events: auto;
+    page-break-after: always; page-break-inside: avoid;
+    margin: 0 auto; top: auto; left: auto;
+    box-shadow: none;
+  }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .slide-footer { position: relative; bottom: auto; left: auto; margin-top: 8px; }
+}
+
+/* Responsive scrollable mode */
+body.responsive-mode { overflow: auto; background: #f5f5f5; }
+body.responsive-mode .controls,
+body.responsive-mode .fullscreen-btn { display: none; }
+body.responsive-mode .slide {
+  position: relative; opacity: 1; pointer-events: auto;
+  top: auto; left: auto; transform: none !important;
+  width: 100%; max-width: 960px; height: auto; min-height: 540px;
+  margin: 24px auto; border-radius: 8px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+}
+body.responsive-mode .slide-footer {
+  position: relative; bottom: auto; left: auto;
+  padding: 12px 64px; margin-top: 8px;
+}
+
+</style>
+</head>
+<body>
+<button class="fullscreen-btn" id="fullscreenBtn">&#x26F6; Fullscreen</button>
+<div class="controls">
+  <button id="prevBtn">&#9664;</button>
+  <span class="slide-counter" id="counter">1 / 14</span>
+  <button id="nextBtn">&#9654;</button>
+</div>
+<div class="deck">
+
+<!-- ============================================================ -->
+<!-- SLIDE 1 — Cover (Forest) -->
+<!-- COMPONENT: nexus-title (Claims Deep-Dive variant) -->
+<!-- EDITABLE: [Company Name], [Plan Year], [Date] -->
+<!-- ============================================================ -->
+<div class="slide active" style="padding: 0; position: relative; overflow: hidden;">
+  <!-- Right: data-pattern panel -->
+  <div style="position: absolute; top: 0; right: 0; bottom: 0; width: 58%; background: linear-gradient(160deg, #3a5a4a 0%, #2a4a3a 50%, #1a3a2a 100%); overflow: hidden;">
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(160deg, rgba(31,61,46,0.35) 0%, rgba(26,63,107,0.25) 50%, rgba(15,45,77,0.4) 100%); z-index: 1;"></div>
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px); z-index: 2;"></div>
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at 30% 30%, var(--white-15) 0%, transparent 50%), radial-gradient(ellipse at 80% 80%, rgba(0,0,0,0.2) 0%, transparent 50%); z-index: 3;"></div>
+    <!-- Nexus logo watermark -->
+    <div style="position: absolute; bottom: 40px; right: 40px; z-index: 4;">
+      <img src="https://jbearup1981.github.io/presentation-templates/assets/nexus-logo-white.svg" alt="Nexus" style="height: 40px; opacity: 0.25;">
+    </div>
+    <!-- Template identifier -->
+    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; z-index: 4;">
+      <div style="font-family: var(--display); font-size: 48px; color: rgba(255,255,255,0.3); line-height: 1;">Claims</div>
+      <div style="font-family: var(--display); font-size: 48px; color: rgba(255,255,255,0.3); line-height: 1; margin-top: 4px;">Deep-Dive</div>
+      <div style="font-size: 14px; color: rgba(184,82,42,0.6); letter-spacing: 4px; text-transform: uppercase; margin-top: 12px; font-weight: 600;">Mid-Market</div>
+      <div style="font-size: 10px; color: rgba(255,255,255,0.25); letter-spacing: 2px; text-transform: uppercase; margin-top: 8px;">Self-Funded &middot; Level-Funded</div>
+    </div>
+  </div>
+  <!-- Rust diagonal stripe -->
+  <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; filter: drop-shadow(4px 0 8px rgba(0,0,0,0.4));"><div style="width: 100%; height: 100%; background: var(--rs); clip-path: polygon(57% 0, 59.2% 0, 43% 100%, 40.8% 100%);"></div></div>
+  <!-- Forest diagonal panel -->
+  <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 11; filter: drop-shadow(4px 0 6px rgba(0,0,0,0.35));"><div style="position: absolute; top: 0; left: 0; width: 58%; height: 100%; background: var(--df); background-image: radial-gradient(ellipse at top left, rgba(184,82,42,0.2) 0%, transparent 35%); clip-path: polygon(0 0, 100% 0, 72% 100%, 0 100%);"></div></div>
+  <!-- Left: title content -->
+  <div style="position: relative; width: 58%; height: 100%; padding: 44px 64px; display: flex; flex-direction: column; justify-content: center; z-index: 12;">
+    <div>
+      <div style="width: 48px; height: 2px; background: var(--rs); margin-bottom: 20px;"></div>
+      <div style="font-family: var(--display); font-size: 32px; color: #FFFFFF; line-height: 1.2; margin-bottom: 4px;">Claims Deep-Dive</div>
+      <div style="font-family: var(--display); font-size: 26px; color: #FFFFFF; line-height: 1.2; margin-bottom: 6px;">&amp; Renewal Posture</div>
+      <div style="font-family: var(--display); font-size: 22px; color: var(--rl); line-height: 1.3; margin-bottom: 14px;">for [Company Name]</div>
+      <div style="font-size: 13px; color: var(--white-45);">[Plan Year] &middot; Prepared [Date]</div>
+    </div>
+    <div style="position: absolute; bottom: 32px; left: 64px; display: flex; align-items: center; gap: 8px;">
+      <img src="https://jbearup1981.github.io/presentation-templates/assets/nexus-logo-white.svg" alt="Nexus" style="height: 30px; opacity: 0.45;">
+      <div><div style="font-size: 11px; color: rgba(255,255,255,0.55); line-height: 1.4;">Nexus Benefit Solutions</div><div style="font-size: 10px; color: rgba(255,255,255,0.4);">Grand Rapids, Michigan</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 2 — Agenda (Forest accents on newsprint) -->
+<!-- ============================================================ -->
+<div class="slide" style="padding: 44px 64px; background: var(--nw); display: flex; flex-direction: column;">
+  <div style="margin-bottom: 28px;">
+    <div class="slide-header-tag">00 &mdash; Agenda</div>
+    <div class="slide-title">Today's 45 Minutes</div>
+    <div style="font-size: 12px; color: var(--sg); margin-top: 6px;">A focused look at the data, the cost drivers, the exposure, and the plan to push back on renewal.</div>
+  </div>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px 40px;">
+    <div style="display: flex; gap: 14px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid var(--ps);"><div style="font-family: var(--display); font-size: 24px; color: var(--rs); min-width: 32px;">01</div><div><div style="font-size: 15px; color: var(--df); font-weight: 600;">The 12-Month View</div><div style="font-size: 12px; color: var(--sg); margin-top: 2px;">Total spend, loss ratio, surplus/deficit, per-employee cost</div></div></div>
+    <div style="display: flex; gap: 14px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid var(--ps);"><div style="font-family: var(--display); font-size: 24px; color: var(--rs); min-width: 32px;">02</div><div><div style="font-size: 15px; color: var(--df); font-weight: 600;">What Drove the Numbers</div><div style="font-size: 12px; color: var(--sg); margin-top: 2px;">Cost mix &middot; utilization patterns &middot; year-over-year shifts</div></div></div>
+    <div style="display: flex; gap: 14px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid var(--ps);"><div style="font-family: var(--display); font-size: 24px; color: var(--rs); min-width: 32px;">03</div><div><div style="font-size: 15px; color: var(--df); font-weight: 600;">High-Cost Claimants</div><div style="font-size: 12px; color: var(--sg); margin-top: 2px;">Anonymized profiles, prognosis, stop-loss recovery</div></div></div>
+    <div style="display: flex; gap: 14px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid var(--ps);"><div style="font-family: var(--display); font-size: 24px; color: var(--rs); min-width: 32px;">04</div><div><div style="font-size: 15px; color: var(--df); font-weight: 600;">Stop-Loss Posture</div><div style="font-size: 12px; color: var(--sg); margin-top: 2px;">Specific &amp; aggregate attachment, YTD utilization, exposure</div></div></div>
+    <div style="display: flex; gap: 14px; align-items: flex-start; padding: 10px 0;"><div style="font-family: var(--display); font-size: 24px; color: var(--rs); min-width: 32px;">05</div><div><div style="font-size: 15px; color: var(--df); font-weight: 600;">Renewal Negotiation Plan</div><div style="font-size: 12px; color: var(--sg); margin-top: 2px;">Four levers Nexus will push &middot; 30-day window</div></div></div>
+    <div style="display: flex; gap: 14px; align-items: flex-start; padding: 10px 0;"><div style="font-family: var(--display); font-size: 24px; color: var(--sg); min-width: 32px;">&middot;</div><div><div style="font-size: 13px; color: var(--df); font-weight: 600;">Open discussion throughout</div><div style="font-size: 12px; color: var(--sg); margin-top: 2px;">Stop us anywhere &mdash; this is your data, your call.</div></div></div>
+  </div>
+  <div class="slide-footer">Nexus Benefit Solutions &mdash; Confidential</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 3 — Section divider: The 12-month view (Azure handoff) -->
+<!-- ============================================================ -->
+<div class="slide" style="padding: 44px 64px; display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(160deg, var(--nw) 0%, var(--ps) 18%, #c5d2ca 32%, #7a9a8e 46%, #3d6a7a 60%, var(--az-dk) 80%, #0f2d4d 100%);">
+  <div style="text-align: center; max-width: 640px;">
+    <div style="font-size: 13px; color: var(--az-dk); letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 16px;">Section One</div>
+    <div style="font-family: var(--display); font-size: 38px; color: #fff; line-height: 1.25; margin-bottom: 16px; text-shadow: 0 2px 16px rgba(0,0,0,0.35);">The 12-Month View</div>
+    <div style="width: 48px; height: 2px; background: var(--az-teal); margin: 0 auto 16px;"></div>
+    <div style="font-size: 16px; color: var(--white-85); line-height: 1.7; text-shadow: 0 1px 6px rgba(0,0,0,0.2);">Top-line spend, where the plan stands against budget, and what each covered employee actually costs.</div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 4 — Top-line stats (Azure) -->
+<!-- EDITABLE: All four stat values + subtitle line -->
+<!-- ============================================================ -->
+<div class="slide" style="padding: 44px 64px; background: var(--az-dk); background-image: radial-gradient(ellipse at top left, rgba(43,108,176,0.45) 0%, transparent 50%), radial-gradient(ellipse at bottom right, rgba(75,183,196,0.25) 0%, transparent 50%); display: flex; flex-direction: column;">
+  <div style="margin-bottom: 24px;">
+    <div class="section-tag-blue">01 &mdash; Headline Numbers</div>
+    <div class="section-title-white-sm">Where the Plan Stands Today</div>
+    <div style="font-size: 12px; color: var(--white-65); margin-top: 6px; line-height: 1.5;">[Plan Year] &middot; All figures medical + Rx, paid through [run-out date]. Loss ratio = paid claims &divide; expected.</div>
+  </div>
+  <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; flex: 1;">
+    <!-- STAT 1 -->
+    <div style="padding: 18px 16px; background: var(--white-08); border-radius: 8px; border: 1px solid rgba(73,183,196,0.3); display: flex; flex-direction: column; justify-content: center;">
+      <div style="font-size: 9px; color: var(--az-teal); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; margin-bottom: 8px;">Total Paid Claims</div>
+      <div style="font-family: var(--display); font-size: 36px; color: #fff; line-height: 1; margin-bottom: 8px;">$2.4M</div>
+      <div style="font-size: 10px; color: var(--white-60); line-height: 1.4;">Medical + Rx, 12-month rolling</div>
+      <div style="font-size: 9px; color: #6DD8E5; margin-top: 6px;">+11% vs. prior year</div>
+    </div>
+    <!-- STAT 2 -->
+    <div style="padding: 18px 16px; background: var(--white-08); border-radius: 8px; border: 1px solid rgba(184,82,42,0.4); display: flex; flex-direction: column; justify-content: center;">
+      <div style="font-size: 9px; color: var(--rl); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; margin-bottom: 8px;">Loss Ratio</div>
+      <div style="font-family: var(--display); font-size: 36px; color: var(--rl); line-height: 1; margin-bottom: 8px;">94%</div>
+      <div style="font-size: 10px; color: var(--white-60); line-height: 1.4;">Target: &lt; 85%</div>
+      <div style="font-size: 9px; color: var(--rl); margin-top: 6px;">Above target &mdash; renewal pressure</div>
+    </div>
+    <!-- STAT 3 -->
+    <div style="padding: 18px 16px; background: var(--white-08); border-radius: 8px; border: 1px solid rgba(184,82,42,0.4); display: flex; flex-direction: column; justify-content: center;">
+      <div style="font-size: 9px; color: var(--rl); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; margin-bottom: 8px;">Net Position</div>
+      <div style="font-family: var(--display); font-size: 36px; color: var(--rl); line-height: 1; margin-bottom: 8px;">&minus;$148K</div>
+      <div style="font-size: 10px; color: var(--white-60); line-height: 1.4;">Funded vs. paid + fixed costs</div>
+      <div style="font-size: 9px; color: var(--rl); margin-top: 6px;">Deficit &mdash; covered by reserves</div>
+    </div>
+    <!-- STAT 4 -->
+    <div style="padding: 18px 16px; background: var(--white-08); border-radius: 8px; border: 1px solid rgba(73,183,196,0.3); display: flex; flex-direction: column; justify-content: center;">
+      <div style="font-size: 9px; color: var(--az-teal); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; margin-bottom: 8px;">Per-EE Annual Cost</div>
+      <div style="font-family: var(--display); font-size: 36px; color: #fff; line-height: 1; margin-bottom: 8px;">$11,420</div>
+      <div style="font-size: 10px; color: var(--white-60); line-height: 1.4;">210 covered employees</div>
+      <div style="font-size: 9px; color: #6DD8E5; margin-top: 6px;">KFF MI mid-market: ~$10,800</div>
+    </div>
+  </div>
+  <div style="margin-top: 18px; padding: 12px 16px; background: rgba(0,0,0,0.2); border-radius: 6px; border-left: 3px solid var(--az-teal); display: flex; align-items: center; gap: 12px;">
+    <div style="font-family: var(--display); font-size: 12px; color: #fff;">Bottom line:</div>
+    <div style="font-size: 12px; color: var(--white-80); line-height: 1.5;">Plan ran <strong style="color: #fff;">9 points hot</strong> in [Plan Year]. The deficit was covered, but at this trend the carrier will price for it. We need a counter-strategy before renewal hits the desk.</div>
+  </div>
+  <div class="slide-footer dark">Nexus Benefit Solutions &mdash; Confidential</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 5 — Monthly run-rate chart (Azure) -->
+<!-- EDITABLE: All 12 monthly bar widths + dollar values, budget line -->
+<!-- ============================================================ -->
+<div class="slide" style="padding: 44px 64px; background: var(--az-dk); background-image: radial-gradient(ellipse at top right, rgba(43,108,176,0.4) 0%, transparent 55%); display: flex; flex-direction: column;">
+  <div style="margin-bottom: 16px;">
+    <div class="section-tag-blue">01 &mdash; Run-Rate</div>
+    <div class="section-title-white-sm">12-Month Spend vs. Budget</div>
+    <div style="font-size: 11px; color: var(--white-65); margin-top: 4px; line-height: 1.5;">Monthly paid claims (medical + Rx). Dashed line = monthly funded budget of <strong style="color: var(--az-teal);">$200K</strong>.</div>
+  </div>
+
+  <div style="flex: 1; padding: 18px 20px 14px; background: rgba(0,0,0,0.18); border-radius: 8px; border: 1px solid var(--white-10); position: relative;">
+    <!-- Chart area -->
+    <div style="display: grid; grid-template-columns: repeat(12, 1fr); gap: 8px; align-items: end; height: 240px; padding-bottom: 24px; position: relative;">
+
+      <!-- Budget line at ~50% height -->
+      <div style="position: absolute; left: 0; right: 0; bottom: 144px; border-top: 1.5px dashed var(--az-teal); opacity: 0.6; z-index: 2;"></div>
+      <div style="position: absolute; right: 0; bottom: 148px; font-size: 9px; color: var(--az-teal); letter-spacing: 0.5px; z-index: 3;">Budget $200K</div>
+
+      <!-- Bar 1 — Jan -->
+      <div style="position: relative; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end;">
+        <div style="font-size: 8px; color: var(--white-60); margin-bottom: 4px;">$172K</div>
+        <div style="width: 100%; height: 43%; background: linear-gradient(180deg, var(--az-teal) 0%, #2b6cb0 100%); border-radius: 3px 3px 0 0;"></div>
+      </div>
+      <!-- Bar 2 — Feb -->
+      <div style="position: relative; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end;">
+        <div style="font-size: 8px; color: var(--white-60); margin-bottom: 4px;">$184K</div>
+        <div style="width: 100%; height: 46%; background: linear-gradient(180deg, var(--az-teal) 0%, #2b6cb0 100%); border-radius: 3px 3px 0 0;"></div>
+      </div>
+      <!-- Bar 3 — Mar -->
+      <div style="position: relative; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end;">
+        <div style="font-size: 8px; color: var(--white-60); margin-bottom: 4px;">$211K</div>
+        <div style="width: 100%; height: 53%; background: linear-gradient(180deg, var(--rl) 0%, var(--rs) 100%); border-radius: 3px 3px 0 0;"></div>
+      </div>
+      <!-- Bar 4 — Apr -->
+      <div style="position: relative; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end;">
+        <div style="font-size: 8px; color: var(--white-60); margin-bottom: 4px;">$196K</div>
+        <div style="width: 100%; height: 49%; background: linear-gradient(180deg, var(--az-teal) 0%, #2b6cb0 100%); border-radius: 3px 3px 0 0;"></div>
+      </div>
+      <!-- Bar 5 — May -->
+      <div style="position: relative; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end;">
+        <div style="font-size: 8px; color: var(--white-60); margin-bottom: 4px;">$248K</div>
+        <div style="width: 100%; height: 62%; background: linear-gradient(180deg, var(--rl) 0%, var(--rs) 100%); border-radius: 3px 3px 0 0;"></div>
+      </div>
+      <!-- Bar 6 — Jun -->
+      <div style="position: relative; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end;">
+        <div style="font-size: 8px; color: var(--white-60); margin-bottom: 4px;">$287K</div>
+        <div style="width: 100%; height: 72%; background: linear-gradient(180deg, var(--rl) 0%, var(--rs) 100%); border-radius: 3px 3px 0 0;"></div>
+      </div>
+      <!-- Bar 7 — Jul -->
+      <div style="position: relative; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end;">
+        <div style="font-size: 8px; color: var(--white-60); margin-bottom: 4px;">$262K</div>
+        <div style="width: 100%; height: 66%; background: linear-gradient(180deg, var(--rl) 0%, var(--rs) 100%); border-radius: 3px 3px 0 0;"></div>
+      </div>
+      <!-- Bar 8 — Aug -->
+      <div style="position: relative; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end;">
+        <div style="font-size: 8px; color: var(--white-60); margin-bottom: 4px;">$203K</div>
+        <div style="width: 100%; height: 51%; background: linear-gradient(180deg, var(--rl) 0%, var(--rs) 100%); border-radius: 3px 3px 0 0;"></div>
+      </div>
+      <!-- Bar 9 — Sep -->
+      <div style="position: relative; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end;">
+        <div style="font-size: 8px; color: var(--white-60); margin-bottom: 4px;">$176K</div>
+        <div style="width: 100%; height: 44%; background: linear-gradient(180deg, var(--az-teal) 0%, #2b6cb0 100%); border-radius: 3px 3px 0 0;"></div>
+      </div>
+      <!-- Bar 10 — Oct -->
+      <div style="position: relative; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end;">
+        <div style="font-size: 8px; color: var(--white-60); margin-bottom: 4px;">$219K</div>
+        <div style="width: 100%; height: 55%; background: linear-gradient(180deg, var(--rl) 0%, var(--rs) 100%); border-radius: 3px 3px 0 0;"></div>
+      </div>
+      <!-- Bar 11 — Nov -->
+      <div style="position: relative; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end;">
+        <div style="font-size: 8px; color: var(--white-60); margin-bottom: 4px;">$194K</div>
+        <div style="width: 100%; height: 49%; background: linear-gradient(180deg, var(--az-teal) 0%, #2b6cb0 100%); border-radius: 3px 3px 0 0;"></div>
+      </div>
+      <!-- Bar 12 — Dec -->
+      <div style="position: relative; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end;">
+        <div style="font-size: 8px; color: var(--white-60); margin-bottom: 4px;">$248K</div>
+        <div style="width: 100%; height: 62%; background: linear-gradient(180deg, var(--rl) 0%, var(--rs) 100%); border-radius: 3px 3px 0 0;"></div>
+      </div>
+    </div>
+    <!-- Month labels -->
+    <div style="display: grid; grid-template-columns: repeat(12, 1fr); gap: 8px; margin-top: 6px;">
+      <div style="font-size: 9px; color: var(--white-60); text-align: center;">Jan</div>
+      <div style="font-size: 9px; color: var(--white-60); text-align: center;">Feb</div>
+      <div style="font-size: 9px; color: var(--white-60); text-align: center;">Mar</div>
+      <div style="font-size: 9px; color: var(--white-60); text-align: center;">Apr</div>
+      <div style="font-size: 9px; color: var(--white-60); text-align: center;">May</div>
+      <div style="font-size: 9px; color: var(--white-60); text-align: center;">Jun</div>
+      <div style="font-size: 9px; color: var(--white-60); text-align: center;">Jul</div>
+      <div style="font-size: 9px; color: var(--white-60); text-align: center;">Aug</div>
+      <div style="font-size: 9px; color: var(--white-60); text-align: center;">Sep</div>
+      <div style="font-size: 9px; color: var(--white-60); text-align: center;">Oct</div>
+      <div style="font-size: 9px; color: var(--white-60); text-align: center;">Nov</div>
+      <div style="font-size: 9px; color: var(--white-60); text-align: center;">Dec</div>
+    </div>
+  </div>
+
+  <div style="margin-top: 14px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;">
+    <div style="padding: 10px 12px; background: rgba(0,0,0,0.18); border-radius: 6px; border-left: 3px solid var(--az-teal);">
+      <div style="font-size: 9px; color: var(--az-teal); letter-spacing: 1px; text-transform: uppercase; font-weight: 700; margin-bottom: 4px;">8 of 12 Over Budget</div>
+      <div style="font-size: 10px; color: var(--white-75); line-height: 1.5;">Pattern is structural, not seasonal &mdash; we cannot wait this out.</div>
+    </div>
+    <div style="padding: 10px 12px; background: rgba(0,0,0,0.18); border-radius: 6px; border-left: 3px solid var(--rs);">
+      <div style="font-size: 9px; color: var(--rl); letter-spacing: 1px; text-transform: uppercase; font-weight: 700; margin-bottom: 4px;">Q2 Spike</div>
+      <div style="font-size: 10px; color: var(--white-75); line-height: 1.5;">Apr&ndash;Jul +28% &mdash; Claimant A's surgery + Rx ramp.</div>
+    </div>
+    <div style="padding: 10px 12px; background: rgba(0,0,0,0.18); border-radius: 6px; border-left: 3px solid var(--rs);">
+      <div style="font-size: 9px; color: var(--rl); letter-spacing: 1px; text-transform: uppercase; font-weight: 700; margin-bottom: 4px;">Year-End Tail</div>
+      <div style="font-size: 10px; color: var(--white-75); line-height: 1.5;">Oct &amp; Dec back over $200K &mdash; deductibles met, claims released.</div>
+    </div>
+  </div>
+
+  <div class="slide-footer dark">Nexus Benefit Solutions &mdash; Confidential</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 6 — Section divider: What drove the numbers -->
+<!-- ============================================================ -->
+<div class="slide" style="padding: 44px 64px; display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(160deg, var(--az-dk) 0%, #1a3f6b 50%, #0f2d4d 100%);">
+  <div style="text-align: center; max-width: 640px;">
+    <div style="font-size: 13px; color: var(--az-teal); letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 16px;">Section Two</div>
+    <div style="font-family: var(--display); font-size: 38px; color: #fff; line-height: 1.25; margin-bottom: 16px; text-shadow: 0 2px 16px rgba(0,0,0,0.35);">What Drove the Numbers</div>
+    <div style="width: 48px; height: 2px; background: var(--az-teal); margin: 0 auto 16px;"></div>
+    <div style="font-size: 16px; color: var(--white-85); line-height: 1.7; text-shadow: 0 1px 6px rgba(0,0,0,0.2);">Where the dollars went, by category and by diagnosis &mdash; the patterns we can actually act on.</div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 7 — Cost breakdown (Azure) -->
+<!-- EDITABLE: All four percentages + dollar amounts + verdict line -->
+<!-- ============================================================ -->
+<div class="slide" style="padding: 44px 64px; background: var(--az-dk); background-image: radial-gradient(ellipse at bottom right, rgba(75,183,196,0.2) 0%, transparent 50%); display: flex; flex-direction: column;">
+  <div style="margin-bottom: 18px;">
+    <div class="section-tag-blue">02 &mdash; Cost Mix</div>
+    <div class="section-title-white-sm">Where the $2.4M Went</div>
+    <div style="font-size: 11px; color: var(--white-65); margin-top: 4px; line-height: 1.5;">Paid claims by category. Rx and inpatient drove the over-budget month-end pile.</div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1fr 1.1fr; gap: 24px; flex: 1;">
+    <!-- LEFT: Stacked horizontal bar (CSS-only) -->
+    <div style="display: flex; flex-direction: column; gap: 14px;">
+      <div style="font-size: 10px; color: var(--white-60); letter-spacing: 1px; text-transform: uppercase; font-weight: 600;">Category Share</div>
+      <div style="display: flex; height: 36px; border-radius: 6px; overflow: hidden; border: 1px solid var(--white-10);">
+        <div style="flex: 38; background: var(--rs); display: flex; align-items: center; justify-content: center;"><span style="font-size: 11px; color: #fff; font-weight: 700;">38%</span></div>
+        <div style="flex: 27; background: var(--rl); display: flex; align-items: center; justify-content: center;"><span style="font-size: 11px; color: #fff; font-weight: 700;">27%</span></div>
+        <div style="flex: 24; background: var(--az-md); display: flex; align-items: center; justify-content: center;"><span style="font-size: 11px; color: #fff; font-weight: 700;">24%</span></div>
+        <div style="flex: 11; background: var(--az-teal); display: flex; align-items: center; justify-content: center;"><span style="font-size: 11px; color: #fff; font-weight: 700;">11%</span></div>
+      </div>
+
+      <!-- Legend / breakdown -->
+      <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 4px;">
+        <div style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: var(--white-06); border-radius: 6px;">
+          <div style="width: 10px; height: 10px; background: var(--rs); border-radius: 2px;"></div>
+          <div style="flex: 1;"><div style="font-size: 12px; color: #fff; font-weight: 600;">Inpatient Medical</div><div style="font-size: 9px; color: var(--white-60);">3 surgeries &middot; 1 NICU stay</div></div>
+          <div style="font-family: var(--display); font-size: 14px; color: #fff;">$912K</div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: var(--white-06); border-radius: 6px;">
+          <div style="width: 10px; height: 10px; background: var(--rl); border-radius: 2px;"></div>
+          <div style="flex: 1;"><div style="font-size: 12px; color: #fff; font-weight: 600;">Pharmacy (Rx)</div><div style="font-size: 9px; color: var(--white-60);">3 GLP-1 &middot; 2 specialty biologics</div></div>
+          <div style="font-family: var(--display); font-size: 14px; color: #fff;">$648K</div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: var(--white-06); border-radius: 6px;">
+          <div style="width: 10px; height: 10px; background: var(--az-md); border-radius: 2px;"></div>
+          <div style="flex: 1;"><div style="font-size: 12px; color: #fff; font-weight: 600;">Outpatient Medical</div><div style="font-size: 9px; color: var(--white-60);">Imaging, infusions, day surgery</div></div>
+          <div style="font-family: var(--display); font-size: 14px; color: #fff;">$576K</div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: var(--white-06); border-radius: 6px;">
+          <div style="width: 10px; height: 10px; background: var(--az-teal); border-radius: 2px;"></div>
+          <div style="flex: 1;"><div style="font-size: 12px; color: #fff; font-weight: 600;">Preventive &amp; PCP</div><div style="font-size: 9px; color: var(--white-60);">Wellness, primary care, lab</div></div>
+          <div style="font-family: var(--display); font-size: 14px; color: #fff;">$264K</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Verdicts and YoY shifts -->
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+      <div style="font-size: 10px; color: var(--white-60); letter-spacing: 1px; text-transform: uppercase; font-weight: 600;">Year-Over-Year Movement</div>
+
+      <div style="padding: 14px 16px; background: rgba(184,82,42,0.18); border-radius: 8px; border-left: 3px solid var(--rs);">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+          <div style="font-size: 13px; color: #fff; font-weight: 700;">Pharmacy (Rx)</div>
+          <div style="font-family: var(--display); font-size: 22px; color: var(--rl); line-height: 1;">+18%</div>
+        </div>
+        <div style="font-size: 11px; color: var(--white-80); line-height: 1.55;">Driven by <strong style="color: #fff;">3 GLP-1 users</strong> (Wegovy / Zepbound) and one new specialty biologic. This is sticky &mdash; not a one-year blip.</div>
+      </div>
+
+      <div style="padding: 14px 16px; background: rgba(184,82,42,0.12); border-radius: 8px; border-left: 3px solid var(--rl);">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+          <div style="font-size: 13px; color: #fff; font-weight: 700;">Inpatient Medical</div>
+          <div style="font-family: var(--display); font-size: 22px; color: var(--rl); line-height: 1;">+14%</div>
+        </div>
+        <div style="font-size: 11px; color: var(--white-80); line-height: 1.55;">Three large hospitalizations. Two are stop-loss-eligible. One concentrated event &mdash; not necessarily a trend.</div>
+      </div>
+
+      <div style="padding: 14px 16px; background: rgba(73,183,196,0.12); border-radius: 8px; border-left: 3px solid var(--az-teal);">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+          <div style="font-size: 13px; color: #fff; font-weight: 700;">Outpatient + Preventive</div>
+          <div style="font-family: var(--display); font-size: 22px; color: var(--az-teal); line-height: 1;">&minus;3%</div>
+        </div>
+        <div style="font-size: 11px; color: var(--white-80); line-height: 1.55;">Slight drop. Could be opportunity &mdash; under-utilized preventive care can flag deferred conditions surfacing later.</div>
+      </div>
+
+      <div style="margin-top: auto; padding: 10px 14px; background: rgba(0,0,0,0.25); border-radius: 6px;">
+        <div style="font-size: 11px; color: #fff; line-height: 1.5;"><strong style="color: var(--az-teal);">Verdict:</strong> Rx is the lever. Inpatient is reactive. Preventive is the only category we can lean into to <em>save</em> money.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer dark">Nexus Benefit Solutions &mdash; Confidential</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 8 — Top utilization patterns (Azure, table-driven) -->
+<!-- EDITABLE: All 6 diagnosis rows, claimant counts, totals, trend -->
+<!-- ============================================================ -->
+<div class="slide" style="padding: 44px 64px; background: var(--az-dk); background-image: radial-gradient(ellipse at top left, rgba(43,108,176,0.4) 0%, transparent 55%); display: flex; flex-direction: column;">
+  <div style="margin-bottom: 14px;">
+    <div class="section-tag-blue">02 &mdash; Utilization</div>
+    <div class="section-title-white-sm">Top Diagnosis Categories by Spend</div>
+    <div style="font-size: 11px; color: var(--white-65); margin-top: 4px; line-height: 1.5;">Aggregated, de-identified. The first three categories explain <strong style="color: var(--az-teal);">61%</strong> of total paid claims.</div>
+  </div>
+
+  <div style="flex: 1; padding: 16px 18px; background: rgba(0,0,0,0.18); border-radius: 8px; border: 1px solid var(--white-10);">
+    <table style="width: 100%; border-collapse: collapse; font-size: 12px; color: #fff;">
+      <thead>
+        <tr style="border-bottom: 1px solid var(--white-15);">
+          <th style="padding: 8px 10px; text-align: left; font-size: 9.5px; color: var(--az-teal); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700;">Diagnosis Category</th>
+          <th style="padding: 8px 10px; text-align: center; font-size: 9.5px; color: var(--az-teal); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700;">Claimants</th>
+          <th style="padding: 8px 10px; text-align: right; font-size: 9.5px; color: var(--az-teal); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700;">Total Paid</th>
+          <th style="padding: 8px 10px; text-align: center; font-size: 9.5px; color: var(--az-teal); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700;">% of Spend</th>
+          <th style="padding: 8px 10px; text-align: center; font-size: 9.5px; color: var(--az-teal); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700;">YoY Trend</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom: 1px solid var(--white-08);">
+          <td style="padding: 9px 10px; font-weight: 600;">Musculoskeletal &amp; Orthopedic</td>
+          <td style="padding: 9px 10px; text-align: center; color: var(--white-75);">14</td>
+          <td style="padding: 9px 10px; text-align: right; font-family: var(--display); font-size: 13px;">$586K</td>
+          <td style="padding: 9px 10px; text-align: center; color: var(--white-75);">24%</td>
+          <td style="padding: 9px 10px; text-align: center;"><span style="display: inline-block; padding: 2px 8px; background: rgba(184,82,42,0.25); color: var(--rl); border-radius: 10px; font-size: 10px; font-weight: 700;">&uarr; +22%</span></td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--white-08);">
+          <td style="padding: 9px 10px; font-weight: 600;">Endocrine &amp; Metabolic (incl. GLP-1s)</td>
+          <td style="padding: 9px 10px; text-align: center; color: var(--white-75);">9</td>
+          <td style="padding: 9px 10px; text-align: right; font-family: var(--display); font-size: 13px;">$498K</td>
+          <td style="padding: 9px 10px; text-align: center; color: var(--white-75);">21%</td>
+          <td style="padding: 9px 10px; text-align: center;"><span style="display: inline-block; padding: 2px 8px; background: rgba(184,82,42,0.25); color: var(--rl); border-radius: 10px; font-size: 10px; font-weight: 700;">&uarr; +41%</span></td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--white-08);">
+          <td style="padding: 9px 10px; font-weight: 600;">Cardiovascular</td>
+          <td style="padding: 9px 10px; text-align: center; color: var(--white-75);">11</td>
+          <td style="padding: 9px 10px; text-align: right; font-family: var(--display); font-size: 13px;">$381K</td>
+          <td style="padding: 9px 10px; text-align: center; color: var(--white-75);">16%</td>
+          <td style="padding: 9px 10px; text-align: center;"><span style="display: inline-block; padding: 2px 8px; background: rgba(73,183,196,0.2); color: var(--az-teal); border-radius: 10px; font-size: 10px; font-weight: 700;">&rarr; +2%</span></td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--white-08);">
+          <td style="padding: 9px 10px; font-weight: 600;">Behavioral Health</td>
+          <td style="padding: 9px 10px; text-align: center; color: var(--white-75);">22</td>
+          <td style="padding: 9px 10px; text-align: right; font-family: var(--display); font-size: 13px;">$267K</td>
+          <td style="padding: 9px 10px; text-align: center; color: var(--white-75);">11%</td>
+          <td style="padding: 9px 10px; text-align: center;"><span style="display: inline-block; padding: 2px 8px; background: rgba(184,82,42,0.18); color: var(--rl); border-radius: 10px; font-size: 10px; font-weight: 700;">&uarr; +9%</span></td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--white-08);">
+          <td style="padding: 9px 10px; font-weight: 600;">Maternity &amp; Newborn</td>
+          <td style="padding: 9px 10px; text-align: center; color: var(--white-75);">4</td>
+          <td style="padding: 9px 10px; text-align: right; font-family: var(--display); font-size: 13px;">$224K</td>
+          <td style="padding: 9px 10px; text-align: center; color: var(--white-75);">9%</td>
+          <td style="padding: 9px 10px; text-align: center;"><span style="display: inline-block; padding: 2px 8px; background: rgba(73,183,196,0.2); color: var(--az-teal); border-radius: 10px; font-size: 10px; font-weight: 700;">&darr; &minus;5%</span></td>
+        </tr>
+        <tr>
+          <td style="padding: 9px 10px; font-weight: 600;">Oncology</td>
+          <td style="padding: 9px 10px; text-align: center; color: var(--white-75);">2</td>
+          <td style="padding: 9px 10px; text-align: right; font-family: var(--display); font-size: 13px;">$198K</td>
+          <td style="padding: 9px 10px; text-align: center; color: var(--white-75);">8%</td>
+          <td style="padding: 9px 10px; text-align: center;"><span style="display: inline-block; padding: 2px 8px; background: rgba(73,183,196,0.2); color: var(--az-teal); border-radius: 10px; font-size: 10px; font-weight: 700;">&rarr; new</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="margin-top: 14px; padding: 11px 14px; background: rgba(0,0,0,0.22); border-radius: 6px; border-left: 3px solid var(--az-teal); display: flex; align-items: center; gap: 12px;">
+    <div style="font-family: var(--display); font-size: 12px; color: var(--az-teal);">Read this:</div>
+    <div style="font-size: 11px; color: var(--white-80); line-height: 1.55;">Musculoskeletal and Endocrine are the two we can actually steer &mdash; <strong style="color: #fff;">centers of excellence</strong> for joint replacement and a <strong style="color: #fff;">PBM Rx review</strong> on GLP-1 prior auth. Both go on the lever list.</div>
+  </div>
+
+  <div class="slide-footer dark">Nexus Benefit Solutions &mdash; Confidential</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 9 — Section divider: High-cost claimants -->
+<!-- ============================================================ -->
+<div class="slide" style="padding: 44px 64px; display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(160deg, var(--az-dk) 0%, #1a3f6b 50%, #0f2d4d 100%);">
+  <div style="text-align: center; max-width: 640px;">
+    <div style="font-size: 13px; color: var(--az-teal); letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 16px;">Section Three</div>
+    <div style="font-family: var(--display); font-size: 38px; color: #fff; line-height: 1.25; margin-bottom: 16px; text-shadow: 0 2px 16px rgba(0,0,0,0.35);">High-Cost Claimants</div>
+    <div style="width: 48px; height: 2px; background: var(--az-teal); margin: 0 auto 16px;"></div>
+    <div style="font-size: 16px; color: var(--white-85); line-height: 1.7; text-shadow: 0 1px 6px rgba(0,0,0,0.2);">Anonymized profiles &middot; prognosis &middot; stop-loss recovery. The three claimants driving most of the variance.</div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 10 — Anonymized claimant profiles (Azure) -->
+<!-- EDITABLE: Each claimant row + the recovery summary footer -->
+<!-- ============================================================ -->
+<div class="slide" style="padding: 44px 64px; background: var(--az-dk); background-image: radial-gradient(ellipse at top right, rgba(43,108,176,0.4) 0%, transparent 55%); display: flex; flex-direction: column;">
+  <div style="margin-bottom: 14px;">
+    <div class="section-tag-blue">03 &mdash; Claimants</div>
+    <div class="section-title-white-sm">Top 3 Claimants &mdash; Anonymized</div>
+    <div style="font-size: 11px; color: var(--white-65); margin-top: 4px; line-height: 1.5;">All identifying detail removed. These three account for <strong style="color: var(--az-teal);">$724K (30%)</strong> of [Plan Year] paid claims.</div>
+  </div>
+
+  <div style="flex: 1; display: flex; flex-direction: column; gap: 10px;">
+    <!-- Header row -->
+    <div style="display: grid; grid-template-columns: 0.8fr 1.5fr 1fr 1.2fr 1fr; gap: 12px; padding: 8px 14px; font-size: 9px; color: var(--az-teal); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700;">
+      <div>Claimant</div>
+      <div>Diagnosis Category</div>
+      <div style="text-align: right;">YTD Paid</div>
+      <div>Prognosis</div>
+      <div style="text-align: right;">Stop-Loss Recovery</div>
+    </div>
+
+    <!-- CLAIMANT A -->
+    <div style="display: grid; grid-template-columns: 0.8fr 1.5fr 1fr 1.2fr 1fr; gap: 12px; padding: 14px; background: rgba(255,255,255,0.07); border-radius: 8px; border-left: 3px solid var(--rs); align-items: center;">
+      <div>
+        <div style="width: 40px; height: 40px; background: var(--rs); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 18px; color: #fff;">A</div>
+      </div>
+      <div>
+        <div style="font-size: 13px; color: #fff; font-weight: 600;">Cardiac &amp; Inpatient Surgery</div>
+        <div style="font-size: 10px; color: var(--white-60); margin-top: 2px;">Multi-day hospitalization, follow-up rehab</div>
+      </div>
+      <div style="text-align: right;">
+        <div style="font-family: var(--display); font-size: 22px; color: #fff; line-height: 1;">$342K</div>
+        <div style="font-size: 9px; color: var(--white-50); margin-top: 3px;">14% of total spend</div>
+      </div>
+      <div>
+        <div style="font-size: 11px; color: #fff; font-weight: 600;">Reducing</div>
+        <div style="font-size: 10px; color: var(--white-60); line-height: 1.4; margin-top: 2px;">Acute event resolved &middot; expected to drop ~70% next year</div>
+      </div>
+      <div style="text-align: right;">
+        <div style="font-family: var(--display); font-size: 18px; color: var(--az-teal); line-height: 1;">$192K</div>
+        <div style="font-size: 9px; color: var(--white-50); margin-top: 3px;">Spec. recoverable</div>
+      </div>
+    </div>
+
+    <!-- CLAIMANT B -->
+    <div style="display: grid; grid-template-columns: 0.8fr 1.5fr 1fr 1.2fr 1fr; gap: 12px; padding: 14px; background: rgba(255,255,255,0.07); border-radius: 8px; border-left: 3px solid var(--rl); align-items: center;">
+      <div>
+        <div style="width: 40px; height: 40px; background: var(--rl); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 18px; color: #fff;">B</div>
+      </div>
+      <div>
+        <div style="font-size: 13px; color: #fff; font-weight: 600;">Specialty Rx (Biologic)</div>
+        <div style="font-size: 10px; color: var(--white-60); margin-top: 2px;">Autoimmune &middot; chronic ongoing therapy</div>
+      </div>
+      <div style="text-align: right;">
+        <div style="font-family: var(--display); font-size: 22px; color: #fff; line-height: 1;">$214K</div>
+        <div style="font-size: 9px; color: var(--white-50); margin-top: 3px;">9% of total spend</div>
+      </div>
+      <div>
+        <div style="font-size: 11px; color: var(--rl); font-weight: 600;">Continues</div>
+        <div style="font-size: 10px; color: var(--white-60); line-height: 1.4; margin-top: 2px;">Lifetime therapy &middot; assume same level next year</div>
+      </div>
+      <div style="text-align: right;">
+        <div style="font-family: var(--display); font-size: 18px; color: var(--az-teal); line-height: 1;">$64K</div>
+        <div style="font-size: 9px; color: var(--white-50); margin-top: 3px;">Spec. recoverable</div>
+      </div>
+    </div>
+
+    <!-- CLAIMANT C -->
+    <div style="display: grid; grid-template-columns: 0.8fr 1.5fr 1fr 1.2fr 1fr; gap: 12px; padding: 14px; background: rgba(255,255,255,0.07); border-radius: 8px; border-left: 3px solid var(--az-teal); align-items: center;">
+      <div>
+        <div style="width: 40px; height: 40px; background: var(--az-teal); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 18px; color: #fff;">C</div>
+      </div>
+      <div>
+        <div style="font-size: 13px; color: #fff; font-weight: 600;">Maternity &amp; NICU</div>
+        <div style="font-size: 10px; color: var(--white-60); margin-top: 2px;">Pre-term delivery, extended NICU stay</div>
+      </div>
+      <div style="text-align: right;">
+        <div style="font-family: var(--display); font-size: 22px; color: #fff; line-height: 1;">$168K</div>
+        <div style="font-size: 9px; color: var(--white-50); margin-top: 3px;">7% of total spend</div>
+      </div>
+      <div>
+        <div style="font-size: 11px; color: var(--az-teal); font-weight: 600;">Resolved</div>
+        <div style="font-size: 10px; color: var(--white-60); line-height: 1.4; margin-top: 2px;">Discharged healthy &middot; no expected continuation</div>
+      </div>
+      <div style="text-align: right;">
+        <div style="font-family: var(--display); font-size: 18px; color: var(--az-teal); line-height: 1;">$18K</div>
+        <div style="font-size: 9px; color: var(--white-50); margin-top: 3px;">Spec. recoverable</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 14px; padding: 11px 14px; background: rgba(0,0,0,0.25); border-radius: 6px; border-left: 3px solid var(--az-teal); display: flex; align-items: center; gap: 14px;">
+    <div style="font-family: var(--display); font-size: 11px; color: var(--az-teal); letter-spacing: 1px; text-transform: uppercase;">Total Recoverable</div>
+    <div style="font-family: var(--display); font-size: 22px; color: #fff; line-height: 1;">$274K</div>
+    <div style="font-size: 11px; color: var(--white-75); line-height: 1.5; flex: 1;">Stop-loss carrier owes us this back &mdash; the renewal conversation must reflect <em>net</em> claims after recovery, not gross.</div>
+  </div>
+
+  <div class="slide-footer dark">Nexus Benefit Solutions &mdash; Confidential</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 11 — Stop-loss posture (pay-table on dark) -->
+<!-- EDITABLE: Attachment levels, YTD %, projection commentary -->
+<!-- ============================================================ -->
+<div class="slide" style="padding: 44px 64px; background: var(--az-dk); background-image: radial-gradient(ellipse at bottom right, rgba(75,183,196,0.18) 0%, transparent 55%); display: flex; flex-direction: column;">
+  <div style="margin-bottom: 14px;">
+    <div class="section-tag-blue">04 &mdash; Stop-Loss</div>
+    <div class="section-title-white-sm">Where We Sit Against Attachment</div>
+    <div style="font-size: 11px; color: var(--white-65); margin-top: 4px; line-height: 1.5;">Specific protects against any one big claim. Aggregate protects against the whole plan running hot. Both matter at renewal.</div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1.3fr 0.9fr; gap: 18px; flex: 1;">
+    <!-- LEFT: pay-table style attachment summary -->
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <table class="pay-table" style="font-size: 12px; background: rgba(255,255,255,0.04); border-radius: 6px; overflow: hidden;">
+        <thead>
+          <tr>
+            <th style="background: rgba(0,0,0,0.35); color: #fff; padding: 8px 12px; text-align: left;">Layer</th>
+            <th style="background: rgba(0,0,0,0.35); color: #fff; padding: 8px 12px;">Attachment</th>
+            <th style="background: rgba(0,0,0,0.35); color: #fff; padding: 8px 12px;">YTD Used</th>
+            <th style="background: rgba(0,0,0,0.35); color: #fff; padding: 8px 12px;">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="section-header"><td colspan="4" style="background: rgba(73,183,196,0.18); color: var(--az-teal); font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; padding: 6px 12px; font-weight: 700;">Specific (Per Individual)</td></tr>
+          <tr>
+            <td style="color: #fff; font-weight: 500;">Spec. Deductible</td>
+            <td style="color: var(--white-85);">$150,000 / claimant</td>
+            <td style="color: var(--white-85);">2 claimants over</td>
+            <td style="color: var(--az-teal); font-weight: 600;">Triggered</td>
+          </tr>
+          <tr>
+            <td style="color: #fff; font-weight: 500;">Spec. Premium PEPM</td>
+            <td style="color: var(--white-85);">$87.40</td>
+            <td style="color: var(--white-85);">$220,272 paid</td>
+            <td style="color: var(--white-60);">&mdash;</td>
+          </tr>
+          <tr>
+            <td style="color: #fff; font-weight: 500;">Recoverable (Confirmed)</td>
+            <td style="color: var(--az-teal); font-weight: 700;">$274,000</td>
+            <td style="color: var(--az-teal); font-weight: 700;">Filed &middot; pending</td>
+            <td style="color: var(--az-teal); font-weight: 600;">In flight</td>
+          </tr>
+
+          <tr class="section-header"><td colspan="4" style="background: rgba(73,183,196,0.18); color: var(--az-teal); font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; padding: 6px 12px; font-weight: 700;">Aggregate (Whole Plan)</td></tr>
+          <tr>
+            <td style="color: #fff; font-weight: 500;">Agg. Attachment Point</td>
+            <td style="color: var(--white-85);">$2,640,000 (125% corridor)</td>
+            <td style="color: var(--white-85);">$2,400,000</td>
+            <td style="color: var(--rl); font-weight: 600;">91% used</td>
+          </tr>
+          <tr>
+            <td style="color: #fff; font-weight: 500;">Buffer Remaining</td>
+            <td style="color: var(--white-85);">$240,000</td>
+            <td style="color: var(--white-85);">2 months left</td>
+            <td style="color: var(--rl); font-weight: 600;">Tight</td>
+          </tr>
+          <tr class="highlight-row">
+            <td style="background: rgba(73,183,196,0.18); color: #fff; font-weight: 700;">Likelihood of Agg. Hit</td>
+            <td colspan="3" style="background: rgba(73,183,196,0.18); color: var(--az-teal); font-weight: 700; text-align: center;">~35% &mdash; possible if Q4 lands above $200K avg</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- RIGHT: posture commentary -->
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="padding: 14px 16px; background: rgba(0,0,0,0.25); border-radius: 8px; border-left: 3px solid var(--az-teal);">
+        <div style="font-family: var(--display); font-size: 14px; color: #fff; margin-bottom: 6px;">What This Means</div>
+        <div style="font-size: 11px; color: var(--white-80); line-height: 1.55;">The specific layer is doing its job &mdash; <strong style="color: var(--az-teal);">$274K</strong> coming back. The aggregate buffer is thin but probably holds. Either way, the carrier <em>will</em> reprice both layers.</div>
+      </div>
+      <div style="padding: 14px 16px; background: rgba(184,82,42,0.18); border-radius: 8px; border-left: 3px solid var(--rs);">
+        <div style="font-family: var(--display); font-size: 14px; color: #fff; margin-bottom: 6px;">Renewal Risk</div>
+        <div style="font-size: 11px; color: var(--white-80); line-height: 1.55;">Expect a <strong style="color: #fff;">25&ndash;40% specific increase</strong> from the incumbent and a likely <strong style="color: #fff;">laser proposal</strong> on Claimant B. We will not accept that quietly.</div>
+      </div>
+      <div style="padding: 14px 16px; background: rgba(73,183,196,0.12); border-radius: 8px; border-left: 3px solid var(--az-teal); margin-top: auto;">
+        <div style="font-family: var(--display); font-size: 14px; color: #fff; margin-bottom: 6px;">Our Counter</div>
+        <div style="font-size: 11px; color: var(--white-80); line-height: 1.55;">RFP three carriers in parallel. One existing relationship, two fresh. Worst case: incumbent matches.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer dark">Nexus Benefit Solutions &mdash; Confidential</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 12 — Section divider: Renewal negotiation plan -->
+<!-- ============================================================ -->
+<div class="slide" style="padding: 44px 64px; display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(160deg, var(--az-dk) 0%, #1a3f6b 50%, #0f2d4d 100%);">
+  <div style="text-align: center; max-width: 640px;">
+    <div style="font-size: 13px; color: var(--az-teal); letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 16px;">Section Five</div>
+    <div style="font-family: var(--display); font-size: 38px; color: #fff; line-height: 1.25; margin-bottom: 16px; text-shadow: 0 2px 16px rgba(0,0,0,0.35);">The Renewal Plan</div>
+    <div style="width: 48px; height: 2px; background: var(--az-teal); margin: 0 auto 16px;"></div>
+    <div style="font-size: 16px; color: var(--white-85); line-height: 1.7; text-shadow: 0 1px 6px rgba(0,0,0,0.2);">Four levers. Coordinated push. We open the conversation &mdash; the carrier doesn't.</div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 13 — 4 Negotiation Levers (Azure → Forest gradient bridge) -->
+<!-- EDITABLE: Lever titles, descriptions, expected outcomes -->
+<!-- ============================================================ -->
+<div class="slide" style="padding: 44px 64px; background: linear-gradient(160deg, var(--az-dk) 0%, #1a3f6b 25%, #2a5240 70%, var(--df) 100%); display: flex; flex-direction: column;">
+  <div style="margin-bottom: 18px;">
+    <div style="font-size: 11px; color: var(--az-teal); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px;">05 &mdash; Negotiation Levers</div>
+    <div style="font-family: var(--display); font-size: 28px; color: #fff; line-height: 1.25;">The Four Levers Nexus Will Push</div>
+    <div style="font-size: 11px; color: var(--white-65); margin-top: 6px; line-height: 1.5;">Each lever has a specific ask, a specific carrier, and a specific dollar impact. Nothing is hopeful.</div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; flex: 1;">
+    <!-- LEVER 1 -->
+    <div class="feature-card" style="background: rgba(255,255,255,0.92); display: flex; flex-direction: column;">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+        <div style="width: 30px; height: 30px; background: var(--az-dk); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 16px; color: #fff;">1</div>
+        <div class="feature-title" style="margin-bottom: 0;">Network Re-Price Request</div>
+      </div>
+      <div class="feature-desc" style="margin-bottom: 8px;">Push the TPA / network for a re-price on inpatient and outpatient facility contracts at our top 3 utilized hospitals. Reference cost data is on the table.</div>
+      <div style="margin-top: auto; padding: 8px 10px; background: rgba(26,63,107,0.08); border-radius: 4px;">
+        <div style="font-size: 9px; color: var(--az-md); letter-spacing: 1px; text-transform: uppercase; font-weight: 700;">Expected Win</div>
+        <div style="font-size: 12px; color: var(--az-dk); font-weight: 600; margin-top: 2px;">3&ndash;7% off facility line items</div>
+      </div>
+    </div>
+
+    <!-- LEVER 2 -->
+    <div class="feature-card" style="background: rgba(255,255,255,0.92); display: flex; flex-direction: column;">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+        <div style="width: 30px; height: 30px; background: var(--az-dk); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 16px; color: #fff;">2</div>
+        <div class="feature-title" style="margin-bottom: 0;">Stop-Loss RFP &mdash; 3 Carriers</div>
+      </div>
+      <div class="feature-desc" style="margin-bottom: 8px;">Take spec + agg to incumbent plus two competitive markets. Goal: hold the spec increase under 15% and refuse any laser without a credible release schedule.</div>
+      <div style="margin-top: auto; padding: 8px 10px; background: rgba(26,63,107,0.08); border-radius: 4px;">
+        <div style="font-size: 9px; color: var(--az-md); letter-spacing: 1px; text-transform: uppercase; font-weight: 700;">Expected Win</div>
+        <div style="font-size: 12px; color: var(--az-dk); font-weight: 600; margin-top: 2px;">10&ndash;25% under incumbent's first quote</div>
+      </div>
+    </div>
+
+    <!-- LEVER 3 -->
+    <div class="feature-card" style="background: rgba(255,255,255,0.92); display: flex; flex-direction: column;">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+        <div style="width: 30px; height: 30px; background: var(--df); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 16px; color: #fff;">3</div>
+        <div class="feature-title" style="margin-bottom: 0;">Plan Design Tweaks</div>
+      </div>
+      <div class="feature-desc" style="margin-bottom: 8px;">Move imaging to a Center of Excellence tier, add a GLP-1 step-therapy edit, expand telehealth $0 copay. Steers utilization without cost-shifting to employees.</div>
+      <div style="margin-top: auto; padding: 8px 10px; background: rgba(31,61,46,0.08); border-radius: 4px;">
+        <div style="font-size: 9px; color: var(--fl); letter-spacing: 1px; text-transform: uppercase; font-weight: 700;">Expected Win</div>
+        <div style="font-size: 12px; color: var(--df); font-weight: 600; margin-top: 2px;">$80K&ndash;$140K Y1 utilization shift</div>
+      </div>
+    </div>
+
+    <!-- LEVER 4 -->
+    <div class="feature-card" style="background: rgba(255,255,255,0.92); display: flex; flex-direction: column;">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+        <div style="width: 30px; height: 30px; background: var(--df); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 16px; color: #fff;">4</div>
+        <div class="feature-title" style="margin-bottom: 0;">Carrier Performance Scorecard</div>
+      </div>
+      <div class="feature-desc" style="margin-bottom: 8px;">Ground the renewal ask in measurable carrier failures: turnaround time on prior auth, payment accuracy, network adequacy. Numbers, not opinions.</div>
+      <div style="margin-top: auto; padding: 8px 10px; background: rgba(31,61,46,0.08); border-radius: 4px;">
+        <div style="font-size: 9px; color: var(--fl); letter-spacing: 1px; text-transform: uppercase; font-weight: 700;">Expected Win</div>
+        <div style="font-size: 12px; color: var(--df); font-weight: 600; margin-top: 2px;">Service credits + posture for next year</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 14px; padding: 11px 16px; background: rgba(0,0,0,0.25); border-radius: 6px; border-left: 3px solid var(--rs); display: flex; align-items: center; gap: 12px;">
+    <div style="font-family: var(--display); font-size: 12px; color: var(--rl);">Stacked outcome:</div>
+    <div style="font-size: 11px; color: var(--white-85); line-height: 1.55;">If 3 of 4 land at the midpoint, we offset roughly <strong style="color: #fff;">$220K&ndash;$340K</strong> of the projected renewal increase. That's the ask we walk in with.</div>
+  </div>
+
+  <div class="slide-footer dark">Nexus Benefit Solutions &mdash; Confidential</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 14 — Closing (Forest) -->
+<!-- EDITABLE: Phone numbers, advisor cards if not Jason/Ken/Grace -->
+<!-- ============================================================ -->
+<div class="slide" style="padding: 44px 64px; display: flex; flex-direction: column; justify-content: center; background: var(--df); background-image: radial-gradient(ellipse at bottom right, rgba(184,82,42,0.2) 0%, transparent 40%);">
+  <div style="max-width: 720px;">
+    <div style="font-family: var(--display); font-size: 32px; color: #FFFFFF; line-height: 1.25; margin-bottom: 16px;">The Plan from Here</div>
+    <div style="font-size: 14px; color: var(--white-65); line-height: 1.7; margin-bottom: 12px;">We have <strong style="color: #fff;">30 days</strong> to push the four levers and bring you a counter-quote with real numbers. We will follow up every Friday with claims-data movement and carrier responses.</div>
+    <div style="display: inline-block; padding: 10px 18px; background: var(--rs); color: #fff; border-radius: 6px; font-size: 13px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 28px;">Next step: 30-day negotiation window with weekly claims-data follow-up</div>
+    <div style="display: flex; gap: 24px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="https://jbearup1981.github.io/presentation-templates/assets/jason-bearup.jpg" alt="Jason Bearup" style="width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--white-15);">
+        <div><div style="font-size: 13px; color: var(--white-50); font-weight: 600;">Jason Bearup</div><div style="font-size: 10px; color: rgba(255,255,255,0.35);">Lead Advisor</div><div style="font-size: 10px; color: rgba(255,255,255,0.3);">(616) 555-0001</div><div style="font-size: 10px; color: rgba(255,255,255,0.3);">jason@nexusbenefitsolutions.com</div></div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="https://jbearup1981.github.io/presentation-templates/assets/ken-fortier.jpg" alt="Ken Fortier" style="width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--white-15);">
+        <div><div style="font-size: 13px; color: var(--white-50); font-weight: 600;">Ken Fortier</div><div style="font-size: 10px; color: rgba(255,255,255,0.35);">Relationship Manager</div><div style="font-size: 10px; color: rgba(255,255,255,0.3);">(616) 555-0002</div><div style="font-size: 10px; color: rgba(255,255,255,0.3);">ken@nexusbenefitsolutions.com</div></div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="https://jbearup1981.github.io/presentation-templates/assets/grace-morris.jpg" alt="Grace Morris" style="width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--white-15);">
+        <div><div style="font-size: 13px; color: var(--white-50); font-weight: 600;">Grace Morris</div><div style="font-size: 10px; color: rgba(255,255,255,0.35);">Associate Account Manager</div><div style="font-size: 10px; color: rgba(255,255,255,0.3);">(616) 555-0003</div><div style="font-size: 10px; color: rgba(255,255,255,0.3);">grace@nexusbenefitsolutions.com</div></div>
+      </div>
+    </div>
+  </div>
+  <div style="position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); text-align: center;">
+    <div style="display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 3px;">
+      <img src="https://jbearup1981.github.io/presentation-templates/assets/nexus-logo-white.svg" alt="Nexus" style="height: 20px; opacity: 0.2;">
+      <div style="font-size: 16.5px; color: rgba(255,255,255,0.2); line-height: 1;">Nexus Benefit Solutions</div>
+    </div>
+    <div style="font-size: 11px; color: rgba(184,82,42,0.35); letter-spacing: 1px;">nexusbenefitsolutions.com</div>
+  </div>
+</div>
+
+</div>
+<script>
+
+/* Nexus Benefit Solutions — Presentation Navigation & Scaling */
+
+let cur = 0;
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+
+function go(n) {
+  if (n < 0 || n >= total) return;
+  slides[cur].classList.remove('active');
+  cur = n;
+  slides[cur].classList.add('active');
+  document.getElementById('counter').textContent = (cur + 1) + ' / ' + total;
+  document.getElementById('prevBtn').disabled = cur === 0;
+  document.getElementById('nextBtn').disabled = cur === total - 1;
+}
+
+function nav(d) { go(cur + d); }
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nav(1); }
+  if (e.key === 'ArrowLeft') nav(-1);
+  if (e.key === 'Home') go(0);
+  if (e.key === 'End') go(total - 1);
+  if (e.key === 'f' || e.key === 'F') toggleFullscreen();
+});
+
+function toggleFullscreen() {
+  if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+  else document.exitFullscreen();
+}
+
+// Touch support
+let tx = 0;
+document.addEventListener('touchstart', function(e) { tx = e.changedTouches[0].screenX; });
+document.addEventListener('touchend', function(e) {
+  var d = e.changedTouches[0].screenX - tx;
+  if (Math.abs(d) > 50) nav(d < 0 ? 1 : -1);
+});
+
+// Scale
+function rescale() {
+  const sw = window.innerWidth / 960;
+  const sh = window.innerHeight / 540;
+  var s = Math.min(sw, sh, 2) * 0.88;
+  document.documentElement.style.setProperty('--scale', s);
+}
+window.addEventListener('resize', rescale);
+rescale();
+
+// Responsive mode
+if (new URLSearchParams(window.location.search).get('mode') === 'responsive') {
+  document.body.classList.add('responsive-mode');
+}
+
+// Button listeners
+document.getElementById('prevBtn').addEventListener('click', function() { nav(-1); });
+document.getElementById('nextBtn').addEventListener('click', function() { nav(1); });
+var fsBtn = document.getElementById('fullscreenBtn');
+if (fsBtn) fsBtn.addEventListener('click', function() { toggleFullscreen(); });
+
+// Auto-inject footer on data slides without one (defensive)
+document.querySelectorAll('.slide').forEach(function(slide, i) {
+  if (i === 0 || i === total - 1) return;
+  if (slide.querySelector('.slide-footer')) return;
+  var f = document.createElement('div');
+  f.className = 'slide-footer';
+  var st = slide.getAttribute('style') || '';
+  if (st.indexOf('az-dk') !== -1 || st.indexOf('--df') !== -1 || st.indexOf('#1F3D2E') !== -1 || st.indexOf('#1A3F6B') !== -1) {
+    f.classList.add('dark');
+  }
+  f.textContent = 'Nexus Benefit Solutions — Confidential';
+  slide.appendChild(f);
+});
+
+// Init
+go(0);
+
+</script>
+</body>
+</html>
