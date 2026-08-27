@@ -20,7 +20,7 @@ Serves as the **Integrity Well-Being Example Deck** in [[Claude Design]].
 - **17 slides**, 960×540 fixed, CSS-scaled
 - **Fonts:** DM Serif Display (display) + DM Sans (body)
 - **Color flow:** Nexus Forest (slides 1–4) → Amaze Azure (5–15) → Forest (16–17)
-- **Images:** 18, all `../assets/` relative paths
+- **Images:** 18, all GitHub Pages asset URLs (what the Design import expects)
 - **Audience:** employers ~25+ employees, predominantly full-time W-2, stable tenure
 
 ## Slide Structure
