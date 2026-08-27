@@ -1,0 +1,6 @@
+# Generated — rebuild with make_variants.py / build_finished.py
+variants/
+*-standalone.html
+artifact-*.html
+variant-check.html
+variants-side-by-side.html

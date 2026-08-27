@@ -1,0 +1,57 @@
+{
+  "_comment": "Team roster + deck variants for the Integrity Well-Being deck. Edit this, then run make_variants.py. Titles and bio blurbs are sourced from the public /about page on nexusbenefitsolutions.com. Omit 'phone' entirely for anyone whose real number we don't have — never invent a placeholder.",
+
+  "people": {
+    "jason": {
+      "name": "Jason Bearup",
+      "title": "Founder / CEO",
+      "photo": "jason-bearup.jpg",
+      "phone": "(616) 425-9740",
+      "email": "jason@nexusbenefitsolutions.com",
+      "blurb": "Benefits architecture, strategy design &amp; market analysis. Your primary strategic partner."
+    },
+    "ken": {
+      "name": "Ken Fortier",
+      "title": "Founder / CRO",
+      "photo": "ken-fortier.jpg",
+      "phone": "(616) 262-8142",
+      "email": "ken@nexusbenefitsolutions.com",
+      "blurb": "Day-to-day partnership, renewal management &amp; ongoing consultation."
+    },
+    "tom": {
+      "name": "Tom Snikkers",
+      "title": "Advisor Partner",
+      "photo": "tom-snikkers.jpg",
+      "email": "tom@nexusbenefitsolutions.com",
+      "blurb": "Plain-language guidance through every option &mdash; so you're informed before you decide."
+    },
+    "brenda": {
+      "name": "Brenda Manning",
+      "title": "Advisor &amp; Partner",
+      "photo": "brenda-manning.jpg",
+      "email": "brenda@nexusbenefitsolutions.com",
+      "blurb": "30+ years across PEOs, TPAs, self-funded plans &amp; pharmacy benefit managers."
+    },
+    "cam": {
+      "name": "Cameron Manning",
+      "title": "Advisor Partner",
+      "photo": "cameron-manning.jpg",
+      "email": "cam@nexusbenefitsolutions.com",
+      "blurb": "Quoting, plan design, benefit guides &amp; enrollment support."
+    },
+    "grace": {
+      "name": "Grace Morris",
+      "title": "Associate Account Manager",
+      "photo": "grace-morris.jpg",
+      "email": "grace@nexusbenefitsolutions.com",
+      "blurb": "Enrollment support, employee communications &amp; service coordination."
+    }
+  },
+
+  "variants": [
+    { "slug": "jason-tom",    "team": ["jason", "tom", "grace"] },
+    { "slug": "jason-ken",    "team": ["jason", "ken", "grace"] },
+    { "slug": "ken",          "team": ["ken", "grace"] },
+    { "slug": "brenda-cam",   "team": ["brenda", "cam", "grace"] }
+  ]
+}
